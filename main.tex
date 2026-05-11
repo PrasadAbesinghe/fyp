@@ -915,6 +915,45 @@ Warping; TS: Threshold Signatures; PQC: Post-Quantum Cryptography.}
 \label{sec:methodology}
 
 
+% SUPERVISOR FIGURE INSTRUCTIONS:
+% Figure A — Dual-Mode System Architecture (Block Diagram):
+%   Two-column block diagram. Top labels: "LIGHTWEIGHT MODE" (left, blue)
+%   and "FULL VERSION MODE" (right, orange). Left column: (1) OpenFlow Counter
+%   Collector → (2) Signature Engine [S1–S6] → (3) HMAC + SDN FlowMod
+%   Mitigation. Right column: (1) Blockchain Log Tokenizer → (2) parallel:
+%   LLM Anomaly Scorer | FL Global Model → (3) Fusion Engine [Eq. 20] →
+%   (4) PQC Mitigation Engine [Kyber + Dilithium + ZKP + Threshold Sig].
+%   Shared green "Blockchain Plane" box between columns with bidirectional
+%   arrows. Bottom: "Mobility-Aware Trust Decay (MATD)" feeds both columns.
+%
+% Figure B — Lightweight System Sequence Diagram (UML):
+%   Lifelines: Vehicle (Legitimate) | Vehicle (Attacker) | RSU/OpenFlow |
+%   Blockchain Ledger | SDN Controller.
+%   Sequence: (1) Attacker drops packets → (2) RSU detects PDR anomaly
+%   via S1–S3 → (3) RSU queries Blockchain → (4) Blockchain returns
+%   historical PDR → (5) RSU computes MATD-corrected score → (6) If
+%   score > threshold: RSU sends FlowMod → (7) Controller isolates
+%   attacker → (8) Blockchain reputation updated.
+%   Dashed vertical dividers label detection and mitigation phases.
+%
+% Figure C — Full-Version System Sequence Diagram (UML):
+%   Same lifelines as B plus: LLM Agent | FL Aggregator.
+%   Sequence: (1) Attacker intermittently drops packets → (2) Vehicles
+%   generate ZKP proofs → (3) Proofs logged to Blockchain → (4) LLM
+%   tokenizes log → (5) LLM produces threat score → (6) FL vehicles
+%   compute local updates → (7) FL Aggregator (blockchain-verified)
+%   produces global model → (8) Fusion Engine combines LLM + FL +
+%   Reputation → (9) Threshold sig collected from k RSUs → (10)
+%   Dilithium-signed FlowMod issued → (11) Kyber re-keying.
+%
+% Figure D — Cryptographic Mitigation Flowchart:
+%   Start: "Detection Decision: Malicious".
+%   Step 1: Retrieve ZKP Proof → "ZKP Valid?" → No: "Flag Confirmed Attacker".
+%   Step 2: Collect k Partial Threshold Sigs → Combine σ* [Eq. 26] →
+%           "σ* Valid?" → No: "Abort (Insufficient Evidence)".
+%   Step 3 (Yes): Dilithium-sign FlowMod [Eq. 19] → Install Block Rule →
+%                 Kyber Re-keying [Eq. 17] → Update BC Reputation → End.
+
 \section{Proposed System Architecture}
 
 The architecture separates the \emph{detection pipeline} from the \emph{mitigation pipeline} across four functional layers \cite{karof2014}. Detection determines whether a node is malicious; mitigation acts on that verdict. No layer performs both functions simultaneously, and no component is described as doing both without an explicit handoff boundary.
@@ -964,7 +1003,12 @@ The framework operates in two modes that trade detection latency for detection d
 
 Both modes feed into the same DEBSC isolation gate (Eq.~\eqref{eq:debsc}), ensuring that neither mode can trigger isolation on statistical evidence alone without cryptographic confirmation.
 
-
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{Figures/figure_A_dual_mode_architecture}
+	\caption{Dual-mode system architecture: lightweight (blue) and full-version (orange) detection pipelines sharing the blockchain plane (green) and the Mobility-Aware Trust Decay (MATD) module.}
+	\label{fig:dual-mode-architecture}
+\end{figure}
 
 
 \section{Threat Model and Assumptions}
@@ -1919,6 +1963,12 @@ contacting it directly.
 \label{alg:lw_dp_det}
 \end{algorithm}
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{Figures/figure_B_lightweight_sequence}
+	\caption{Lightweight mode UML sequence diagram showing the detection phase (PDR anomaly via S1--S3, blockchain baseline query, MATD correction) and mitigation phase (FlowMod isolation, reputation update), separated by dashed phase dividers.}
+	\label{fig:lightweight-sequence}
+\end{figure}
 
 \subsubsection{Lightweight Rule-Based Grey Hole Detection — Controller Plane}
 
@@ -2000,7 +2050,12 @@ contacting it directly.
 \label{alg:fv_det}
 \end{algorithm}
 
-
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{Figures/figure_C_full_version_sequence}
+	\caption{Full-version UML sequence diagram showing ZKP proof generation, LLM semantic scoring, FL gradient aggregation, fusion decision, threshold-signature blacklisting, Dilithium-signed FlowMod, and Kyber group re-keying.}
+	\label{fig:full-version-sequence}
+\end{figure}
 
 ...
 \begin{comment}
@@ -2074,6 +2129,13 @@ contacting it directly.
 \end{algorithmic}
 \label{alg:pqc_mit}
 \end{algorithm}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{Figures/figure_D_cryptographic_mitigation}
+	\caption{Cryptographic mitigation flowchart: ZKP proof verification, threshold signature collection and combination, Dilithium-signed FlowMod installation, Kyber group re-keying, and blockchain reputation update to zero.}
+	\label{fig:crypto-mitigation-flow}
+\end{figure}
 
 
 \section{Research Design}
