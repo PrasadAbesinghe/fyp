@@ -954,6 +954,17 @@ Warping; TS: Threshold Signatures; PQC: Post-Quantum Cryptography.}
 %   Step 3 (Yes): Dilithium-sign FlowMod [Eq. 19] → Install Block Rule →
 %                 Kyber Re-keying [Eq. 17] → Update BC Reputation → End.
 
+% SUPERVISOR COMMENT:
+% The current paper treats grey hole attacks in SDVN almost identically to how
+% they would be treated in a generic VANET or SDN. There is no explicit analysis
+% of how vehicle mobility specifically enables, amplifies, and complicates the
+% detection of grey hole attacks. This is a critical omission for an
+% SDVN-specific paper. Mobility causes rapid topology changes, intermittent RSU
+% handoffs, non-IID traffic patterns across vehicles, and trust score volatility
+% — all of which a grey hole attacker can exploit. The paper must explicitly
+% address this to distinguish itself from existing VANET/generic SDN work.
+% See Part B for the LaTeX insertion.
+
 \section{Proposed System Architecture}
 
 The architecture separates the \emph{detection pipeline} from the \emph{mitigation pipeline} across four functional layers \cite{karof2014}. Detection determines whether a node is malicious; mitigation acts on that verdict. No layer performs both functions simultaneously, and no component is described as doing both without an explicit handoff boundary.
@@ -1090,6 +1101,175 @@ The last functional block is the Mitigation, Adaptive Routing and Trust Update b
 
 
 
+
+
+\section{Mobility as a Grey Hole Attack Enabler in SDVN}
+\label{sec:mobility_analysis}
+
+Existing grey hole detection literature treats the vehicular network as either a
+static graph (generic SDN) or a mobile graph with fixed routing protocols
+(VANET/AODV). Neither model captures the compound effect of high vehicle mobility
+on an SDN-controlled network, where the control plane has centralised visibility
+but decentralised physical topology. In SDVN, mobility does not merely add noise
+to forwarding statistics — it actively creates four structural conditions that a
+grey hole attacker can exploit to evade detection. This section analyses each
+condition, quantifies the exploitation mechanism, and identifies the specific
+framework component that neutralises it. This analysis is the primary
+architectural distinction between the proposed framework and prior VANET or
+generic SDN approaches \cite{islam2021sdvn, hsieh2018sdn}.
+
+\subsection{RSU Handoff Windows Create Undetectable Dropping Epochs}
+
+In SDVN, as a vehicle moves between Road Side Unit (RSU) coverage zones, the SDN
+controller must tear down flow rules on the departing RSU and re-install them on
+the arriving RSU. During this handoff interval $\Delta t_{ho}$, transient packet
+loss is \emph{topologically expected} and is indistinguishable from intentional
+dropping by a grey hole attacker. A rational attacker exploits this by
+synchronising its dropping epochs with handoff events. Formally, if the expected
+handoff-induced loss rate at vehicle speed $s_i$ is
+$\rho_{ho}(v_i,t) = {s_i(t) \cdot \Delta t_{ho}}/{R_{\text{RSU}}} \cdot
+\rho_{\max}$ (Eq.~\eqref{eq:handoff_loss}), the attacker sets its drop rate
+$\rho_{att} \leq \rho_{ho}$ during handoff periods, achieving zero detection
+probability against any threshold-based detector that does not model handoff loss.
+
+This exploitation is impossible in static SDN (no handoffs) and is less severe
+in VANET (no centralised flow rule re-installation, so there is no discrete
+handoff signal for the attacker to detect). SDVN uniquely exposes this
+vulnerability because the SDN controller broadcasts flow modification messages
+whose timing reveals the handoff event to any observing node on the network.
+
+\mypar
+\textbf{Framework response:} The Mobility-Aware Trust Decay (MATD) mechanism
+(Eq.~\eqref{eq:matd}) corrects the observed PDR by adding back the expected
+handoff-induced loss $\rho_{ho}(v_i,t)$ before any signature test is applied
+(Eq.~\eqref{eq:mobility_pdr}). The dual-evidence DEBSC gate
+(Eq.~\eqref{eq:debsc}) further ensures that a node suffering genuine handoff
+loss — whose PDR temporarily drops but whose ZKP forwarding proofs remain valid
+for packets it did forward — cannot be falsely isolated.
+
+\subsection{Trust Score Volatility Allows Reputation Reset Through Speed}
+
+Reputation-based and blockchain-based detection schemes accumulate trust scores
+over a sequence of forwarding observations. A vehicle that moves through an RSU
+coverage zone faster than the trust accumulation horizon $T_{\text{trust}}$
+produces too few observations for the score to be statistically significant. An
+attacker that intentionally maintains high speed — or that naturally operates in
+highway scenarios — can perpetually reset its per-RSU trust score before
+incriminating evidence accumulates, while still causing substantial packet loss
+across the broader network.
+
+This vulnerability is specific to mobile networks. In static SDN, a node
+accumulates observations indefinitely at the same switch. In VANET without a
+central reputation store, trust is local and similarly short-lived, but there is
+no global baseline to expose the pattern. SDVN with a centralised blockchain
+reputation store creates a false sense of security: the ledger is persistent, but
+the per-RSU observation window is short, making the long-term reputation score
+a lagging indicator that an attacker can game.
+
+\mypar
+\textbf{Framework response:} The Bayesian trust model (Eq.~\eqref{eq:trust_update})
+uses Beta-distribution priors $(\alpha, \beta)$ to express uncertainty about a
+node's behaviour when observations are few. The MATD exponential penalty
+(Eq.~\eqref{eq:matd}) explicitly reduces the trust contribution of high-speed
+vehicles, so a fast-moving attacker's short observations carry lower weight in
+the global reputation score $\mathcal{R}_i(t)$ (Eq.~\eqref{eq:reputation}).
+The blockchain aggregates MATD-corrected scores across \emph{all} historical RSU
+interactions $\mathcal{H}_i$, so speed-induced resets at individual RSUs do not
+erase the global behaviour record.
+
+\subsection{Non-IID Traffic Patterns Corrupt FL-Based Detection Models}
+
+Federated Learning-based intrusion detection assumes that local vehicle models
+contribute useful gradient updates toward a globally accurate detection model.
+In SDVN, vehicle mobility produces severely non-IID local datasets: a vehicle
+on a congested urban street sees dense, high-PDR traffic; a vehicle on a sparse
+highway segment sees sparse, high-variance traffic with frequent legitimate loss.
+A grey hole attacker that positions itself in a low-density network segment
+operates in a region where the global FL model has little local representation,
+reducing its detection sensitivity precisely where the attacker is active.
+
+Furthermore, a sophisticated attacker can \emph{exploit} the FL update mechanism
+by submitting poisoned gradient updates — gradients computed on manipulated local
+data — to degrade the global model's ability to detect its own dropping pattern.
+This attack vector is absent in generic SDN (no FL) and underexplored in VANET
+FL work, which typically assumes IID traffic \cite{ahsan2024flbert}.
+
+\mypar
+\textbf{Framework response:} The blockchain-anchored gradient integrity
+mechanism (Eq.~\eqref{eq:gradient_commit}--\eqref{eq:gradient_verify}) requires
+each vehicle to commit a hash of its gradient update to the blockchain
+\emph{before} transmission. The aggregator rejects any update whose on-chain
+hash does not match the received gradient, blocking poisoning without requiring a
+trusted aggregator. The weighted FedAvg aggregation (Eq.~\eqref{eq:fedavg})
+uses dataset-size weights to reduce the influence of low-observation vehicles in
+sparse segments, partially mitigating non-IID skew.
+
+\subsection{Controller Re-Association Enables Stealthy Flow Rule Injection}
+
+SDVN introduces a vulnerability with no equivalent in pure VANET: a vehicle
+transitioning between SDN controller domains must re-associate with the new
+controller and obtain authenticated flow rules. During this re-association phase,
+the vehicle has not yet established a verified session with the new controller
+domain. A compromised controller segment can exploit this window to install
+malicious flow modification rules that enforce selective dropping before the
+vehicle's integrity-checking mechanisms are active.
+
+This attack is controller-plane specific and cannot occur in VANET, which has no
+centralised controller. It is also distinct from data-plane grey hole attacks
+because the malicious behaviour is encoded in flow rules, not in the vehicle's own
+forwarding logic, making it invisible to PDR-based detectors that only observe
+forwarding statistics.
+
+\mypar
+\textbf{Framework response:} All SDN controller flow modification commands are
+authenticated with CRYSTALS-Dilithium post-quantum signatures
+(Eq.~\eqref{eq:dilithium_sign}--\eqref{eq:dilithium_verify}). A vehicle receiving
+a flow rule during re-association verifies the Dilithium signature against the
+controller's public key before applying the rule. The controller-plane attack
+signatures S4--S6 (Eqs.~\eqref{eq:sig_cpfr}--\eqref{eq:sig_cpts}) detect
+anomalous drop rules directly from the installed flow rule set, independent of
+forwarding statistics, catching injected rules that would be invisible to
+data-plane-only detectors.
+
+\subsection{Summary: Mobility Differentiates This Framework from VANET/SDN Work}
+
+Table~\ref{tab:mobility_comparison} summarises how the four mobility-induced
+vulnerabilities map to specific framework mechanisms, and contrasts this with
+representative prior work that lacks each capability.
+
+\begin{table}[htbp]
+\renewcommand{\arraystretch}{1.3}
+\caption{SDVN Mobility Vulnerabilities and Framework Responses vs.\ Prior Work}
+\label{tab:mobility_comparison}
+\centering
+\scriptsize
+\begin{tabular}{|p{2.8cm}|p{2.6cm}|p{2.6cm}|p{2.8cm}|}
+\hline
+\textbf{Mobility Vulnerability} & \textbf{Attacker Exploitation} &
+\textbf{Proposed Response} & \textbf{Gap in Prior Work} \\
+\hline
+RSU handoff packet loss windows &
+Drop during $\Delta t_{ho}$; loss matches expected rate &
+MATD correction + DEBSC dual-gate &
+\cite{malik2023greyhole,kaur2022greyhole}: threshold detectors with no handoff model \\
+\hline
+Trust score volatility at high speed &
+Maintain speed to reset per-RSU scores &
+MATD speed penalty + blockchain historical aggregation &
+\cite{alabdulatif2024mitigating}: reputation resets at handoff; no speed correction \\
+\hline
+Non-IID FL data across network positions &
+Operate in sparse zone; submit poisoned gradients &
+Blockchain-anchored gradient integrity + dataset-weighted FedAvg &
+\cite{ahsan2024flbert}: IID assumption; no gradient integrity verification \\
+\hline
+Controller re-association flow rule injection &
+Inject malicious FlowMod during re-association &
+Dilithium-signed FlowMod + CP signatures S4--S6 &
+All VANET-only baselines: no controller-plane attack model \\
+\hline
+\end{tabular}
+\end{table}
 
 
 \section{Attack Scenarios in Gray Hole attack}
