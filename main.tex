@@ -900,45 +900,69 @@ Warping; TS: Threshold Signatures; PQC: Post-Quantum Cryptography.}
 \end{table*}
 
 
+% SUPERVISOR COMMENT:
+% The methodology conflates detection and mitigation throughout. The LLM role is
+% described as both "detecting" and "generating routing policies" without a clear
+% logical boundary. Blockchain is described only as a logging mechanism
+% (mitigation-adjacent) but its detection role (baseline comparison) is
+% underspecified. No attack signatures are formally defined, which is the
+% foundational step for any rule-based detector. The cryptographic component
+% (PyCryptodome is mentioned in tools) is completely absent from the methodology.
+% A dual-mode framework (lightweight + full) is required. The following
+% formulations address all of these.
+
 \chapter{Methodology}
+\label{sec:methodology}
 
 
 \section{Proposed System Architecture}
 
-The architecture is divided into four functional layers so as to provide a secure and scalable vehicular network \cite{karof2014}.
+The architecture separates the \emph{detection pipeline} from the \emph{mitigation pipeline} across four functional layers \cite{karof2014}. Detection determines whether a node is malicious; mitigation acts on that verdict. No layer performs both functions simultaneously, and no component is described as doing both without an explicit handoff boundary.
 
 \mypar
-\textbf{Data Plane (Vehicular Layer)}
+\textbf{Data Plane (Vehicular Layer) — Detection role}
 
 \mypar
-The SDVN has vehicles that communicate with each other and serve as data forwarders and Federated Learning clients. Every vehicle will contribute to the global security model by training on local data and preserving raw data confidential.
+Vehicles communicate via V2V and V2I links and act as Federated Learning clients. Their sole detection contribution is to generate the raw telemetry from which forwarding statistics are computed: each vehicle records per-slot packet reception counts $n_i^{\text{rx}}(\tau)$ and forwarding counts $n_i^{\text{fwd}}(\tau)$, which are committed to the blockchain as cryptographic forwarding proofs (ZKP, Eq.~\eqref{eq:pedersen}--\eqref{eq:zkp_proof}). The data plane has \emph{no mitigation authority}; isolation commands originate exclusively from the control plane.
 
 \mypar
-\textbf{Control Plane (SDN Layer)}
+\textbf{Control Plane (SDN Layer) — Mitigation role}
 
 \mypar
-The SDN controller controls the flow of the network and communicates with the Blockchain and LLM modules. It uses blockchain information to authenticate routing conditions and implements adaptive policies that the LLM produced to isolate malicious nodes.
+The SDN controller is the sole mitigation authority. Upon receiving a confirmed malicious verdict from the Knowledge Plane, it issues a Dilithium-signed flow modification command (Eq.~\eqref{eq:dilithium_sign}) to the relevant OpenFlow switch to block or reroute traffic around the isolated node. The control plane does \emph{not} perform detection; it only acts on verdicts already produced by the detection pipeline.
 
 \mypar
-\textbf{Blockchain Plane (Trust Layer)}
+\textbf{Blockchain Plane (Trust Layer) — Detection and audit role}
 
 \mypar
-The plane is dedicated, which offers a decentralized security basis:
+The blockchain serves two distinct roles that must not be conflated:
 
 \begin{itemize}
-	\item \textbf{Blockchain Ledger: }Serves as a non-modifiable, non-repudiable log of node packet forwarding actions to hold the organization accountable and to avoid the problem of attackers falsifying their logs. The ledger is independent of the analysis logic by isolating this to its own plane.
+	\item \textbf{Detection baseline:} The immutable ledger accumulates per-vehicle forwarding proofs over all historical RSU interactions $\mathcal{H}_i$. The blockchain reputation score $\mathcal{R}_i(t)$ (Eq.~\eqref{eq:reputation}) is computed from this history and constitutes the statistical gate of the Dual-Evidence Blockchain Smart Contract (DEBSC, Eq.~\eqref{eq:debsc}). A node cannot escape this baseline by short-term honest behavior because the ledger is append-only.
+	\item \textbf{Audit and smart contract enforcement:} Smart contracts enforce the dual-evidence isolation rule — isolation is authorized only when both the statistical reputation gate and the cryptographic ZKP gate fail simultaneously. This is a \emph{detection} decision executed autonomously on-chain, not a mitigation action.
 \end{itemize}
 
 \mypar
-\textbf{Knowledge and Security Plane (Intelligence Layer)}
+\textbf{Knowledge and Security Plane (Intelligence Layer) — Detection role}
 
 \mypar
-The analytical intelligence of the framework is in this plane:
+This plane contains the full-mode detection pipeline. Its components have strictly defined, non-overlapping roles:
 
 \begin{itemize}
-	\item \textbf{LLM Agent: }Intelligently detects threats by forecasting and preventing the occurrence of the Grey Hole attacks by analyzing logs and reasoning semantically the importance of packets in real time.
-	\item \textbf{Federated Learning Aggregator: }Federated Learning Aggregator: Aggregates the local vehicle model improvements across the globe to update the LLM without sacrificing privacy of the data \cite{yurdem2024}.
+	\item \textbf{LLM Agent (detection only):} Performs semantic threat scoring by processing tokenised blockchain forwarding logs $\mathbf{x}_i^{(t)}$ as a sequence classification task, producing the threat score $\mathcal{Q}_i(t)$ (Eq.~\eqref{eq:llm_score}). The LLM produces a \emph{detection verdict only}; it does not generate routing policies or issue flow rules. Routing policy generation is the exclusive responsibility of the Mitigation Engine in the control plane, which receives the LLM verdict as input.
+	\item \textbf{Federated Learning Aggregator:} Aggregates local vehicle model updates $\Delta\mathbf{w}_i$ via blockchain-verified FedAvg (Eq.~\eqref{eq:fedavg}--\eqref{eq:gradient_verify}) to maintain an up-to-date global detection model without centralising raw traffic data \cite{yurdem2024}.
 \end{itemize}
+
+\subsection{Dual-Mode Detection Framework}
+
+The framework operates in two modes that trade detection latency for detection depth:
+
+\begin{itemize}
+	\item \textbf{Lightweight mode:} The rule-based detector evaluates the six formal attack signatures S1--S6 (Eqs.~\eqref{eq:sig_dpfr}--\eqref{eq:sig_cpts}) directly against mobility-corrected PDR statistics from the blockchain log. No LLM inference is required. This mode is the primary detector for high-confidence, low-ambiguity attack patterns (fixed-rate dropping, clear target-specific rules) and operates within the latency budget of real-time vehicular environments.
+	\item \textbf{Full mode:} When no lightweight signature fires, or when the edge LLM confidence falls below threshold $\varepsilon_u$ (Eq.~\eqref{eq:llm_routing}), the full-mode pipeline engages the LLM semantic scorer and the FL-updated global model. The final verdict fuses all three evidence sources — rule-based, LLM, and blockchain reputation — via the learned linear combination in Eq.~\eqref{eq:fusion}.
+\end{itemize}
+
+Both modes feed into the same DEBSC isolation gate (Eq.~\eqref{eq:debsc}), ensuring that neither mode can trigger isolation on statistical evidence alone without cryptographic confirmation.
 
 
 
@@ -991,16 +1015,16 @@ Figure \ref{fig:system-architecture}  shows the proposed solution outlines a sec
 
 
 \mypar
-The four layer architecture proposed works in unison to detect and isolate malicious nodes according to their distinct dropping patterns. The mitigation of the variants of the Grey Hole is made possible by the following components:
+Once a malicious verdict is confirmed by the detection pipeline, the mitigation pipeline executes through each layer according to its designated authority. Detection and mitigation are sequential, not concurrent — the system does not attempt to mitigate before a verdict is reached.
 
 \begin{itemize}
-	\item \textbf{Data Plane Mitigation (Target-Specific Attacks):} The Vehicular Layer gathers real-time Traffic Meta data, such as packet headers and priority levels (e.g. differentiating an Emergency Vehicle and normal nodes). Such granular visibility enables the system to identify Target-Specific Intelligent attacks in which an attacker chooses to drop important safety messages and send normal data. Road Side Unit (RSU) is an intermediary, which makes sure that this telemetry is sent to the control plane to be analyzed immediately.
-	
-	\item \textbf{Control Plane Mitigation (Real-time Isolation):} The Network Monitor performs continuous traffic verification by comparing the Traffic Meta from the Data Plane against the Forwarding Records. When the SDN Controller identifies a discrepancy such as a node dropping 30\%–50\% of traffic (Fixed-Rate Dropping) it issues a Control Signal ("Block/Isolate") to the OpenFlow Switch. This enables the network to dynamically reroute traffic around the malicious node in real-time.
-	
-	\item \textbf{Blockchain Plane Mitigation (Reputation and Record Integrity):} The Blockchain Ledger (Hyperledger) keeps a record of packet-forwarding that cannot be altered to prevent Node Reputation Tampering. Since these Blockchain Logs cannot be modified by attackers, the system has a ground truth to detect Fixed-Rate Selective Dropping over long periods of time. The Smart Contract will guarantee that only nodes with a valid, unspoiled history will be trusted to use in the future, effectively negating any effort to spoof forwarding logs.
-	
-	\item \textbf{Knowledge \& Security Plane Mitigation (Intermittent and Complex Patterns):} The LLM Agent conducts profound Analysis of blockchain records and network trends in order to detect Time-Based Intermittent attacks that switch between malicious and honest conduct to simulate network variations. An attacker may be able to circumvent a simple threshold-based detector, but the Federated Learning (FL) Aggregator utilizes the Flower Framework to integrate local detection models across a group of vehicles. Such cooperative intelligence enables the Mitigation Engine to develop dynamic strategies that anticipate and prevent advanced attackers prior to them causing havoc to the network.
+	\item \textbf{Data Plane — Detection input only:} Vehicles supply packet header telemetry (priority level, source, timestamp) to the control plane via RSU. This data feeds the target-specific KL-divergence signature (S3/S6, Eqs.~\eqref{eq:sig_dpts}--\eqref{eq:sig_cpts}) to distinguish emergency-packet-targeting attacks from uniform dropping. The data plane takes no mitigation action.
+
+	\item \textbf{Control Plane — Isolation execution:} After the DEBSC smart contract authorizes isolation, the SDN controller issues a Dilithium-authenticated \texttt{BLOCK} flow modification rule to the OpenFlow switch (Algorithm~\ref{alg:pqc_mit}, Step 3). Traffic is rerouted around the isolated node in real time. No detection logic resides here.
+
+	\item \textbf{Blockchain Plane — Isolation authorization and long-term record:} The smart contract evaluates the dual-evidence gate (Eq.~\eqref{eq:debsc}): a node's reputation deficit alone is insufficient — the ZKP forwarding proof must also fail. This prevents false isolation of legitimate nodes experiencing handoff-induced loss. After isolation, the node's blacklist entry is appended to the immutable ledger, creating a persistent reputation record across future RSU interactions.
+
+	\item \textbf{Knowledge Plane — Policy input to control plane:} The Mitigation Engine in the Knowledge Plane computes adaptive routing policies (path recalculation, emergency-traffic rerouting) \emph{after} the LLM detection verdict is produced. These policies are passed as parameters to the control plane's flow modification commands. The LLM itself does not issue any network commands; it supplies a threat score $\mathcal{Q}_i(t)$ (Eq.~\eqref{eq:llm_score}) that feeds the fusion decision (Eq.~\eqref{eq:fusion}), after which the Mitigation Engine translates the binary verdict into a specific routing policy.
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -1161,7 +1185,6 @@ As shown \ref{fig:controller-target-greyhole}, first step install malicious flow
 	\label{fig:controller-target-greyhole}
 \end{figure}
 
-..
 % ============================================================
 % INSERT AT END OF SECTION 1.1.2 (after the last paragraph,
 % before Section 1.2)
@@ -1354,6 +1377,7 @@ signature engine operates on behaviour net of topology effects:
 \end{equation}
 
 \subsection{Attack Signature Conditions}
+\label{sec:signatures}
 
 The six formal attack signatures are stated as binary indicator functions
 over the mobility-corrected statistics derived above. Each signature is
