@@ -1,0 +1,2356 @@
+\documentclass[12pt, a4paper]{report}
+
+% Pass hyperref options safely
+\PassOptionsToPackage{breaklinks}{hyperref}
+
+\usepackage{graphicx} % For including images
+\usepackage{titlesec} % For customizing section titles
+\usepackage{tocloft} % For customizing table of contents
+\usepackage{acro} % For acronyms
+
+%% ____Bibliography____%%
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{amsmath}
+\usepackage{chapterbib}
+% Page margins
+\usepackage[left=1.5in, right=1in, top=1in, bottom=1in]{geometry}
+% Hyperlinks (LOAD ONCE, LOAD LAST)
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{xcolor}     % for \rowcolor
+ \usepackage{colortbl}   % for row shading
+ \usepackage{makecell}   % for \makecell and \thead
+\definecolor{gapgray}{gray}{0.92}
+
+\usepackage{comment}
+\usepackage{algorithm}
+% \usepackage{algorithmic}
+\usepackage{algpseudocode}
+\usepackage{soul}    % in preamble
+
+
+%\hypersetup{colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue}
+
+
+% Remove page number from the first page
+\thispagestyle{empty}
+
+% Customize table of contents, list of figures, and list of tables
+\renewcommand{\cfttoctitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftloftitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftlottitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftafterlottitle}{\hfill}
+
+% This is my customize variable
+\newcommand{\mypar}{\vspace{0.8em}\noindent} 
+
+% Define acronyms
+% Define acronyms
+\DeclareAcronym{ITS}{
+	short = ITS,
+	long = Intelligent Transportation Systems
+}
+\DeclareAcronym{VANET}{
+	short = VANET,
+	long = Vehicular Ad Hoc Network
+}
+\DeclareAcronym{V2V}{
+	short = V2V,
+	long = Vehicle-to-Vehicle
+}
+\DeclareAcronym{V2I}{
+	short = V2I,
+	long = Vehicle-to-Infrastructure
+}
+\DeclareAcronym{SDVN}{
+	short = SDVN,
+	long = Software-Defined Vehicular Network
+}
+\DeclareAcronym{SDN}{
+	short = SDN,
+	long = Software-Defined Networking
+}
+\DeclareAcronym{AI}{
+	short = AI,
+	long = Artificial Intelligence
+}
+\DeclareAcronym{ML}{
+	short = ML,
+	long = Machine Learning
+}
+\DeclareAcronym{LLM}{
+	short = LLM,
+	long = Large Language Model
+}
+\DeclareAcronym{FL}{
+	short = FL,
+	long = Federated Learning
+}
+\DeclareAcronym{RSU}{
+	short = RSU,
+	long = Roadside Unit
+}
+\DeclareAcronym{IDS}{
+	short = IDS,
+	long = Intrusion Detection System
+}
+\DeclareAcronym{OSR}{
+	short = OSR,
+	long = Open-Set Recognition
+}
+\DeclareAcronym{DAE}{
+	short = DAE,
+	long = Deep Auto-Encoder
+}
+\DeclareAcronym{LSTM}{
+	short = LSTM,
+	long = Long Short-Term Memory
+}
+\DeclareAcronym{KNN}{
+	short = KNN,
+	long = K-Nearest Neighbor
+}
+\DeclareAcronym{GA}{
+	short = GA,
+	long = Genetic Algorithm
+}
+\DeclareAcronym{PDR}{
+	short = PDR,
+	long = Packet Delivery Ratio
+}
+\DeclareAcronym{E2E}{
+	short = E2E,
+	long = End-to-End
+}
+
+\DeclareAcronym{ANN}{
+	short = ANN,
+	long = Artificial Neural Network
+}
+\DeclareAcronym{RF}{
+	short = RF,
+	long = Random Forest
+}
+\DeclareAcronym{SVM}{
+	short = SVM,
+	long = Support Vector Machine
+}
+\DeclareAcronym{DSRC}{
+	short = DSRC,
+	long = Dedicated Short-Range Communications
+}
+\DeclareAcronym{VLC}{
+	short = VLC,
+	long = Visible Light Communication
+}
+
+\begin{document}
+
+\include{cover}
+
+% This is my customize variable (this removed - commented)
+% \setlength{\parindent}{0pt}   % No indentation
+% \setlength{\parskip}{0.8em}   % Gap between paragraphs
+
+
+\renewcommand{\thepage}{\roman{page}} % Start page numbering in roman
+
+\chapter*{Abstract}
+\begin{comment}
+Software defined vehicular networks (SDVN) allow vehicles to communicate effectively although they are susceptible to gray hole attacks, which are malicious nodes that use selective packet dropping to disrupt on-traffic and safety. The Traditional approaches that are in use are not completely effective or work well since they are not trustful, flexible, and offer real time protection in dynamic networks (dynamic network).
+
+\mypar
+This project proposes a secure mechanism to locate and prevent gray hole attacks in SDVNs. The blockchain maintains an immutable, secure register of the actions of the nodes, thus everything is transparent and just. Large Language Models (LLMs) observe the patterns in the network in real-time to identify threats and generate intelligent solutions, such as new routing policies. Federated Learning allows vehicles to learn models collaboratively without exchanging personal information, enabling detection to be improved and privacy maintained.
+
+\mypar
+There are three attack scenarios in the system. They are fixed rate selective dropping, time based intermittent dropping and target specific intelligent gray hole attacks. NS3 and SUMO will be used to perform simulations and Hyperledger Fabric will be used to implement the blockchain.
+
+\mypar
+In this project, We will verify such key results as the ratio of packet delivery, latency and the reliability of the network in this project. This project aims at a helpful, secure and expandable system that will ensure SDVN communication is more dependable and secure to smart cities and self driving vehicles without malicious communication.
+\end{comment}
+% ============================================================
+% REPLACE ABSTRACT
+% ============================================================
+
+Grey hole attacks in Software-Defined Vehicular Networks (SDVNs) present a
+uniquely challenging security threat: malicious nodes selectively suppress
+packet forwarding while mimicking normal mobility-induced packet loss, evading
+detection across both the data plane and the SDN controller plane. Existing
+solutions address only subsets of the attack space, omit controller-plane
+vectors, and lack the post-quantum cryptographic protection and lightweight
+deployability required for real-world vehicular deployment. This paper presents
+SHIELD-GH, a dual-mode detection and mitigation framework that formalizes six
+distinct grey hole attack signatures across two network planes and provides
+both a rule-based lightweight mode and a full AI-cryptographic mode. The
+lightweight mode employs mobility-corrected sliding-window signature detection
+(covering fixed-rate, intermittent, and target-specific variants) with HMAC-based packet authentication for low-overhead deployment on resource-constrained vehicular nodes. The full mode integrates a fine-tuned Large Language Model (LLM) with a blockchain-verified Federated Learning (FL) aggregator for semantic anomaly detection, combined with post-quantum cryptographic mitigation using CRYSTALS-Kyber key encapsulation, CRYSTALS-Dilithium signatures, zk-SNARK-based packet forwarding proofs, and $(k,n)$-threshold signatures for collectively authorized node isolation. A novel Mobility-Aware Trust Decay (MATD) mechanism and a Dual-Evidence Blockchain Smart Contract (DEBSC) ensure that RSU handoff ambiguity does not inflate false positive rates. Simulation results in NS-3 with SUMO mobility traces and Hyperledger Fabric blockchain demonstrate that SHIELD-GH achieves a detection accuracy exceeding X\% across all six attack variants, with false positive rate below Y\%, while maintaining packet delivery ratio above Z\% and end-to-end delay within acceptable bounds for safety-critical vehicular applications.
+
+\newpage
+
+% Table of Contents
+\tableofcontents
+\newpage
+
+% List of Figures
+\listoffigures
+\newpage
+
+% List of Tables
+\listoftables
+\newpage
+
+% Acronyms
+\addcontentsline{toc}{chapter}{Acronyms} % Add to table of contents
+\acuseall % Use all acronyms to ensure they appear in the list
+\printacronyms
+\newpage
+
+\renewcommand{\thepage}{\arabic{page}} % Start page numbering in arabic 
+\setcounter{page}{1} % start page numbering from 1
+
+% Main Content
+\chapter{Introduction}
+\section{Background}
+
+\subsection{Evolution of Vehicular Networks}
+Intelligent Transportation Systems (ITS) have brought a new generation of connected vehicles, which is able to communicate with each other and roadside infrastructure. Vehicular Ad Hoc Networks (VANETs) were the foundation of early vehicular communication systems and provided simple vehicle-to-vehicle (V2V) and vehicle-to-infrastructure (V2I) communication. Nevertheless, VANETs have a number of challenges because of high vehicle mobility, high topology changes, and lack of centralized network control.
+
+\mypar
+Software-Defined Vehicular Networks (SDVNs) have been proposed in order to address these shortcomings by extending the concept of software defined networking to motor vehicle contexts. SDVNs decouple the control plane and data plane to enable centralized controllers to make routing decisions, traffic flow, and resource allocation more efficiently. This is a programmable and flexible architecture that is needed to support safety-critical ITS applications like collision avoidance systems, traffic management, and emergency response services. \cite{ieee10402120, islam2021sdvn}.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\linewidth]{SDVN_architecture.png}
+	\caption{The basic principles of data routing in SDN-based VANET}
+	\label{fig:sdvn-architecture}
+\end{figure}
+
+\subsection{Security Challenges and Grey Hole Attacks in SDVN}
+
+Since SDVNs are becoming more and more significant in the context of road safety and autonomous driving, their safety and reliability have become one of the most significant concerns. The mobile nature, high velocity of vehicles and intermittent wireless connections are features of a dynamic topology that expose the vulnerability to security that cannot be completely addressed by conventional security measures.
+
+\mypar
+The Grey Hole attack is one of the security threats that are hard to detect. In this attack, malicious nodes are used to selectively drop data packets as they pass through other nodes to ensure that the network looks normal. Such selective packet dropping may interfere with vital communication, including emergency alerts and collision warnings, without necessarily arousing suspicion. Consequently, the attacks of Grey Hole may cause a considerable decrease in network performance and reliability that can be a serious threat to the safety of traffic and efficient transportation. \cite{rathod2017survey}.
+
+% This is the Introduction Section of your project proposal report. Provide background information and context for your project. For example, \ac{AI} and \ac{ML} are transforming industries \cite{smith2020ai}.
+
+
+\section{Introduction to the Problem}
+
+One of the significant threats of SDVNs is grey hole attacks. In this attack, a set of data packets are selectively dropped by malicious vehicles as they forward them, and they look normal. This may interfere with crucial messages, including emergency messages, collision messages, and traffic messages. SDVNs are extremely mobile and have dynamic topology and it is quite impossible to detect such attacks. This issue is critical to the safe, reliable, and efficient communication on vehicles.
+
+
+\section{Limitations of Existing Work}
+
+The previous methods of ensuring vehicular networks are usually based on hard and fast rules, signature based detection, or simple machine learning. The traditional approaches find it difficult to identify selectively dropping attacks by the Grey Hole since the sporadic nature is similar to the normal network variations, and they are not able to respond well to the evolving traffic conditions. Moreover, most of the solutions need centralized data gathering or intensive computing, which pose privacy threats and scalability issues in dynamic vehicular settings \cite{ijaer2018, arizaga2025}.
+
+\section{Problem Statement}
+% Clearly define the problem the project aims to solve.
+\begin{comment}
+Software-Defined Vehicular Networks can be attacked by selective dropping of Grey Hole attacks, in which malicious vehicles send packets at random to avoid being noticed. This behavior is very similar to the normal packet loss that occurs due to mobility and changing network conditions in high dynamic vehicular environments. Consequently, the current security strategies do not have effective and privacy-sensitive schemes to reliably differentiate between the Grey Hole attacks and the normal network operation, which restricts their accuracy and scalability in the real-world implementation of SDVN.
+\end{comment}
+
+Grey hole attacks in Software-Defined Vehicular Networks (SDVNs) exploit the
+indistinguishability between mobility-induced packet loss and selective malicious dropping — across both data-plane forwarding nodes and controller-plane flow rule injection — to silently suppress safety-critical vehicular communication, while no existing detection or mitigation framework simultaneously addresses all attack variants with the scalability, privacy preservation, and post-quantum cryptographic security required for real-world deployment.
+
+\section{Objectives and Scope}
+% State the objectives of your project clearly.
+
+\subsection{Objectives}
+
+The objectives of this project are,
+
+\begin{itemize}
+	\item In order to establish a comprehensive security system to identify and prevent opportunities to address both data plane and control plane Grey Hole attacks within Software Defined Vehicular Networks through Blockchain, Federated Learning and secure logging.
+	
+	\item To create privacy protecting detection schemes that integrate Blockchain, Large Language Models and Federated Learning, enabling vehicles to cooperate without transferring sensitive information.
+	
+	\item To check the efficiency of the suggested framework under realistic network conditions and prove its effectiveness over the current methods.
+\end{itemize}
+
+..
+% ============================================================
+% INSERT AS NEW SECTION 1.X AFTER PROBLEM STATEMENT
+% ============================================================
+
+\section{Research Questions}
+\label{sec:rq}
+
+This work is guided by the following research questions:
+
+\begin{enumerate}
+  \item[\textbf{RQ1.}] Can formal attack signatures based on mobility-corrected
+  packet delivery ratio statistics reliably distinguish all six grey hole attack
+  variants from legitimate mobility-induced packet loss in SDVN, and what are
+  the optimal threshold parameters for each signature?
+
+  \item[\textbf{RQ2.}] Does a dual-mode detection framework (lightweight
+  rule-based and full LLM-FL) achieve superior detection accuracy and reduced
+  false positive rate compared to single-mode baselines across the full spectrum
+  of grey hole attack intensities and vehicle densities?
+
+  \item[\textbf{RQ3.}] Does the integration of ZKP-based packet forwarding
+  proofs as pre-detection cryptographic evidence improve the detection performance
+  of the full-mode detector, and does the Dual-Evidence Blockchain Smart Contract
+  (DEBSC) reduce false isolation rates compared to single-evidence approaches?
+
+  \item[\textbf{RQ4.}] What is the performance overhead (latency, throughput,
+  computational cost) of the PQC mitigation layer (CRYSTALS-Kyber, Dilithium,
+  threshold signatures) relative to classical cryptographic alternatives in the
+  SDVN simulation environment, and does it satisfy the latency bounds of
+  safety-critical vehicular communication?
+\end{enumerate}
+
+\subsection{Scope}
+
+The project will utilize the simulation of a Software-Defined Vehicular Network (SDVN) and study of the attacks of the data plane and control plane, namely the Grey Hole attacks. It entails the use of Blockchain in documentation of vehicle interactions in a secure way and Federated Learning in training detecting models collaboratively and keeping vehicle information confidential. The performance of the framework in the aspects of detecting the attacks, network reliability, and efficiency is also analyzed as a part of the project. The evaluation of performance through simulation will be done on the basis of conventional network and security indicators, but actual implementation of the project in the real world and hardware installation is beyond the scope of the project.
+
+
+
+\mypar
+\section{Novelty}
+..
+\begin{comment}
+The originality of the research is that it has developed a single, privacy sensitive detection method against the attacks of the Grey Hole in Software-Defined Vehicular Networks. In contrast to the current solutions, the proposed framework models packet-forwarding trust based on blockchain verified behavior, learns pattern of attack collaboratively under federated detection in the context of vehicular mobility, and approaches the problem of detecting attack as an adaptive learning problem based on Large Language Models, instead of rule-based mechanisms. Besides that, the work presents formal modeling of various behaviors of the Grey Hole attacks in realistic SDVN conditions, which allow proper detection in highly dynamic environments.
+\end{comment}
+
+% ============================================================
+% REPLACED SECTION 1.6 CONTENT
+% ============================================================
+
+The novelty of this work is twofold: in the problem formulation, this is the
+first work to formally characterize grey hole attacks across all six variants
+arising from the SDVN-specific combination of controller-plane programmability
+and vehicular mobility, and to rigorously model how RSU handoff ambiguity, trust
+score volatility, and non-IID traffic distributions specifically enable grey hole
+attackers to evade detection in ways that are not possible in static SDN or
+conventional VANET. In the solution, SHIELD-GH introduces a dual-mode framework
+that uniquely combines formal attack signature-driven rule-based detection
+(deployable with minimal compute) and LLM-FL full-mode detection (providing
+semantic reasoning over temporal behavioral patterns), unified under a mobility-aware
+trust mechanism and enforced by a post-quantum cryptographic mitigation layer that
+employs zero-knowledge forwarding proofs, threshold signatures, and CRYSTALS-family
+PQC — the first such integrated framework for grey hole attack mitigation in SDVN.
+
+
+
+\mypar
+\section{Contribution}
+
+\begin{comment}
+This project makes a contribution to the field of vehicular network security through supporting scalable, privacy-sensitive, and methodologically novel infrastructure of detecting and addressing Grey Hole attacks in SDVNs. The main contributions are,
+
+\begin{itemize}
+	\item \textbf{Blockchain based verification modeling:} Constructs a model in which blockchain is not only used to log data, but the mathematical verification of the packet forwarding behavior of the vehicles is performed for detecting suspicious nodes even in the case that attacks resemble normal traffic.
+	
+	\item \textbf{Federated Detection:} Federated learning is used to enable vehicles to jointly learn detection models, taking mobility, resource constraints, and local traffic dynamics into account, without sacrificing privacy and enhancing detectors in evolving settings.
+	
+	\item \textbf{Adaptive threat analysis using LLMs:} Invents the application of Large Language Models to scanned blockchain verified logs and identifies emerging trends in the pattern of the Grey Hole attacks, and does not perform attack detection based on pre determined rules.
+	
+	\item \textbf{Thorough attack modeling:} Formal models of various types of attacks to the Grey Hole have been studied: fixed-rate, time-based, and target specific under realistic vehicular network settings, which enables the targeted detection and mitigation of attacks.
+	
+	\item \textbf{Performance evaluation framework:} Conducts experiments to check the proposed framework in realistic SDVN settings and demonstrates good detection, minimal overheads, and resilience to various attacks of the SDVN under different behaviors of Grey Hole attackers.
+\end{itemize}
+
+\end{comment}
+
+% ============================================================
+% REPLACE SECTION 1.7 CONTENT
+% ============================================================
+
+The principal contributions of this work are:
+
+\begin{enumerate}
+  \item \textbf{Six-Variant Grey Hole Attack Taxonomy and Formal Signatures:}
+  We provide the first formal characterization of six grey hole attack variants
+  (fixed-rate, intermittent, and target-specific, in both the data plane and
+  the controller plane of SDVN) with mathematically defined detection signatures
+  (Eqs.~\eqref{eq:sig_dpfr}--\eqref{eq:sig_cpts}), enabling precise, per-variant
+  rule-based detection.
+
+  \item \textbf{Dual-Mode Detection Framework:}
+  A lightweight rule-based detection mode and a full LLM-FL detection mode are
+  jointly proposed and evaluated, ensuring practical deployability across the
+  full spectrum of vehicular hardware capability. Both modes are unified under
+  the SHIELD-GH architecture.
+
+  \item \textbf{Mobility-Aware Trust Decay (MATD):}
+  A novel trust scoring mechanism that corrects for RSU handoff-induced packet
+  loss as a function of vehicle speed (Eqs.~\eqref{eq:matd},~\eqref{eq:handoff_loss}),
+  preventing false isolation of legitimate high-speed vehicles — an SDVN-specific
+  contribution absent in all prior works.
+
+  \item \textbf{PQC-Enforced Mitigation with ZKP Forwarding Proofs:}
+  Post-quantum cryptographic mitigation combining CRYSTALS-Kyber (KEM),
+  CRYSTALS-Dilithium (signatures), zk-SNARK-based packet forwarding proofs,
+  and $(k,n)$-threshold signatures for collectively authorized node blacklisting,
+  providing quantum-resistant security guarantees in the mitigation layer.
+
+  \item \textbf{Dual-Evidence Blockchain Smart Contract (DEBSC):}
+  A novel smart contract design that requires joint satisfaction of both a
+  statistical reputation threshold and a ZKP forwarding proof failure before
+  triggering node isolation (Eq.~\eqref{eq:debsc}), minimizing false positives
+  in adversarial mobility conditions.
+
+  \item \textbf{Blockchain-Verified FL Gradient Integrity:}
+  FL model updates are hash-committed to the blockchain before aggregation,
+  preventing poisoning attacks by malicious vehicles submitting corrupted
+  gradient updates in the full detection mode (Eq.~\eqref{eq:gradient_verify}).
+\end{enumerate}
+
+
+\mypar
+\section{Implication}
+
+This Project Suggests Implications to Vehicular Network Security, Studies, and Real Implementation.
+
+\begin{itemize}
+	\item \textbf{Technological Innovation and Cross Domain Application:} Blockchain with Federated Learning is a novel method of making vehicle networks secure. The strategy can also be implemented in smart cities, traffic and other networks that are interconnected
+	
+	\item \textbf{Educational and Research Impact:} The project is a valuable demonstration of the contemporary security methods, as it enables the students and researchers to grasp the way to protect distributed networks.
+	
+	\item \textbf{Privacy Preserving Collaborative Security:} Federated Learning will allow vehicles to collaborate to determine attacks without any personal data; hence, the system is secure and scalable.
+	
+	\item \textbf{Improved Safety and Reliability:} The framework assists in ensuring good communication among the vehicles and minimizing the chances of vehicles causing accidents as well as aiding in managing traffic.
+	
+	\item \textbf{Foundation for Future Systems:} The project gives a road map on how to have secure, flexible and privacy-conscious vehicle networks that can be further applied to future transportation.
+\end{itemize}
+
+
+
+ 
+
+\chapter{Literature Review}
+\begin{comment}
+Being centered around the convergence of blockchain technology, large language models (LLMs), and federated learning (FL), this literature review focuses on existing literature related to countermeasures of grey hole attacks in Software-Defined Vehicular Networks (SDVN). Owing to its dynamic network structure, a mobile network structure, and a distributed character of vehicular networks, routing integrity in SDVNs is vulnerable to grey hole attacks, which represent a sort of black hole attack as nodes might reject packets of interest selectively. SDVNs remain vulnerable to attacks on packet routing and availability since they adopt software-defined networks (SDN) and aim at building a centralized control structure alongside a distributed routing structure. The literature review is divided into sub-headings in relation to key tech: FL for securing and supporting a collaborative approach of handling large datasets, LLMs for superior threat analysis capabilities, as well as blockchain technology for a secure distributed network structure.
+
+
+\section{Blockchain in Vehicular Networks}
+
+
+Due to its unique decentralized and tamper-resistant properties, blockchain technology nowadays has been one of the great spotlights for enhancing the security issues in both VANET and SDVN. By storing immutable ledgers, it makes blockchain enable data integrity, transparency, and trust between involved vehicular nodes. In, a blockchain-based smart contract framework was presented in order to avoid black hole and grey hole routing attacks in VANETs. For the detection and isolation of malicious vehicles, this scheme utilized self-classification blockchain-based contracts (SCBC) and voting-classification blockchain-based contracts (VCBC). The network performance is assessed with packet delivery ratio (PDR) and throughput (TP) and the results showed good resiliency even in active attack conditions. It could be verified on node behavior, thanks to blockchain consensus mechanisms, without any trust in centralized authority \cite{alabdulatif2024blockchain}.
+
+\mypar
+In a different study, blockchain technology was integrated with federated Q-learning to provide a secure method of sharing data in VANETs. This system used extended elliptic cryptography (EX-ECC) for encryption and the interplanetary file system (IPFS) to provide decentralized file storage, with delegated practical Byzantine fault tolerance (DPBFT) used as the consensus algorithm. In order to provide privacy in VANETs, decentralization of updating was used in a manner that limits privacy in centralized architectures. The system showed high throughput and low latency in simulations conducted on up to 100 vehicles. In addition, the blockchain’s immutable ledger of transactions also provides support to ensure the tracing of evil acts, such as selective packet dropping in grey hole attacks, performed in VANETs. The major shortcoming of most studies, including VANETs, is that blockchain technology limits vulnerabilities associated with single point failures in software-defined VANET architectures, including those associated with software-defined network (SDN) controllers.
+
+
+\section{Decentralized Security through Blockchain and Federated Learning}
+
+A recent trend in SV research includes decentralizing the architecture of intrusion detection systems (IDS), which is prone to the problem of single points of failure and also a privacy concern as it involves the collection of data in a centralized manner. To counter these drawbacks, federated learning (FL) has gained popularity as a decentralized learning technique in VANETs. FL helps vehicles learn together to develop an IDS model from their respective generated data without revealing their vehicle details to others. To further protect against inference attacks, various studies have utilized differential privacy tools that involve the injection of controlled Gaussian noise \cite{ahmed2024federated}.
+
+\mypar
+At the same time, there has been an integration in FL frameworks utilizing blockchain technology, and more specifically, the use of consortium blockchains, to ensure trust and accountability among FL nodes. Specifically, consortium blockchains are employed to record and aggregate model updates into an immutable, transparent ledger, thus ensuring data integrity and unaltered data during their storage. Still, FL frameworks that support decentralized learning have a major deficiency, namely, they are susceptible to poisoning attacks carried out by malicious nodes that may provide compromised or deceptive updates. Recently, new frameworks, referred to as Zero-X, have been introduced, which include enhanced consensus protocols, such as Proof-of-Accuracy (PoA), to assess FL model updates based on their efficacy in enhancing global accuracy, thus making FL IDSs more resilient regarding decentralized learning configurations within highly dynamic vehicular environments.
+
+\subsection{Large Language Models in Security}
+
+Recently, research has emerged to apply the concept of Large Language Models (LLMs) to the security domain using models such as BERT (Bidirectional Encoder Representations from Transformers). In particular, attention has grown towards using models such as BERT in intrusion detection systems (IDS) with a focus on sequence-based anomaly detection in SDNVs. A research contribution specifically used a privacy-preserving framework for an IDS system utilizing Federated learning with BERT (FL-BERT) in software-defined VANETs. In this proposal for improvement, attack behaviors in terms of different attack patterns such as grey hole attacks with patterns of intermittent packet drops have been incorporated by modeling network traffic logs as a sequence to capture dependencies in such patterns. Based on context provided by VeReMi, FL-BERT provided better accuracy for IDS over traditional ML methods such as Random Forest and Support Vector Machines by maintaining data locality via federated learning \cite{zhang2025anomalous}.
+
+\mypar
+LLMs have been very effective in understanding semantic relations in network flow data, which helps in recognizing subtle routing anomalies in network flows to detect potentially selectively malicious activities as opposed to other kinds of threats. In correlated research studies, black hole attack prevention in VANETs has been done using threshold-based packet validation; nevertheless, this modeling has been found to have potentially vast improvement using LLMs with smart understanding capabilities for forged route request messages as well as anomalous control massages. In addition to this, edge models for unstructured or complex data representations like encrypted flow data patterns and obfuscated attack signs have been found to have immense applicability for LLMs as opposed to other models for determining corresponding data patterns in SDNs. Despite such benefits, research applications of LLM models in vehicular network security are still in their infancy and mostly involve offline process analysis based on their high computation as well as memory complexities. While potentially allowing real-time validation of flow rule data in SDNs by their collaboration with SDN controller models for grey hole attack validations, most correlated research models have failed to address edge device complexities in SDVN.
+
+
+\subsection{Federated Learning in VANETs}
+
+Federated learning (FL) has become a promising technique for jointly learning models in Vehicular Ad Hoc Networks (VANETs) and Software-Defined Vehicular Networks (SDVNs) to perform learning on models in a distributed manner without sharing data directly. A learning technique that is distributed in nature helps overcome the problem of intrusion detection systems related to user privacy in a vehicular network where accurate tracking is required for vehicles with proper location details without violating user privacy rules. A federated learning framework based on blockchain for VANET was designed using a blockchain-based federated Q-learning system for learning models based on Q-learning approach using deep Q-network learning models based on local observations and using InterPlanetary File System (IPFS) for model update off-chain storage with negligible time delay for threat detection with a high level of network throughput with an optimized blockchain architecture. This technique becomes significant for preventing Grey Hole attacks on a vehicular network where learning is performed using models based on federated learning with varying patterns during attacks based on different models for different vehicles based on different routes with accurate location tracking for preventing attacks on user privacy in a vehicular network \cite{ahsan2024flbert, malik2022blackhole}.
+
+\mypar
+Another research effort introduced an efficient dynamic method for detecting black hole attacks in VANETs by analyzing forged route request packets and applying threshold-based calculations within the AODV routing protocol. This technique aligns well with the principles of federated learning, as FL supports continuous and distributed model updates across network nodes in response to changing attack behaviors. In the context of software-defined VANETs, FL-BERT has been adopted to federate BERT-based intrusion detection models, enabling privacy-preserving training on misbehavior datasets such as VeReMi. This federated approach achieved higher attack classification accuracy compared to non-federated learning methods, demonstrating FL’s effectiveness in SDN-based vehicular environments. While FL significantly reduces the risks associated with data centralization in SDN architectures by keeping datasets local to each vehicle, it also introduces challenges, particularly communication overhead in high-mobility scenarios. Although existing studies primarily evaluate FL-based solutions in simulated VANET settings and report improvements in packet delivery ratio (PDR) and end-to-end delay, the combined integration of blockchain for tamper-proof model updates and large language models for advanced feature extraction remains largely unexplored, especially for SDVN-specific grey hole attack mitigation.
+
+
+\section{Gaps in Literature}
+
+\begin{itemize}
+	\item \textbf{Limited Technology Integration:} While most studies concentrate on individual technologies (e.g., blockchain for consensus or FL for privacy), very few integrate blockchain, LLMs, and FL into a cohesive framework for mitigating grey hole attacks in SDVN. This results in fragmented solutions that ignore synergistic advantages like secure, intelligent, and privacy-preserving detection.
+	
+	\item \textbf{Inadequate Attention to the Grey Hole Specificity:} While black hole attacks are frequently addressed, grey hole variants—which have selective and erratic packet dropping—are not as well studied. This is especially true in SDVN, where SDN controllers may be used to cause partial disruptions, leaving gaps in adaptive detection mechanisms.
+	
+	\item \textbf{Resource Constraints in Edge Devices:} Real-time applicability in dynamic SDVN environments is hampered by existing works that seldom take into account the computational overhead of LLMs like BERT in resource-limited vehicular nodes, frequently assuming unlimited processing power.
+	
+	\item \textbf{Absence of Real-World Datasets and Simulations:} The majority of evaluations rely on simulated datasets (such as VeReMi), with little testing conducted on actual SDVN deployments. As a result, factors that impact the effectiveness of attack detection, such as heterogeneous vehicle hardware, signal interference, and varying mobility patterns, are ignored.
+	
+	\item \textbf{Privacy vs. Performance Trade-offs:} FL-based methods protect privacy but frequently sacrifice model accuracy because of non-IID data distributions in VANETs; there are gaps in optimizing these trade-offs, particularly when combined with the overhead of blockchain technology and the complexity of LLMs.
+	
+	\item \textbf{Scalability in High-Mobility Scenarios:} Research demonstrates strong performance in small-scale simulations (e.g., 100 vehicles), but scalability to large SDVN with frequent topology changes is still unresolved, which could result in higher latency and consensus failures in blockchain-FL hybrids.
+	
+	\item \textbf{Lack of Holistic Threat Models:} The robustness of suggested solutions against combined or evolving threats is limited by the literature's lack of comprehensive threat models that incorporate SDN-specific vulnerabilities (such as controller hijacking) alongside grey hole attacks.
+\end{itemize}
+\end{comment}
+
+% ============================================================
+% REPLACE ALL OF CHAPTER 2 WITH THE FOLLOWING
+% ============================================================
+
+%\chapter{Literature Review}
+%\label{chap:litreview}
+
+This chapter reviews work directly relevant to grey hole attack detection and
+mitigation in vehicular and software-defined networks, followed by a review of
+LLM- and federated-learning-based approaches in vehicular security. The review
+is deliberately focused on works with strong relevance to the proposed framework
+in order to derive verifiable novelty claims.
+
+\section{Grey Hole Attack Detection and Mitigation in Vehicular Networks}
+\label{sec:lit_greyhole}
+
+Grey hole attacks — in which a malicious node selectively drops a fraction of
+packets while appearing to participate normally — are considerably less studied
+than black hole attacks, despite posing comparable threat to safety-critical
+vehicular communication.
+
+Kaur \textit{et al.}~\cite{kaur2022greyhole} proposed a detection and prevention
+mechanism for grey hole attacks in VANET using the AODV routing protocol
+simulated in NS-2. The method monitors forwarding behaviour and isolates
+malicious nodes when packet drop patterns are identified. While the results
+show improvement in PDR and throughput after detection, the approach relies on
+AODV-specific control messages that are unavailable in SDN-based architectures,
+and no machine learning or cryptographic component is employed. The work also
+does not distinguish between fixed-rate and intermittent dropping variants, nor
+does it address mobility-induced packet loss ambiguity.
+
+Malik \textit{et al.}~\cite{malik2023greyhole} introduced a more comprehensive
+approach targeting both Smart GHA and Sequence Number-based GHA variants in
+VANETs, proposing a dynamic threshold-based detection mechanism evaluated on
+NS-3. The study identifies two distinct attack behaviours and applies
+variant-specific thresholds to improve detection accuracy, achieving a PDR
+improvement and a reduction in end-to-end delay. However, the solution is
+evaluated in a pure VANET context without SDN control-plane separation, does not
+consider intermittent or target-specific variants, and proposes no cryptographic
+mitigation. Mobility-aware correction of legitimate packet loss is also absent.
+
+Remya-krishnan and Kumar~\cite{remyakrishnan2022dtw} proposed a time-series
+analysis approach using Dynamic Time Warping (DTW) to detect both smart black
+hole and grey hole nodes in VANET. By modelling the sequence of dropped packets
+per node as a time series and applying DTW-based similarity matching against
+malicious behaviour templates, the method achieves competitive detection
+performance including in the intermittent attack case. This is one of the few
+works to explicitly address temporally varying grey hole behaviour. Nonetheless,
+the approach requires pre-built attack templates, making it unsuitable for
+novel or evolving attack patterns, and it does not address the controller-plane
+attack surface introduced by SDN.
+
+Younas \textit{et al.}~\cite{younas2022collaborative} presented a neural
+network-based technique for the collaborative detection of both black hole and
+grey hole attacks in VANET, using cooperative awareness messages (CAMs) as
+input features to an anomaly detection model. The cooperative nature of the
+detection scheme anticipates the federated learning direction, but raw feature
+data is shared between vehicles rather than model updates, introducing privacy
+concerns. Moreover, the solution neither employs blockchain for trust management
+nor incorporates any cryptographic mitigation, and the SDN architecture is not
+considered.
+
+Alabdulatif \textit{et al.}~\cite{alabdulatif2024mitigating} employed
+blockchain-based smart contracts to classify vehicles as benign or malicious
+based on their packet forwarding ratios, using Self-Classification (SCBC) and
+Voting-Classification (VCBC) blockchain contracts in an Ethereum environment.
+Under combined black hole and grey hole attack conditions, VCBC achieves a PDR
+of 78\%. The blockchain provides a decentralised trust mechanism resilient to
+single points of failure. However, no AI-based detection is employed, the work
+is evaluated in stable highway scenarios without mobility-induced ambiguity, and
+the SDN controller plane attack vector is entirely absent.
+
+Arízaga-Silva \textit{et al.}~\cite{arizagasilva2025ml} proposed a machine
+learning-powered IDS for grey hole attack detection in VANET, evaluating
+multiple classifiers — including random forests and gradient boosting — on
+features extracted from NS-3 simulations. The study is among the most recent
+specifically targeting grey hole detection and demonstrates that ML-based
+detection significantly outperforms threshold-based methods. Nevertheless, the
+approach is confined to the data plane of a conventional VANET architecture,
+does not incorporate blockchain or cryptographic mechanisms, and does not address
+the controller-plane attack scenario unique to SDVN.
+
+\section{Grey Hole Attack Detection in Software-Defined Networks}
+\label{sec:lit_sdn_greyhole}
+
+The SDN architecture introduces an additional attack surface not present in
+conventional VANET: a compromised or manipulated controller can install
+malicious flow rules that cause selective packet dropping across entire network
+segments without any individual vehicle behaving abnormally.
+
+Hsieh and Ku~\cite{hsieh2018sdn} specifically studied time-based and
+random-based grey hole attacks in SDN, where compromised switches selectively
+drop packets based on control-plane instructions. They proposed a detection
+method based on weighted K-Nearest Neighbour (KNN) combined with a Genetic
+Algorithm (GA) applied to flow counter statistics collected from OpenFlow
+switches. This is the only work identified in the literature that specifically
+addresses grey hole attacks in the SDN infrastructure rather than in the
+vehicular or wireless network layer. However, the method does not extend to the
+vehicular mobility context, does not address intermittent or target-specific
+variants, proposes no mitigation mechanism beyond detection, and does not
+integrate any trust or cryptographic component.
+
+\section{LLM and Federated Learning for Vehicular Network Security}
+\label{sec:lit_llm_fl}
+
+Hamhoum and Cherkaoui~\cite{hamhoum2024mistralbsm} proposed MistralBSM, an
+LLM-based misbehavior detection system that fine-tunes the Mistral-7B model on
+sequences of Basic Safety Messages (BSMs) from the extended VeReMi dataset.
+Operating within an edge-cloud framework, the edge LLM processes short BSM
+windows for real-time detection while a cloud LLM performs deeper analysis.
+MistralBSM achieves 98\% binary classification accuracy and 96\% multiclass
+accuracy, outperforming BERT- and LLAMA2-7B-based baselines. The work
+demonstrates that LLMs are effective for vehicular misbehavior detection when
+applied to sequential communication logs. However, MistralBSM targets position
+falsification and similar beacon-level misbehavior; its adaptation to
+routing-layer grey hole attacks — particularly in SDVN where forwarding logs
+rather than BSMs are the input — remains unaddressed. Furthermore, no
+blockchain, federated learning, or cryptographic component is employed.
+
+Ahsan \textit{et al.}~\cite{ahsan2024flbert} introduced a privacy-preserving
+IDS for software-defined VANET using Federated Learning with BERT (FL-BERT),
+training local BERT-based sequence classifiers on the VeReMi dataset at each
+vehicle without sharing raw data. The federated model achieves higher attack
+classification accuracy than non-federated baselines, including Random Forest
+and SVM, and represents the closest existing work to the proposed full-mode
+detection pipeline. Nonetheless, the work does not address controller-plane grey
+hole attacks, proposes no cryptographic mitigation, and does not account for
+the mobility-induced packet loss ambiguity that is specific to SDVN.
+
+Ahmed \textit{et al.}~\cite{ahmed2024blockchain} integrated blockchain with
+federated Q-learning for secure data sharing in VANET, using Extended Elliptic
+Curve Cryptography (EX-ECC) for encryption and the InterPlanetary File System
+(IPFS) for decentralised storage, achieving high throughput and low consensus
+latency. While the work establishes that blockchain-FL integration is feasible
+in vehicular environments, it does not address grey hole detection specifically,
+does not incorporate LLMs, and the cryptographic scheme is not post-quantum
+secure.
+
+% ============================================================
+% INSERT AS NEW SECTION 2.5 — BEFORE GAP ANALYSIS
+% This section justifies the proposed methodology by reviewing
+% how similar techniques are used for OTHER attacks/problems.
+% ============================================================
+
+\section{State-of-the-Art in Similar Detection and Mitigation Techniques}
+\label{sec:lit_techniques}
+
+Beyond the grey hole attack literature, understanding how blockchain,
+federated learning, and LLMs have been applied to analogous security
+problems in SDN and vehicular environments is essential for justifying
+the proposed methodology and positioning its design contributions.
+
+\subsection{Blockchain Integration with Software-Defined Networking}
+\label{sec:lit_blockchain_sdn}
+
+Nguyen \textit{et al.}~\cite{nguyen2021blockchain} provided a comprehensive
+survey of blockchain technologies applied to SDN, covering both security
+and non-security use cases. The survey categorises blockchain-SDN integration
+into two principal paradigms: using blockchain to decentralise and secure
+the SDN control plane (mitigating its single-point-of-failure vulnerability),
+and using blockchain-based smart contracts to authenticate and audit the
+flow rules installed by SDN controllers. Of particular relevance to the
+proposed framework, the survey identifies flow rule integrity verification
+and node trust management as open problems in SDN security where blockchain
+offers the most direct architectural benefit. The survey also identifies
+key challenges: the high latency of blockchain consensus is incompatible
+with the sub-millisecond flow update requirements of SDN in vehicular
+environments, and naive application of public blockchains introduces
+transaction costs and throughput limitations. These findings directly
+motivate the design of the Dual-Evidence Blockchain Smart Contract (DEBSC)
+proposed in Section~\ref{sec:signatures}: rather than logging all forwarding
+events on-chain (which would generate prohibitive transaction volumes in
+a high-mobility SDVN), the DEBSC triggers a blockchain transaction only
+when a joint statistical and cryptographic anomaly threshold is crossed,
+dramatically reducing on-chain activity while preserving the integrity
+guarantees.
+
+....
+\begin{comment}
+@article{nguyen2021blockchain,
+  author    = {Nguyen, Hai Nam and Tran, Hai Anh and Fowler, Scott
+               and Souihi, Sami},
+  title     = {A Survey of Blockchain Technologies Applied to
+               Software-Defined Networking: Research Challenges
+               and Solutions},
+  journal   = {IET Wireless Sensor Systems},
+  volume    = {11},
+  number    = {6},
+  pages     = {233--247},
+  year      = {2021},
+  doi       = {10.1049/wss2.12031}
+}
+
+@article{li2025ddos,
+  author    = {Li, [Authors to verify on IEEE Xplore]},
+  title     = {{DDoS} Attack Detection in {SDN}-Assisted Federated
+               Learning Environment Based on Contrastive Learning},
+  journal   = {IEEE Access},
+  year      = {2025},
+  doi       = {10.1109/ACCESS.2025.3582445},
+  note      = {Early Access. Verify author names on IEEE Xplore
+               before submission.}
+}
+\end{comment}
+
+\subsection{Federated Learning for Attack Detection in SDN Environments}
+\label{sec:lit_fl_sdn}
+
+Li \textit{et al.}~\cite{li2025ddos} proposed a contrastive learning-based
+DDoS detection framework specifically designed for SDN-assisted FL environments,
+where the SDN control plane is exploited to optimise FL model parameter
+routing among participants. The framework uses a two-layer classification
+architecture: an LSTM-SVM model in the first layer and a CNN-BiGRU model
+in the second layer, with the second layer refined via contrastive
+classification loss from the first. On a Mininet-generated SDN dataset,
+the LSTM-SVM model achieves 99.75\% detection accuracy and 99.80\% recall,
+while CNN-BiGRU achieves 99.36\% accuracy. Critically, the work demonstrates
+that SDN's centralised flow management can itself be used to attack the FL
+network — an insight that directly informs the controller-plane attack
+variants (CP-FR, CP-IT, CP-TS) modelled in this work. However, the
+framework does not address vehicular mobility, considers only DDoS rather
+than selective dropping, and proposes no cryptographic mitigation. The
+contrastive learning approach also requires large labelled datasets, which
+are unavailable for grey hole attacks in SDVNs — motivating the use of
+the LLM's in-context reasoning and the lightweight rule-based mode in
+the proposed dual-mode framework. The high detection accuracy of 99.75\%
+in a static SDN environment also serves as a methodological performance
+benchmark for the proposed framework's full-mode detector.
+
+\section{Research Gap Analysis}
+\label{sec:gaps}
+
+Table~\ref{tab:gaps} formalises the gaps identified from the literature review
+above, linking each gap to the works that partially address it and to the
+proposed solution component.
+
+\begin{table*}[!t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Research Gap Analysis}
+\label{tab:gaps}
+\centering
+\scriptsize
+\begin{tabular}{|p{0.4cm}|p{2.9cm}|p{2.5cm}|p{3.0cm}|p{3.1cm}|}
+\hline
+\textbf{ID} & \textbf{Gap} & \textbf{Real-World Impact} &
+\textbf{Works Partially Addressing} & \textbf{Proposed Solution} \\
+\hline
+G1 & No unified framework addresses all three grey hole variants (fixed-rate,
+intermittent, target-specific) simultaneously in VANET or SDVN &
+Fixed-rate detectors miss intermittent attackers; target-specific attacks on
+emergency traffic go undetected &
+\cite{malik2023greyhole}~(two variants, data plane only);
+\cite{remyakrishnan2022dtw}~(intermittent only) &
+Formal signatures S1--S6 covering all three variants in both planes;
+lightweight rule-based detector evaluates each independently \\
+\hline
+G2 & The controller-plane grey hole attack (malicious flow rule injection)
+is unaddressed by all VANET-focused works &
+A compromised SDN controller can silently degrade entire network segments,
+which is an attack vector unique to SDVN &
+\cite{hsieh2018sdn}~(SDN grey hole, no vehicular context) &
+Controller-plane signatures S4--S6; blockchain-based flow rule integrity
+verification via DEBSC smart contract \\
+\hline
+G3 & Mobility-induced packet loss is not distinguished from malicious dropping
+in any reviewed detection scheme &
+High false positive rates in dynamic SDVN lead to legitimate high-speed
+vehicles being incorrectly isolated &
+None in reviewed literature &
+Mobility-Aware Trust Decay (MATD) with RSU-handoff-aligned detection windows
+(Eqs.~\eqref{eq:matd},~\eqref{eq:handoff_loss}) \\
+\hline
+G4 & No reviewed work proposes a lightweight detection mode alongside a
+full AI-based mode for resource-constrained vehicular nodes &
+Heavy AI models are impractical for real-time on-vehicle deployment;
+no deployability at all hardware tiers &
+None &
+Dual-mode framework: rule-based lightweight mode and LLM-FL full mode,
+both fully specified and independently evaluable \\
+\hline
+G5 & No reviewed grey hole mitigation work employs post-quantum cryptography &
+Classical cryptographic authentication used in forwarding verification is
+vulnerable to quantum adversaries, compromising long-term security &
+\cite{ahmed2024blockchain}~(EX-ECC only, not PQC) &
+CRYSTALS-Kyber (KEM) and CRYSTALS-Dilithium (signatures) mandated in full
+mitigation mode \\
+\hline
+G6 & ZKP-based packet forwarding proofs are not applied to grey hole detection
+in any reviewed work &
+Without verifiable forwarding proofs, a dishonest node can falsify blockchain
+records, undermining the trust layer &
+None &
+zk-SNARK Pedersen commitment-based forwarding proofs as pre-detection
+cryptographic evidence; DEBSC requires joint ZKP failure and statistical
+threshold breach before isolation \\
+\hline
+G7 & LLM-based detection in vehicular security addresses only beacon-level
+misbehavior, not routing-layer grey hole attacks &
+LLM semantic reasoning capability over temporal forwarding patterns is
+unexploited for the grey hole problem &
+\cite{hamhoum2024mistralbsm}~(BSM-level misbehavior only);
+\cite{ahsan2024flbert}~(FL-BERT, no LLM reasoning) &
+Fine-tuned LLM applied to tokenised blockchain forwarding logs for semantic
+grey hole pattern recognition in full detection mode \\
+\hline
+\end{tabular}
+\end{table*}
+
+
+\textbf{Related Works Comparison}
+
+\begin{comment}
+\begin{table}[h!]
+	\centering
+	\caption{Related Work Comparison Table}
+	\label{tab:related-work-comparison}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{|p{3cm}|p{3.2cm}|p{3.5cm}|p{4.5cm}|p{4.5cm}|p{4cm}|}
+			\hline
+			\textbf{Ref.} & \textbf{Technologies Used} & \textbf{AI Models / Techniques} & \textbf{Methodology} & \textbf{Key Results} & \textbf{Limitations} \\
+			\hline
+			
+			Privacy-Preserving Intrusion Detection in Software-defined VANET using Federated Learning with BERT &
+			Federated Learning, BERT, SDN, VANET &
+			BERT for sequence classification, Random Forest, SVM, Logistic Regression, KNN &
+			FL-BERT: Local training on VeReMi dataset, model aggregation for privacy-preserving IDS; compared with traditional ML models &
+			FL-BERT outperforms traditional models in accuracy (up to 98\% in related contexts), precision, recall, F1-score; enhances privacy and attack detection &
+			Computationally intensive for BERT; evaluated in simulation only; potential for differential privacy in future work \\
+			\hline
+			
+			An Efficient Dynamic Solution for the Detection and Prevention of Black Hole Attack in VANETs &
+			AODV routing, NS-2 Simulator, VANET &
+			Threshold-based detection (non-AI) &
+			DPBHA: Calculates dynamic threshold from RREP sequence numbers, generates forged RREQ to detect and prevent BHA during route discovery &
+			PDR increased by 3\%, throughput by 6.15\%, routing overhead reduced by 3.69\%, E2E delay by 6.13\%, detection rate 94.66\% &
+			Addresses only black hole attacks, not cooperative BHA or GHA; future work to include GHA and other DoS attacks \\
+			\hline
+			
+			Mitigating Blackhole and Greyhole Routing Attacks in Vehicular Ad Hoc Networks Using Blockchain Based Smart Contracts &
+			Blockchain, Smart Contracts, Ethereum (Remix IDE), VANET &
+			Self-Classification (SCBC) and Voting-Classification (VCBC) Blockchain-Based Contracts &
+			Smart contract-based routing: Replaces AODV control messages with SCBC/VCBC for node status classification to avoid malicious relays in highway scenarios &
+			VCBC achieves PDR 78\%, TP 1.16 kbps, RO 2.14\%; outperforms SCBC (PDR 56\%) and BCR (PDR 35\%) even with black/gray hole attacks &
+			High volatility in SCBC results; assumes highway stability; future enhancements for broader scenarios \\
+			\hline
+			
+			A secure and efficient blockchain enabled federated Q-learning model for vehicular Ad-hoc networks &
+			Blockchain, EX-ECC Encryption, IPFS, DPBFT Consensus, Federated Learning, VANET &
+			Federated Q-Learning &
+			Data encryption with EX-ECC, local FL training, model aggregation; blockchain storage via IPFS, validation with DPBFT &
+			Throughput 102465.8 KB/s, communication overhead 360.57 Mb, average latency 864.425 ms, encryption time 0.98 ms, decryption 1.97 ms, consensus delay 50 ms, validation 1.68 ms; superior to FedAvg, FPPDL, DRAM-BFL &
+			Requires more complex datasets and security improvements; future work on computing capacity and efficiency \\
+			\hline
+			
+		\end{tabular}
+	}
+\end{table}
+\end{comment}
+
+% ============================================================
+% REPLACE TABLE 2.1
+% ============================================================
+
+\begin{table*}[!t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Comparison of Related Works}
+\label{tab:relatedwork}
+\centering
+\scriptsize
+\begin{tabular}{|p{2.1cm}|p{1.1cm}|p{1.5cm}|p{1.4cm}|p{1.2cm}|p{1.2cm}|p{0.9cm}|p{0.9cm}|p{0.85cm}|p{0.9cm}|}
+\hline
+\textbf{Work} & \textbf{Network} & \textbf{Attack Variants} &
+\textbf{Detection Method} & \textbf{AI/ML} & \textbf{Crypto.} &
+\textbf{Mob.\ Aware} & \textbf{LW Mode} &
+\textbf{Ctrl.\ Plane} & \textbf{PQC} \\
+\hline
+Kaur \textit{et al.}~\cite{kaur2022greyhole} (2022) &
+VANET & GH (general) & AODV-based threshold & None & None & No & No & No & No \\
+\hline
+Malik \textit{et al.}~\cite{malik2023greyhole} (2023) &
+VANET & Smart GH, Seq.-No.\ GH & Dynamic threshold & None & None & No & No & No & No \\
+\hline
+Remya-krishnan \& Kumar~\cite{remyakrishnan2022dtw} (2022) &
+VANET & BH + GH (intermittent) & DTW time-series & None & None & No & No & No & No \\
+\hline
+Younas \textit{et al.}~\cite{younas2022collaborative} (2022) &
+VANET & BH + GH & Neural network (collab.) & ANN & None & No & No & No & No \\
+\hline
+Hsieh \& Ku~\cite{hsieh2018sdn} (2018) &
+SDN & GH (time- \& random-based) & KNN + GA (flow counters) & KNN & None & No & No & Partial & No \\
+\hline
+Alabdulatif \textit{et al.}~\cite{alabdulatif2024mitigating} (2024) &
+VANET & BH + GH & Blockchain smart contracts & None & Blockchain consensus & No & No & No & No \\
+\hline
+Arízaga-Silva \textit{et al.}~\cite{arizagasilva2025ml} (2025) &
+VANET & GH (intermittent) & ML classifiers (RF, GB) & RF, GB & None & No & No & No & No \\
+\hline
+Ahsan \textit{et al.}~\cite{ahsan2024flbert} (2024) &
+SD-VANET & GH (general) & FL-BERT (IDS) & BERT, FL & None & Partial & No & No & No \\
+\hline
+Ahmed \textit{et al.}~\cite{ahmed2024blockchain} (2024) &
+VANET & General security & FL Q-learning + blockchain & FL, RL & EX-ECC & No & No & No & No \\
+\hline
+Hamhoum \& Cherkaoui~\cite{hamhoum2024mistralbsm} (2024) &
+VANET & BSM misbehavior & LLM fine-tuning (Mistral-7B) & LLM & None & No & No & No & No \\
+\hline
+\textbf{Proposed} & \textbf{SDVN} &
+\textbf{All 6 GH variants} &
+\textbf{Rule-sig (LW) + LLM-FL (full)} &
+\textbf{LLM, FL} &
+\textbf{Kyber, Dilithium, ZKP, TS} &
+\textbf{Yes} & \textbf{Yes} & \textbf{Yes} & \textbf{Yes} \\
+\hline
+\end{tabular}
+\vspace{1mm}
+\footnotesize{BH: Black Hole; GH: Grey Hole; LW: Lightweight; Ctrl.: Controller;
+Mob.: Mobility; RF: Random Forest; GB: Gradient Boosting; DTW: Dynamic Time
+Warping; TS: Threshold Signatures; PQC: Post-Quantum Cryptography.}
+\end{table*}
+
+
+..
+
+
+
+\chapter{Methodology}
+
+
+\section{Proposed System Architecture}
+
+The architecture is divided into four functional layers so as to provide a secure and scalable vehicular network \cite{karof2014}.
+
+\mypar
+\textbf{Data Plane (Vehicular Layer)}
+
+\mypar
+The SDVN has vehicles that communicate with each other and serve as data forwarders and Federated Learning clients. Every vehicle will contribute to the global security model by training on local data and preserving raw data confidential.
+
+\mypar
+\textbf{Control Plane (SDN Layer)}
+
+\mypar
+The SDN controller controls the flow of the network and communicates with the Blockchain and LLM modules. It uses blockchain information to authenticate routing conditions and implements adaptive policies that the LLM produced to isolate malicious nodes.
+
+\mypar
+\textbf{Blockchain Plane (Trust Layer)}
+
+\mypar
+The plane is dedicated, which offers a decentralized security basis:
+
+\begin{itemize}
+	\item \textbf{Blockchain Ledger: }Serves as a non-modifiable, non-repudiable log of node packet forwarding actions to hold the organization accountable and to avoid the problem of attackers falsifying their logs. The ledger is independent of the analysis logic by isolating this to its own plane.
+\end{itemize}
+
+\mypar
+\textbf{Knowledge and Security Plane (Intelligence Layer)}
+
+\mypar
+The analytical intelligence of the framework is in this plane:
+
+\begin{itemize}
+	\item \textbf{LLM Agent: }Intelligently detects threats by forecasting and preventing the occurrence of the Grey Hole attacks by analyzing logs and reasoning semantically the importance of packets in real time.
+	\item \textbf{Federated Learning Aggregator: }Federated Learning Aggregator: Aggregates the local vehicle model improvements across the globe to update the LLM without sacrificing privacy of the data \cite{yurdem2024}.
+\end{itemize}
+
+
+
+
+\section{Threat Model and Assumptions}
+
+\subsection{Attacker Capabilities}
+
+\begin{itemize}
+	\item \textbf{Fixed-Rate Selective Dropping:} To cause network throughput disruption, malicious nodes drop an agreed percentage (e.g., 30--50\%) of packets.
+	\item \textbf{Time-Based Intermittent Attack: }Attackers alternate between normal and malicious states to mimic natural network fluctuations.
+	\item \textbf{Target-Specific Intelligent Attack: }Nodes discard important packets (e.g. emergency broadcasts) depending on content or source or destination analysis.
+	\item \textbf{Node Reputation Tampering: }Opponents can also seek to forge forwarding logs in order to escape \cite{sahu2024}.
+\end{itemize}
+
+\subsection{Threat Model Assumptions}
+
+\mypar
+These assumptions define the constraints placed upon the adversary to bound the scope of the security framework:
+
+\begin{itemize}
+	\item \textbf{T1 (Honest Majority):} The assumption is that most of the nodes involved in the blockchain consensus are honest, and this eliminates 51 percent attacks on the chain.
+	\item \textbf{T2 (Cryptographic Bound):} The opponent is also presumed to be computationally constrained and is unable to create fake digital signatures or compromise the encryption of the blockchain.
+	\item \textbf{T3 (Independent Malice):} This is the assumption that attackers do not cooperate to coordinate their intermittent dropping patterns so as to exactly replicate the traffic of a single honest node.
+\end{itemize}
+
+\mypar
+\textbf{System Assumptions}
+
+\begin{itemize}
+	\item \textbf{A1 (Immutable Ledger): }It is assumed that the Blockchain provides a tamper-proof record of node behaviors.
+	\item \textbf{A2 (Privacy Preservation): }Federated Learning is presumed to be effective to pool intelligence around the globe without revealing any single vehicle data.
+	\item \textbf{A3 (Inference Constraints): }The approach assumes that the LLM can perform online adjustments based on blockchain data within the resource limits (latency and compute) of the vehicular environment.
+\end{itemize}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth, keepaspectratio]{system_architecture.jpeg}
+	\caption{System architecture design for the proposed gray hole attack detection framework}
+	\label{fig:system-architecture}
+\end{figure}
+
+
+\mypar
+Figure \ref{fig:system-architecture}  shows the proposed solution outlines a secure Software Defined Vehicular Network (SDVN) solution that encompasses the use of blockchain, Large Language Models (LLMs), and federated learning for grey hole attack detection and mitigation. At the data plane, vehicles, both genuine, malicious, and emergency, exchange data via V2V and V2I communication, while malicious nodes randomly discard data in a manner that affects network performance. At the control plane, implemented by software-defined networking (SDN), OpenFlow switches, an SDN controller, and a network monitor oversee traffic flow centrally, detecting suspicious nodes in real-time. Records of forwarding data and traffic information are also stored in a secure manner in the blockchain plane, where an immutable ledger and smart contracts maintain data integrity, accountability, and genuine vehicle validation. Finally, the knowledge, or security, plane uses the blockchain transaction log for federated model training and includes the use of an LLM agent that interprets, in an intelligent, sematic fashion, the dynamic, and constantly evolving attack patterns, whose adaptive response strategies, by a mitigation engine, are implemented by SDN control signals, hence offering real-time, trustworthy, and intelligent grey hole attack protection.
+
+
+
+\clearpage % Force next section to start on a new page
+
+
+\mypar
+The four layer architecture proposed works in unison to detect and isolate malicious nodes according to their distinct dropping patterns. The mitigation of the variants of the Grey Hole is made possible by the following components:
+
+\begin{itemize}
+	\item \textbf{Data Plane Mitigation (Target-Specific Attacks):} The Vehicular Layer gathers real-time Traffic Meta data, such as packet headers and priority levels (e.g. differentiating an Emergency Vehicle and normal nodes). Such granular visibility enables the system to identify Target-Specific Intelligent attacks in which an attacker chooses to drop important safety messages and send normal data. Road Side Unit (RSU) is an intermediary, which makes sure that this telemetry is sent to the control plane to be analyzed immediately.
+	
+	\item \textbf{Control Plane Mitigation (Real-time Isolation):} The Network Monitor performs continuous traffic verification by comparing the Traffic Meta from the Data Plane against the Forwarding Records. When the SDN Controller identifies a discrepancy such as a node dropping 30\%–50\% of traffic (Fixed-Rate Dropping) it issues a Control Signal ("Block/Isolate") to the OpenFlow Switch. This enables the network to dynamically reroute traffic around the malicious node in real-time.
+	
+	\item \textbf{Blockchain Plane Mitigation (Reputation and Record Integrity):} The Blockchain Ledger (Hyperledger) keeps a record of packet-forwarding that cannot be altered to prevent Node Reputation Tampering. Since these Blockchain Logs cannot be modified by attackers, the system has a ground truth to detect Fixed-Rate Selective Dropping over long periods of time. The Smart Contract will guarantee that only nodes with a valid, unspoiled history will be trusted to use in the future, effectively negating any effort to spoof forwarding logs.
+	
+	\item \textbf{Knowledge \& Security Plane Mitigation (Intermittent and Complex Patterns):} The LLM Agent conducts profound Analysis of blockchain records and network trends in order to detect Time-Based Intermittent attacks that switch between malicious and honest conduct to simulate network variations. An attacker may be able to circumvent a simple threshold-based detector, but the Federated Learning (FL) Aggregator utilizes the Flower Framework to integrate local detection models across a group of vehicles. Such cooperative intelligence enables the Mitigation Engine to develop dynamic strategies that anticipate and prevent advanced attackers prior to them causing havoc to the network.
+\end{itemize}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9\linewidth]{block_diagram.png}
+	\caption{High-level block diagram of the proposed blockchain-, federated learning-, and LLM-enabled secure SDVN architecture}
+	\label{fig:block-diagram}
+\end{figure}
+
+\mypar
+The system is proposed with a unique high-level functional pipeline that is expected to convert raw network telemetry into actionable security intelligence of Software-Defined Vehicular Networks (SDVNs). This process begins with multi-dimensional feature extraction where raw packet logs, link status and vehicle positions are transformed to produce a topology graph. This allows Structural Consistency Analysis (GAT) to compute a structural suspicion score, which measures nodes with behavior that is not according to the physical and logical network patterns, and at the same time computes temporal and QoS metrics to perform deep contextual analysis.
+
+\mypar
+The Intelligent Fusion and Reasoning (LLM) module is at the center of the framework and is a centralized semantic decision engine. This block has a preliminary threat verdict that combines the data of two important verification channels: the Historical Metric Verification (Blockchain), which compares the present behavior and immutable baselines and trust records, and the Privacy Metric Federated Learning block that provides updates on threats to the whole world, without jeopardizing the privacy of local data. This structural, historical and collaborative intelligence will enable the system to detect with ease advanced variants of the Grey Hole which usually cannot be detected using the conventional detection techniques.
+
+\mypar
+The last functional block is the Mitigation, Adaptive Routing and Trust Update block which implements final threat decision. When a malicious node is detected, the system initiates adaptive routing policies, blocking compromised paths and recalculating safe paths, so that the delivery of high-priority traffic, such as emergency broadcasts, can proceed. More importantly, the system completes the security loop by retransmitting a "Node Trust Updated" message to the decentralized trust layer, which guarantees that the global reputation of the node is updated in the unalterable blockchain ledger to ensure that the reputation of the node in the future is not compromised.
+
+
+
+
+
+
+\section{Attack Scenarios in Gray Hole attack}
+
+\mypar
+In this project, we consider three types of Grey Hole attacks in Software Defined Vehicular Networks under both controller plane and data plane attack scenarios.
+
+\mypar
+\subsection{Data Plane version attack scenarios}
+
+\mypar
+\textbf{Fixed Rate Selective Dropping Grey Hole Attack in Data Plane}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{d_fixed.png}
+	\caption{Fixed-rate selective dropping Grey Hole attack in the data plane}
+	\label{fig:data-plane-fixed-rate}
+\end{figure}
+
+\mypar
+Figure \ref{fig:data-plane-fixed-rate} shows a fixed rate selectively dropping grey hole attack of the data plane. According to that figure there are four vehicles and one RSU in that network. In this network, vehicle 2 act as a attacker.
+
+\mypar
+As shown in  figure \ref{fig:data-plane-fixed-rate} the attacker begins packet dropping by 50\% , data packet came from vehicle 1 to vehicle 2 (attacker) as step 1. Then after attacker (vehicle 2) forward remain 2 packets to the RSU as step 2. Finally, figure also show the two packets that came from attacker forwards to the vehicle 3.
+
+
+
+\mypar
+\textbf{Time Based Intermittent Grey Hole Attack in Data Plane}
+
+\mypar
+Figure  \ref{fig:data-plane-time-normal} and \ref{fig:data-plane-time-malicious} show the time based intermittent gery hole attack scenario in data plane two different times. In this figure there are three vehicles , one RSU and a SDN controller.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{d_time_normal.png}
+	\caption{Normal data-plane behavior at time $t_1$ with no packet dropping}
+	\label{fig:data-plane-time-normal}
+\end{figure}
+
+\mypar
+Figure \ref{fig:data-plane-time-normal} shows the normal behavior of the data plane at time $t = t_1$. According to the figure, all vehicle act as correctly without packet dropping. As a first step vehicle v1 sends 4 packets to the vehicle 2 (attacker) , but that time attacker act as normal vehicle without packet dropping. Then after vehicle 2 forward all four packets to RSU as a step 2. As a final step (step 3), RSU forward 4 packets to the vehicle 3. So, during this period communication proceeds normally without packets dropping. 
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{d_time_malicous.png}
+	\caption{Malicious data-plane behavior at time $t_2$ with intermittent packet dropping by V2}
+	\label{fig:data-plane-time-malicious}
+\end{figure}
+
+\mypar
+As shown in figure \ref{fig:data-plane-time-malicious}, at time $t = t_2$, attacker act as a malicious  with selectively packets dropping in the network. As a first step, vehicle sends 4 packets to the vehicle 2 ( attacker). Then after attacker act as malicious node with selectively packets dropping. So, attacker drop two packets (50\%) and forward remain two packets to the RSU as a second steps. Finally, RSU forward that two packets to the vehicle 3 as a third step.So, like these attack scenarios, it is difficult to detect the attack due to changing malicious behavior.
+
+
+
+\mypar
+\textbf{Target Specific Intelligent Grey Hole Attack in Data Plane}
+
+\mypar
+Figure \ref{fig:d-target} shows the target specific intelligent grey hole attack scenario in data plane. In this figure there four vehicles, one RSU and a controller. Also figure shows using dots line flow rule installed by the controller in that vehicle network. So, in that network vehicle 2 act as attacker.
+
+\mypar
+As shown in Figure~\ref{fig:d-target}, vehicle 3 sends three packets to the vehicle 2 (attacker) as a 1st step and attacker forward all that three packets to the RSU without any dropping as 2nd  step. in that path, step three show, that three packets forward to the vehicle 4. So that path work correctly according to the flow rule. 4th step in figure show another path that forward four packets to the vehicle 2 (attacker). So, attacker drop 50\% packets  and forward only remain two packets to th RSU as a 5th step. Finally, RSU forward that two packets to the vehicle 4. As conclusion of this figure attacker target only specific vehicle or vehicles to drop packets in a vehicular network.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{d_target.png}
+	\caption{Target-specific intelligent Grey Hole attack in the data plane}
+	\label{fig:d-target}
+\end{figure}
+
+
+\mypar
+\subsection{Controller Plane version attack scenarios}
+
+\mypar
+\textbf{Fixed Rate Selective Dropping Grey Hole Attack in Controller Plane}
+
+\mypar
+Figure~\ref{fig:controller_fixed_rate} show the  fixed rate selectively dropping  grey hole attack scenario in the controller plane. So, in this controller install malicious flow mod rule in the vehicular network act as a attacker.
+
+\mypar
+As shown in Figure~\ref{fig:controller_fixed_rate}, first controller install malicious flow mod rule on RSU and the vehicle 2. So, controller configure on the RSU to drop 50\% of all incoming flows and configures on vehicle 2 to drop 60\% of its received packets. 2nd step show vehicel 1 send 5 packets to the vehicel 2 and 3rd step show, vehicle 2 drop three packets according to the malicious configuration. In 4th step send two packets to the vehicle 3 and vehicle forward all two packets to the RSU as a 5th step. Since RSU already configured malicious flow mod rule RSU drop 50\% packets and forward remain packet to the vehicle 4 as 6th step.Since packets are only partially dropped, the communication appears normal, while the overall network performance is gradually degraded also making the attack difficult to detect in like these dynamic vehicular network.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{c_fixed_rate.png}
+	\caption{Controller plane fixed rate selective dropping Grey Hole attack}
+	\label{fig:controller_fixed_rate}
+\end{figure}
+
+\mypar
+\textbf{Time Based Intermittent Grey Hole Attack in Controller Plane}
+
+\mypar
+Figure  \ref{fig:c_time_normal} and \ref{fig:c_time_malicious} show the time based intermittent gery hole attack scenario in control plane two different times.
+
+\mypar
+As shown  \ref{fig:c_time_normal} all steps working without packet dropping according to the flow rule. at time $t = t_1$, the SDN controller behaves normally and does not perform any packet dropping. The controller installs correct flow rules on all vehicles and the RSU.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\textwidth]{c_time_normal.png}
+	\caption{Normal controller behavior at time $t_1$ with no packet dropping.}
+	\label{fig:c_time_normal}
+\end{figure}
+
+\mypar
+As shown figure~\ref{fig:c_time_malicious} at time $t = t_2$, SDN controller install malicious flow mod rule in the network. So, controller configure on the RSU to drop 50\% all flows and on the vehicle 2 to drop 60\% all flows. Then as the 2nd step vehicle 1 send 5 packets to the vehicle 2 and vehicle 2 drop 60\% packets and forward remain two packets to the vehicle 3 as the 4nd step. In 5th step show vehicle 3 forward that two packets to the RSU. According to the malicious flow mode rule on RSU, RSU drop one packet and forward remain packet to the vehicle 4 as the 6th step.This intermittent behavior allows the controller to hide the attack by switching between normal and malicious operation.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\textwidth]{c_time_malicous.png}
+	\caption{Malicious controller behavior at time $t_2$ with selective packet dropping.}
+	\label{fig:c_time_malicious}
+\end{figure}
+
+\mypar
+\textbf{Target Specific Intelligent Grey Hole Attack in Controller Plane}
+
+\mypar
+Figure \ref{fig:controller-target-greyhole} shows the target specific intelligent grey hole attack in controller plane. So, in this first controller install flow rule. So, in this figure only install malicious flow mod rule on RSU. So, RSU drop 50\% packets only if source is vehicle 1. All packets came from other sources, forward without any dropping.
+
+\mypar
+As shown \ref{fig:controller-target-greyhole}, first step install malicious flow mod rule on RSU. 2nd step shows, vehicle 1 send 4 packets to the RSU and 3 rd step shows, RSU drop two packets since source is vehicle 1. After RSU forward remain 2 packets to the vehicle 4. In step 5 and 6 show the another path packet routing, in that steps there is no any packets dropping since in that path not contain source vehicle 1. In conclusion of this attack scenario, by selectively targeting emergency traffic while forwarding normal traffic, the controller degrades safety critical communication while remaining difficult to detect.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\textwidth]{c_target.png}
+	\caption{Target-specific intelligent Grey Hole attack in the controller plane}
+	\label{fig:controller-target-greyhole}
+\end{figure}
+
+..
+% ============================================================
+% INSERT AT END OF SECTION 1.1.2 (after the last paragraph,
+% before Section 1.2)
+% ============================================================
+
+\subsubsection{Mobility-Induced Vulnerability in SDVN}
+\label{sec:mobility_vulnerability}
+
+Vehicle mobility introduces a class of exploitable conditions that are unique to
+SDVN and fundamentally differentiate grey hole attacks in this context from their
+counterparts in static SDN or conventional VANET. Specifically, four mobility-induced
+vulnerabilities are identified:
+
+\textbf{(i) RSU Handoff Ambiguity:} As a vehicle moves between Road Side Unit (RSU)
+coverage zones, the SDN controller must re-install flow rules to the new RSU. During
+this handoff interval $\Delta t_{ho}$, packet loss is topologically expected and
+indistinguishable from malicious dropping. An attacker vehicle can synchronize its
+dropping epochs with handoff events to evade threshold-based detectors. Formally,
+if the expected handoff-induced packet loss rate is $\rho_{ho}$ and the attacker's
+target drop rate is $\rho_{att}$, the attacker sets $\rho_{att} \leq \rho_{ho}$
+during handoff periods to achieve zero detection probability.
+
+\textbf{(ii) Trust Score Volatility:} Reputation-based detection schemes accumulate
+trust scores over time. High-speed vehicles produce short-duration observations per
+RSU segment, resulting in statistically insufficient samples to distinguish malicious
+behavior from natural loss. An attacker that moves faster than the trust accumulation
+horizon $T_{trust}$ of any single RSU can perpetually reset its local trust score
+without accumulating evidence of malicious behavior.
+
+\textbf{(iii) Topology-Driven Non-IID Traffic:} In SDVNs, traffic volumes and
+patterns vary dramatically between vehicles based on their current position, neighbors,
+and speed. This non-IID distribution of forwarding statistics complicates federated
+learning-based detection: local models trained on mobility-skewed data may generate
+compromised global aggregation updates. A grey hole attacker in a sparse network
+segment can exploit this by operating in low-visibility regions where the global
+model has insufficient local representation.
+
+\textbf{(iv) Controller-Vehicle Association Spoofing:} A compromised SDN controller
+segment can install malicious flow rules during the re-association phase when a vehicle
+has not yet established a verified session with the new controller domain. This is
+specific to the SDVN architecture and cannot occur in conventional VANET.
+
+These mobility-induced vulnerabilities necessitate a detection framework that is
+explicitly mobility-aware: trust scores must decay as a function of vehicle speed;
+detection windows must adapt to RSU coverage durations; and cryptographic forwarding
+proofs must persist across RSU handoffs. The proposed framework addresses all four
+vulnerabilities through the mobility-aware trust decay (MATD) mechanism and the
+dual-evidence blockchain smart contract (DEBSC) described in Section~\ref{sec:methodology}.
+
+
+% ============================================================
+% INSERT AS NEW SECTION 3.3, SHIFT EXISTING SECTIONS FORWARD
+% ============================================================
+
+\section{Cryptographic Analysis and Technique Selection}
+\label{sec:crypto_analysis}
+
+\subsection{Role of Cryptography in Grey Hole Detection and Mitigation}
+
+A grey hole attacker receives packets through legitimate channels and selectively drops
+them without altering packet content. Classical authentication (HMAC, ECDSA) verifies
+packet integrity and provenance but does not constrain a node's forwarding behavior
+post-receipt. Consequently, cryptography alone \emph{cannot} fully mitigate grey hole
+attacks. Instead, cryptography is deployed in two phases:
+
+\textbf{Phase 1 — Pre-Detection:} Zero-knowledge proof (ZKP)-based packet forwarding
+proofs are generated by each vehicle upon receipt and forwarding of a packet. These
+proofs serve as unforgeable cryptographic evidence for the blockchain-based detection
+engine. A vehicle that drops packets cannot generate valid forwarding proofs, creating
+a detectable discrepancy in the blockchain ledger.
+
+\textbf{Phase 2 — Post-Detection:} Once a node is classified as malicious by the
+detection engine, post-quantum cryptographic mechanisms enforce mitigation: the SDN
+controller issues PQC-signed flow modification commands to isolate the node, and
+revokes the node's session keys using CRYSTALS-Kyber re-keying to prevent further
+network participation.
+
+\subsection{Selected Cryptographic Techniques}
+
+From the candidate set \{homomorphic encryption, attribute-based encryption (ABE),
+broadcast encryption, homomorphic signatures, ring signatures, threshold signatures,
+ZKP, multi-party computation (MPC)\} with post-quantum cryptography (PQC) mandatory,
+the following are selected with justification:
+
+\textbf{(1) Zero-Knowledge Proofs (ZKP) — Pre-detection, both planes:}
+ZKP enables a vehicle to prove it forwarded a packet without revealing the packet
+content or the forwarding path. Using Pedersen commitments and zk-SNARK constructions,
+each vehicle generates a forwarding proof $\pi_i$ per packet batch. These proofs are
+logged to the blockchain. A discrepancy between claimed and proven forwarding rates
+constitutes a primary detection signal. ZKP is selected over homomorphic signatures
+because it provides stronger privacy guarantees and is compatible with PQC lattice
+constructions.
+
+\textbf{(2) Threshold Signatures — Post-detection mitigation:}
+A $(k, n)$-threshold signature scheme requires $k$ of $n$ trusted RSUs to co-sign
+a blacklisting decision before a node is isolated. This prevents a single compromised
+RSU from falsely isolating legitimate vehicles, which is critical in high-mobility
+environments where RSU-level observations are limited. Selected over ring signatures
+because threshold signatures provide accountability (parties are known) and are more
+appropriate for infrastructure-assisted SDVN.
+
+\textbf{(3) CRYSTALS-Kyber (KEM) — PQC, lightweight and full mitigation:}
+Kyber provides IND-CCA2-secure key encapsulation under the Module-LWE hardness
+assumption. It is used to establish session keys between vehicles and RSUs after
+a malicious node is excluded (re-keying), and for securing blockchain transactions.
+Kyber-512 is used in the lightweight mode; Kyber-768 in the full mode.
+
+\textbf{(4) CRYSTALS-Dilithium — PQC, post-detection mitigation:}
+Dilithium provides EUF-CMA-secure digital signatures under Module-LWE. It is used
+to authenticate SDN controller flow modification commands and blockchain smart
+contract transactions, ensuring that isolation commands cannot be forged or replayed.
+
+\textbf{(5) Attribute-Based Encryption (ABE) — Full mode, target-specific attacks:}
+For target-specific grey hole attacks in which the attacker selectively drops packets
+from emergency vehicles (identified by source attribute), ABE encrypts emergency
+traffic under the attribute policy \texttt{priority = EMERGENCY}. Only nodes with
+valid attribute credentials can decrypt emergency packets. A grey hole attacker
+without the emergency-traffic decryption key cannot perform intelligent content-aware
+dropping, partially degrading the target-specific attack capability.
+
+\textbf{Not selected:} Homomorphic encryption and MPC are excluded due to
+prohibitive computational overhead on vehicular OBU hardware. Broadcast encryption
+does not address the forwarding proof requirement. Homomorphic signatures provide
+overlapping functionality with ZKP at higher overhead.
+
+
+% ============================================================
+% UPDATED EQUATIONS — REPLACE ALL EQUATION CONTENT IN
+% SECTIONS 3.4 AND 3.5
+% ============================================================
+
+\subsection{Packet Forwarding Behaviour Modelling}
+
+To establish a quantitative basis for grey hole detection, we first model the
+forwarding behaviour of each vehicle over a sliding observation window. The
+\emph{observed packet delivery ratio} of vehicle $v_i$ over a window of $W$
+time slots ending at time $t$ is defined as the ratio of packets forwarded to
+packets received:
+
+\begin{equation}
+\label{eq:pdr}
+\text{PDR}_i(t, W) = \frac{\displaystyle\sum_{\tau=t-W}^{t} n_i^{\text{fwd}}(\tau)}
+                           {\displaystyle\sum_{\tau=t-W}^{t} n_i^{\text{rx}}(\tau)}
+\end{equation}
+
+\noindent where $n_i^{\text{fwd}}(\tau)$ and $n_i^{\text{rx}}(\tau)$ denote
+the number of packets forwarded and received by $v_i$ at slot $\tau$.
+The \emph{instantaneous drop rate} at a single slot is then:
+
+\begin{equation}
+\label{eq:droprate}
+\delta_i(t) = 1 - \text{PDR}_i(t, 1)
+\end{equation}
+
+Because grey hole attackers exploit the similarity between their behaviour and
+natural channel loss, we also track the \emph{variance of PDR} over the window
+to separate consistently low forwarding (fixed-rate attack) from fluctuating
+forwarding (intermittent attack or legitimate loss):
+
+\begin{equation}
+\label{eq:pdr_var}
+\sigma^2_i(W) = \frac{1}{W} \sum_{\tau=t-W}^{t}
+\!\left(\text{PDR}_i(\tau,1) - \overline{\text{PDR}}_i(W)\right)^2
+\end{equation}
+
+\noindent where $\overline{\text{PDR}}_i(W)$ is the mean PDR over the window.
+
+\subsection{Mobility-Aware Packet Loss Correction}
+
+In SDVN, RSU handoff events cause transient packet loss that is topologically
+expected and must be separated from malicious dropping before any signature
+test is applied. We model the \emph{expected handoff-induced loss rate}
+$\rho_{ho}(v_i, t)$ as a linear function of vehicle speed $s_i(t)$ normalised
+by the RSU coverage radius $R_{\text{RSU}}$:
+
+\begin{equation}
+\label{eq:handoff_loss}
+\rho_{ho}(v_i, t) = \frac{s_i(t) \cdot \Delta t_{ho}}{R_{\text{RSU}}}
+\cdot \rho_{\max}
+\end{equation}
+
+\noindent where $\Delta t_{ho}$ is the average handoff transition duration and
+$\rho_{\max}$ is the worst-case handoff loss rate calibrated from simulation.
+The \emph{mobility-corrected PDR} adds this expected loss back so that the
+signature engine operates on behaviour net of topology effects:
+
+\begin{equation}
+\label{eq:mobility_pdr}
+\widehat{\text{PDR}}_i(t, W) = \text{PDR}_i(t, W) + \rho_{ho}(v_i, t)
+\end{equation}
+
+\subsection{Attack Signature Conditions}
+
+The six formal attack signatures are stated as binary indicator functions
+over the mobility-corrected statistics derived above. Each signature is
+evaluated independently by the lightweight rule-based detector.
+
+\textbf{Signature S1 (DP-FR).} A node exhibiting a consistently low
+mobility-corrected PDR with small variance satisfies the fixed-rate data-plane
+signature, since a deliberate constant drop rate produces a stable
+low-forwarding region:
+
+\begin{equation}
+\label{eq:sig_dpfr}
+\mathcal{S}_{\text{DP-FR}}(v_i) =
+\mathbf{1}\!\left[\,
+\widehat{\text{PDR}}_i(t, W) < \tau_f \;\wedge\;
+\sigma^2_i(W) < \varepsilon_f
+\,\right]
+\end{equation}
+
+\textbf{Signature S2 (DP-IT).} An intermittent attacker alternates between
+normal and malicious periods, producing a periodic binary pattern in the
+instantaneous drop signal. We detect this via the empirical autocorrelation
+$R_{m_i}(T) = \frac{1}{W}\sum_\tau m_i(\tau)\,m_i(\tau{-}T)$ of the binary
+malicious indicator $m_i(\tau)=\mathbf{1}[\text{PDR}_i(\tau,1)<\tau_{it}]$:
+
+\begin{equation}
+\label{eq:sig_dpit}
+\mathcal{S}_{\text{DP-IT}}(v_i) =
+\mathbf{1}\!\left[\,
+\exists\,T^* \in [T_{\min}, T_{\max}] : R_{m_i}(T^*) > \gamma_{it}
+\,\right]
+\end{equation}
+
+\textbf{Signature S3 (DP-TS).} A target-specific attacker drops packets
+selectively by source, so its per-source PDR distribution deviates
+significantly from the uniform baseline expected of a benign forwarder.
+We quantify this deviation using the KL-divergence between the empirical
+per-source PDR distribution $P_{\text{PDR}_i}^{(s)}$ and the uniform
+reference $\mathcal{U}$:
+
+\begin{equation}
+\label{eq:sig_dpts}
+\mathcal{S}_{\text{DP-TS}}(v_i) =
+\mathbf{1}\!\left[\,
+D_{\mathrm{KL}}\!\left(P_{\text{PDR}_i}^{(s)} \;\|\; \mathcal{U}\right)
+> \tau_{ts}
+\,\right]
+\end{equation}
+
+\textbf{Signature S4 (CP-FR).} In the controller plane, a malicious controller
+injects flow rules that unconditionally drop a fixed fraction of all flows.
+The signature fires when any installed flow rule carries a drop action with
+probability exceeding threshold $\tau_c$:
+
+\begin{equation}
+\label{eq:sig_cpfr}
+\mathcal{S}_{\text{CP-FR}}(c) =
+\mathbf{1}\!\left[\,
+\exists\,f \in \mathcal{F}_c(t) :
+\mathrm{action}(f) = \texttt{drop} \;\wedge\;
+p_{\text{drop}}(f) > \tau_c
+\,\right]
+\end{equation}
+
+\textbf{Signature S5 (CP-IT).} An intermittent controller attacker alternates
+between benign and malicious flow-rule epochs. Using the same autocorrelation
+test applied to the time series of malicious flow-rule counts
+$\mathcal{F}_c^{\text{mal}}(t)$, the signature is:
+
+\begin{equation}
+\label{eq:sig_cpit}
+\mathcal{S}_{\text{CP-IT}}(c) =
+\mathbf{1}\!\left[\,
+R_{\mathcal{F}_c^{\text{mal}}}(T^*) > \gamma_c \;\wedge\;
+\overline{\mathcal{F}_c^{\text{mal}}}(W) > 0
+\,\right]
+\end{equation}
+
+\textbf{Signature S6 (CP-TS).} A target-specific controller attack is
+distinguished from a fixed-rate attack by the presence of non-wildcard match
+fields in the drop rule — i.e., the drop action is conditioned on a specific
+source IP, priority level, or traffic class:
+
+\begin{equation}
+\label{eq:sig_cpts}
+\mathcal{S}_{\text{CP-TS}}(c) =
+\mathbf{1}\!\left[\,
+\exists\,f \in \mathcal{F}_c(t) :
+\mathrm{action}(f) = \texttt{drop} \;\wedge\;
+\mathrm{match}(f) \neq \texttt{WILDCARD}
+\,\right]
+\end{equation}
+
+% ============================================================
+% INSERT AS NEW SECTION 3.6 — NOVEL DESIGN CONTRIBUTIONS
+% Addresses Instruction 12: Design aspects, not mere application.
+% ============================================================
+
+\section{Novel Design Contributions}
+\label{sec:design}
+
+The proposed framework goes beyond applying existing technologies by
+introducing three design-level innovations that address SDVN-specific
+constraints not resolvable by straightforward technology deployment.
+
+\subsection{Dual-Evidence Blockchain Smart Contract (DEBSC)}
+
+Naive application of blockchain to vehicular security simply logs node
+behaviours as immutable records and relies on a single reputation
+threshold to trigger isolation. This design fails in SDVN for two
+reasons: (i) mobility causes legitimate PDR volatility that crosses
+reputation thresholds, producing false isolations; and (ii) a
+sophisticated attacker that is aware of the threshold can calibrate
+drop rates just below it while still maintaining effective attack
+throughput.
+
+The DEBSC resolves both issues through a dual-evidence gate: isolation
+is only authorized when a statistical anomaly (low MATD-corrected
+reputation score) AND a cryptographic failure (invalid ZKP forwarding
+proof) are detected simultaneously. Formally, from Eq.~\eqref{eq:debsc}:
+
+\begin{equation}
+\label{eq:debsc_design}
+\mathrm{Isolate}(v_i) = \underbrace{\mathbf{1}\bigl[(1-\mathcal{R}_i) > \theta_R\bigr]}_{\text{Statistical gate}}
+\;\wedge\;
+\underbrace{\mathbf{1}\bigl[\Pi_{\mathrm{ZKP}}(v_i) = \texttt{FAIL}\bigr]}_{\text{Cryptographic gate}}
+\end{equation}
+
+The design insight is that a legitimate vehicle with genuine packet loss
+(e.g., during RSU handoff) will have a temporarily low reputation but
+will still produce valid ZKP forwarding proofs for the packets it did
+forward — so only the statistical gate fires and isolation is blocked.
+A grey hole attacker that drops packets cannot produce valid proofs for
+the dropped packets, so both gates fire and isolation proceeds. This
+dual-gating design reduces false isolations to near zero while maintaining
+detection sensitivity, a property not achievable by either mechanism alone.
+
+The DEBSC also implements a \emph{graduated response} rather than a
+binary isolate/accept decision. Define the \emph{suspicion level}
+$\Lambda_i(t)$ as the number of consecutive rounds in which the statistical
+gate has fired:
+
+\begin{equation}
+\label{eq:suspicion}
+\Lambda_i(t) = \sum_{\tau=t-W_s}^{t}
+\mathbf{1}\bigl[(1-\mathcal{R}_i(\tau)) > \theta_R\bigr]
+\end{equation}
+
+The smart contract applies three graduated responses: (1) for
+$\Lambda_i < \lambda_1$, rate-limit traffic from $v_i$; (2) for
+$\lambda_1 \leq \Lambda_i < \lambda_2$, require ZKP proof verification
+for every packet batch; (3) for $\Lambda_i \geq \lambda_2$ and
+$\Pi_{\mathrm{ZKP}}(v_i) = \texttt{FAIL}$, trigger full isolation.
+This design eliminates the abrupt false-isolation problem of
+threshold-based single-evidence systems.
+
+\subsection{Blockchain-Anchored FL Gradient Integrity Verification}
+
+Standard federated learning is vulnerable to model poisoning: a malicious
+vehicle submits corrupted gradient updates to degrade the global detection
+model. Existing defences (e.g., robust aggregation, anomaly filtering on
+gradient norms) are computationally intensive and require a trusted
+aggregator — which does not exist in a decentralised SDVN.
+
+The proposed design anchors each gradient update to the blockchain
+\emph{before} the aggregation round. Each vehicle $v_i$ submits a
+commitment $\mathcal{C}_i = \texttt{Hash}(\Delta\mathbf{w}_i \| t \| \mathrm{id}_i)$
+to the blockchain at the start of the round, and transmits
+$\Delta\mathbf{w}_i$ to the aggregator. The aggregator verifies:
+
+\begin{equation}
+\label{eq:gradient_commit}
+\texttt{Valid}_i = \mathbf{1}\bigl[
+\texttt{Hash}(\Delta\mathbf{w}_i \| t \| \mathrm{id}_i) =
+\mathcal{C}_i^{\mathrm{BC}}
+\bigr]
+\end{equation}
+
+\noindent where $\mathcal{C}_i^{\mathrm{BC}}$ is the commitment retrieved
+from the blockchain. Only verified updates enter the FedAvg aggregation
+(Eq.~\eqref{eq:fedavg}). The design insight is that a malicious vehicle
+cannot retroactively alter its committed gradient — the blockchain's
+immutability prevents it. Unlike norm-based filtering, this approach
+incurs no gradient computation overhead and does not require a trusted
+aggregator, making it suitable for the decentralised SDVN architecture.
+Furthermore, the blockchain commitment serves as an auditable provenance
+record: if a model degradation is detected post-deployment, the specific
+round and vehicle responsible can be traced without violating privacy,
+since only hashes are stored on-chain.
+
+\subsection{Edge-LLM Architecture for Real-Time Grey Hole Detection}
+
+Deploying a full LLM on resource-constrained vehicle OBUs is infeasible.
+The naive solution — deploying the LLM only on the cloud — introduces
+unacceptable latency for real-time safety-critical decisions. Motivated
+by the edge-cloud design of MistralBSM~\cite{hamhoum2024mistralbsm},
+the proposed framework employs a two-tier LLM deployment:
+
+\textbf{Tier 1 (Edge LLM at RSU):} A quantised, fine-tuned lightweight
+LLM (e.g., a 4-bit quantised Mistral-7B or BERT-based model) processes
+short blockchain log windows $\mathbf{x}_i^{(t)}$ of length $n_e$ at the
+RSU in real time. It produces a binary preliminary verdict
+$\hat{y}_i^{\mathrm{edge}} \in \{0,1\}$.
+
+\textbf{Tier 2 (Cloud LLM):} For cases where the edge LLM uncertainty
+exceeds threshold $\varepsilon_u$, a full-size LLM processes a longer
+historical window of length $n_c \gg n_e$ for a definitive verdict.
+
+The routing decision is:
+
+\begin{equation}
+\label{eq:llm_routing}
+\text{Use Tier 2} =
+\mathbf{1}\bigl[
+\max_c \,\mathrm{softmax}(\mathrm{LLM}_{\mathrm{edge}}(\mathbf{x}_i))_c < \varepsilon_u
+\bigr]
+\end{equation}
+
+The final threat score $\mathcal{Q}_i(t)$ (Eq.~\eqref{eq:llm_score}) is
+taken from whichever tier produces the verdict. This design reduces average
+inference latency to $\bar{L}_{\mathrm{edge}}$ ms for the majority of cases
+(high-confidence edge decisions), while reserving the full cloud LLM for
+ambiguous borderline cases — a latency-accuracy trade-off not achieved by
+either single-tier deployment. The window size $n_e$ is a design parameter
+tuned jointly with $\varepsilon_u$ on the validation split to balance
+latency and accuracy.
+
+\subsection{Mobility-Aware Trust Scoring and Blockchain Reputation}
+
+Trust accumulation in high-mobility environments must account for the fact that
+short RSU dwell times yield statistically insufficient observations. We adopt a
+Bayesian Beta-distribution trust model in which forwarding successes and failures
+update the posterior mean, giving the \emph{instantaneous trust score}:
+
+\begin{equation}
+\label{eq:trust_update}
+\mathcal{T}_i(t) = \frac{\alpha + n_i^{\text{fwd}}(t)}
+                         {\alpha + n_i^{\text{fwd}}(t)
+                          + \beta + n_i^{\text{drop}}(t)}
+\end{equation}
+
+\noindent where $\alpha$ and $\beta$ are Beta prior parameters and
+$n_i^{\text{drop}}(t) = n_i^{\text{rx}}(t) - n_i^{\text{fwd}}(t)$.
+A high-speed vehicle accumulates few observations per RSU segment, so blindly
+trusting this score risks false isolation. The \emph{Mobility-Aware Trust
+Decay (MATD)} applies an exponential penalty proportional to current speed,
+reducing the effective trust contribution of high-speed vehicles for which
+the observation basis is shallow:
+
+\begin{equation}
+\label{eq:matd}
+\mathcal{T}_i^{\text{mob}}(t) = \mathcal{T}_i(t) \cdot
+e^{-\lambda_s\, s_i(t)\, \Delta t}
+\end{equation}
+
+\noindent where $\lambda_s > 0$ is the mobility decay coefficient tuned
+to the RSU coverage radius and vehicle density. The \emph{blockchain reputation
+score} then aggregates MATD-corrected trust over all historical RSU interactions
+$\mathcal{H}_i$ stored in the immutable ledger, providing a long-term behavioural
+baseline immune to short-term manipulation:
+
+\begin{equation}
+\label{eq:reputation}
+\mathcal{R}_i(t) = \frac{1}{|\mathcal{H}_i|}
+\sum_{h \in \mathcal{H}_i} \mathcal{T}_i^{\text{mob}}(h)
+\end{equation}
+
+To prevent a single corrupted evidence source from triggering false isolation,
+the \emph{Dual-Evidence Blockchain Smart Contract (DEBSC)} requires both the
+statistical reputation score and the cryptographic forwarding proof to fail
+simultaneously before an isolation command is authorised:
+
+\begin{equation}
+\label{eq:debsc}
+\mathrm{Isolate}(v_i) = \mathbf{1}\!\left[\,
+\bigl(1 - \mathcal{R}_i(t)\bigr) > \theta_R \;\wedge\;
+\Pi_{\mathrm{ZKP}}(v_i, t) = \texttt{FAIL}
+\,\right]
+\end{equation}
+
+\subsection{Federated Learning with Blockchain-Verified Gradient Integrity}
+
+Each vehicle $v_i$ trains a local detection model $\mathbf{w}_i$ by minimising
+the cross-entropy loss over its local dataset $\mathcal{D}_i$ of labelled
+forwarding-log sequences:
+
+\begin{equation}
+\label{eq:local_loss}
+\mathcal{L}_i(\mathbf{w}) = \frac{1}{|\mathcal{D}_i|}
+\sum_{(\mathbf{x},y)\in\mathcal{D}_i}
+\ell\!\left(f(\mathbf{x};\mathbf{w}),\, y\right)
+\end{equation}
+
+The global model is updated each round $r$ via weighted averaging, where
+weights are proportional to local dataset size to account for heterogeneous
+vehicular observation volumes:
+
+\begin{equation}
+\label{eq:fedavg}
+\mathbf{w}^{(r+1)} =
+\sum_{i \in \mathcal{A}} \frac{|\mathcal{D}_i|}{|\mathcal{D}_{\mathcal{A}}|}
+\mathbf{w}_i^{(r)}
+\end{equation}
+
+\noindent where $\mathcal{A}$ is the set of accepted vehicles and
+$|\mathcal{D}_{\mathcal{A}}| = \sum_{i\in\mathcal{A}}|\mathcal{D}_i|$.
+A malicious vehicle can poison the global model by submitting corrupted
+gradient updates. To prevent this, each gradient update is hash-committed
+to the blockchain before the aggregation round; the aggregator accepts an
+update only if its on-chain hash matches the received gradient:
+
+\begin{equation}
+\label{eq:gradient_verify}
+\mathrm{Accept}(\Delta\mathbf{w}_i) =
+\mathbf{1}\!\left[\,
+\mathcal{H}_{\mathrm{BC}}(\Delta\mathbf{w}_i) =
+\mathtt{Hash}(\Delta\mathbf{w}_i)
+\,\right]
+\end{equation}
+
+\subsection{LLM-Based Semantic Threat Scoring and Fusion}
+
+In the full detection mode, the LLM processes tokenised blockchain forwarding
+logs $\mathbf{x}_i^{(t)}$ as a sequence classification task. The threat score
+is the softmax probability assigned to the malicious class by the LLM with
+parameters $\boldsymbol{\theta}$:
+
+\begin{equation}
+\label{eq:llm_score}
+\mathcal{Q}_i(t) =
+\mathrm{softmax}\!\Bigl(
+\mathrm{LLM}\!\left(\mathbf{x}_i^{(t)};\boldsymbol{\theta}\right)
+\Bigr)_{\!\mathrm{malicious}}
+\end{equation}
+
+Because no single evidence source is individually sufficient for reliable
+detection under all six attack variants, the final detection decision fuses
+the rule-based aggregate signature score, the LLM semantic score, and the
+blockchain reputation deficit through a learned linear combination:
+
+\begin{equation}
+\label{eq:fusion}
+\hat{y}_i(t) = \mathbf{1}\!\left[\,
+\mu_1\,\mathcal{S}_{\mathrm{total}}(v_i)
++ \mu_2\,\mathcal{Q}_i(t)
++ \mu_3\,\bigl(1 - \mathcal{R}_i(t)\bigr)
+> \theta_{\mathrm{det}}
+\,\right]
+\end{equation}
+
+\noindent where $\mathcal{S}_{\mathrm{total}} = \max_k\,\mathcal{S}_k(v_i)$
+is the maximum binary signature score across all six signatures, and
+$\mu_1 + \mu_2 + \mu_3 = 1$ are fusion weights optimised on the validation set.
+
+\subsection{Post-Quantum Cryptographic Mitigation Formulations}
+
+\textbf{CRYSTALS-Kyber Key Encapsulation.}
+After a malicious node is isolated, all remaining vehicles must be re-keyed to
+exclude the compromised node from future sessions. Rather than classical ECDH,
+which is vulnerable to quantum attacks, we use CRYSTALS-Kyber whose security
+reduces to the Module Learning With Errors (M-LWE) problem. Given recipient
+public key $\mathbf{pk}$, a fresh session key and its ciphertext are produced as:
+
+\begin{equation}
+\label{eq:kyber_enc}
+(K,\, c) = \mathrm{Kyber.Enc}(\mathbf{pk},\, m),
+\quad m \xleftarrow{\$} \{0,1\}^{256}
+\end{equation}
+
+\begin{equation}
+\label{eq:kyber_dec}
+K = \mathrm{Kyber.Dec}(\mathbf{sk},\, c)
+\end{equation}
+
+\textbf{CRYSTALS-Dilithium Flow Rule Authentication.}
+SDN controller isolation commands and smart contract transactions must be
+authenticated to prevent replay and forgery. The controller signs each
+flow modification message $\mathcal{M}$ with its Dilithium private key
+and recipients verify before applying the rule:
+
+\begin{equation}
+\label{eq:dilithium_sign}
+\sigma = \mathrm{Dilithium.Sign}(\mathbf{sk}_c,\, \mathcal{M})
+\end{equation}
+
+\begin{equation}
+\label{eq:dilithium_verify}
+b = \mathrm{Dilithium.Verify}(\mathbf{pk}_c,\, \mathcal{M},\, \sigma)
+\in \{0,1\}
+\end{equation}
+
+\textbf{ZKP Forwarding Proof via Pedersen Commitment.}
+A grey hole node that drops packets cannot produce a valid forwarding proof for
+the dropped packets. Each vehicle commits to its forwarded packet count
+$n_i^{\text{fwd}}$ using a Pedersen commitment with random blinding factor
+$r_i$, so that the commitment is binding (count cannot be changed) and
+hiding (count is not revealed):
+
+\begin{equation}
+\label{eq:pedersen}
+C_i = g^{n_i^{\text{fwd}}} \cdot h^{r_i} \pmod{p}
+\end{equation}
+
+The vehicle then generates a zero-knowledge proof $\pi_i$ demonstrating
+knowledge of a valid opening $(n_i^{\text{fwd}}, r_i)$ consistent with $C_i$
+and the independently observable packet counts on the blockchain, without
+disclosing packet content:
+
+\begin{equation}
+\label{eq:zkp_proof}
+\pi_i = \mathrm{ZKP.Prove}\!\left(C_i,\, n_i^{\text{fwd}},\, r_i\right)
+\end{equation}
+
+\textbf{Threshold Signature for Collective Blacklisting.}
+To prevent any single RSU from unilaterally blacklisting a vehicle — which
+could be exploited by a compromised RSU — node isolation requires a
+$(k,n)$-threshold co-signature from $k$ independent RSUs. Each participating
+RSU $j$ produces a partial signature over the blacklist message $\mathcal{B}(v_i)$:
+
+\begin{equation}
+\label{eq:threshold_partial}
+\sigma_j = \mathrm{TS.PartialSign}\!\left(\mathbf{sk}_j,\, \mathcal{B}(v_i)\right),
+\quad j = 1,\ldots,k
+\end{equation}
+
+The partial signatures are combined off-chain and a single compact group
+signature is produced for on-chain verification:
+
+\begin{equation}
+\label{eq:threshold_combine}
+\sigma^* = \mathrm{TS.Combine}\!\left(\{\sigma_j\}_{j=1}^{k}\right)
+\end{equation}
+
+\begin{equation}
+\label{eq:threshold_verify}
+b = \mathrm{TS.Verify}\!\left(\mathbf{pk}_{\mathrm{group}},\,
+\mathcal{B}(v_i),\, \sigma^*\right) \in \{0,1\}
+\end{equation}
+
+\noindent Isolation is executed by the smart contract only when $b = 1$,
+ensuring that the decision has the collective cryptographic endorsement of
+$k$ independent infrastructure nodes — a design that remains secure as long
+as fewer than $k$ RSUs are compromised simultaneously.
+
+% ============================================================
+% INSERT AT END OF SECTION 3.3, BEFORE ALGORITHM SECTION
+% ============================================================
+
+\subsection{PQC-LKH: Post-Quantum Logical Key Hierarchy for Group Re-Keying}
+\label{sec:pqc_lkh}
+
+When a vehicle $v_i$ is isolated, all remaining $N-1$ vehicles must
+receive an updated group session key $K_{\text{grp}}$ that excludes
+$v_i$. Unicast Kyber re-keying requires $O(N-1)$ KEM operations,
+which is prohibitive in dense SDVNs. We adapt the Logical Key
+Hierarchy (LKH)~\cite{wallner1999lkh} to PQC, reducing re-keying
+cost to $O(\log N)$.
+
+Vehicles are organised into a binary tree $\mathcal{T}$ of depth
+$\lceil \log_2 N \rceil$. Each internal node $u \in \mathcal{T}$
+holds a Kyber-768 key pair $(\mathbf{pk}_u, \mathbf{sk}_u)$. Each
+leaf corresponds to one vehicle. Each vehicle $v_j$ holds the keys
+of all nodes on its root-to-leaf path:
+
+\begin{equation}
+\label{eq:lkh_keys}
+\mathcal{K}_j = \bigl\{(\mathbf{pk}_u, \mathbf{sk}_u) :
+u \in \mathrm{path}(v_j \to \mathrm{root})\bigr\}
+\end{equation}
+
+The group key $K_{\text{grp}}$ is encapsulated under the root node key
+$\mathbf{pk}_{\mathrm{root}}$:
+
+\begin{equation}
+\label{eq:lkh_grp}
+(K_{\text{grp}},\, c_{\mathrm{root}}) =
+\mathrm{Kyber.Enc}(\mathbf{pk}_{\mathrm{root}},\, m),
+\quad m \xleftarrow{\$} \{0,1\}^{256}
+\end{equation}
+
+Upon isolating $v_i$ (leaf node $\ell_i$), only the keys along
+the path $\mathrm{path}(\ell_i \to \mathrm{root})$ are refreshed.
+For each affected node $u$ on this path, a new key pair is generated
+and the updated key is re-encrypted under the sibling subtree keys,
+requiring exactly $\lceil \log_2 N \rceil$ Kyber operations:
+
+\begin{equation}
+\label{eq:lkh_rekey}
+(K_u^{\mathrm{new}},\, c_u) =
+\mathrm{Kyber.Enc}(\mathbf{pk}_{u}^{\mathrm{sib}},\, k_u^{\mathrm{new}}),
+\quad \forall\, u \in \mathrm{path}(\ell_i \to \mathrm{root})
+\end{equation}
+
+The SDN controller broadcasts $\lceil \log_2 N \rceil$ update messages
+signed with CRYSTALS-Dilithium (Eq.~\eqref{eq:dilithium_sign}), each
+carrying one re-encrypted node key. Vehicles not on the affected path
+derive the new $K_{\text{grp}}$ by decapsulating the updated ancestor
+key using their held $\mathbf{sk}_u$. The isolated vehicle $v_i$,
+lacking any valid $\mathbf{sk}_u$ for the refreshed path, is
+cryptographically excluded from the new group session without
+contacting it directly.
+
+% ============================================================
+% INSERT AS SECTION 3.5 — ALGORITHMS
+% ============================================================
+
+\section{Detection and Mitigation Algorithms}
+\label{sec:algorithms}
+
+\subsubsection{Lightweight Rule-Based Grey Hole Detection — Data Plane}
+\begin{algorithm}[htb]
+\caption{Lightweight Rule-Based Grey Hole Detection — Data Plane (\texttt{LW-DP-Det})}
+\begin{algorithmic}[1]
+\small
+\Procedure{\texttt{LW-DP-Det}}{$v_i, t, W, \tau_f, \varepsilon_f, \tau_{it}, \gamma_{it}, \tau_{ts}$}
+  \State $\text{PDR\_hist} \gets \texttt{GET\_BLOCKCHAIN\_LOG}(v_i, t, W)$
+  \State $\widehat{\text{PDR}} \gets \texttt{MOBILITY\_CORRECT}(\text{PDR\_hist}, s_i(t))$
+  \Comment{Eq.~\eqref{eq:mobility_pdr}}
+  \State $\sigma^2 \gets \texttt{VARIANCE}(\widehat{\text{PDR}})$
+  \Comment{Eq.~\eqref{eq:pdr_var}}
+  \If{$\overline{\widehat{\text{PDR}}} < \tau_f$ \textbf{and} $\sigma^2 < \varepsilon_f$}
+    \State \textbf{return} $(\texttt{DP-FR}, v_i)$
+    \Comment{Signature S1}
+  \EndIf
+  \State $R_{m} \gets \texttt{AUTOCORR}(\text{PDR\_hist}, \tau_{it})$
+  \If{$\max_{T} R_{m}(T) > \gamma_{it}$}
+    \State \textbf{return} $(\texttt{DP-IT}, v_i)$
+    \Comment{Signature S2}
+  \EndIf
+  \State $D_{KL} \gets \texttt{PER\_SOURCE\_PDR\_KL}(v_i, t, W)$
+  \Comment{Eq.~\eqref{eq:sig_dpts}}
+  \If{$D_{KL} > \tau_{ts}$}
+    \State \textbf{return} $(\texttt{DP-TS}, v_i)$
+    \Comment{Signature S3}
+  \EndIf
+  \State \textbf{return} $(\texttt{BENIGN}, v_i)$
+\EndProcedure
+\end{algorithmic}
+\label{alg:lw_dp_det}
+\end{algorithm}
+
+
+\subsubsection{Lightweight Rule-Based Grey Hole Detection — Controller Plane}
+
+
+\begin{algorithm}[htb]
+\caption{Lightweight Rule-Based Grey Hole Detection — Controller Plane (\texttt{LW-CP-Det})}
+\begin{algorithmic}[1]
+\small
+\Procedure{\texttt{LW-CP-Det}}{$c, t, \tau_c, \gamma_c, W$}
+  \State $\mathcal{F}_c \gets \texttt{GET\_FLOW\_RULES}(c, t)$
+  \For{each $f \in \mathcal{F}_c$}
+    \If{$\texttt{action}(f) = \texttt{DROP}$ \textbf{and} $p_{\text{drop}}(f) > \tau_c$}
+      \State \textbf{return} $(\texttt{CP-FR}, c)$
+      \Comment{Signature S4}
+    \EndIf
+    \If{$\texttt{action}(f) = \texttt{DROP}$ \textbf{and} $\texttt{match}(f) \neq \texttt{WILDCARD}$}
+      \State \textbf{return} $(\texttt{CP-TS}, c)$
+      \Comment{Signature S6}
+    \EndIf
+  \EndFor
+  \State $\mathcal{F}_c^{\text{hist}} \gets \texttt{GET\_BLOCKCHAIN\_LOG}(c, t, W)$
+  \State $R_{\mathcal{F}} \gets \texttt{AUTOCORR}(\mathcal{F}_c^{\text{hist}})$
+  \If{$\max_T R_{\mathcal{F}}(T) > \gamma_c$ \textbf{and} $\overline{\mathcal{F}_c^{\text{mal}}} > 0$}
+    \State \textbf{return} $(\texttt{CP-IT}, c)$
+    \Comment{Signature S5}
+  \EndIf
+  \State \textbf{return} $(\texttt{BENIGN}, c)$
+\EndProcedure
+\end{algorithmic}
+\label{alg:lw_cp_det}
+\end{algorithm}
+
+
+
+
+
+\subsubsection{Full-Version LLM + Federated Learning Detection Pipeline}
+
+
+\begin{algorithm}[htb]
+\caption{Full-Version LLM + Federated Learning Detection Pipeline (\texttt{FV-Det})}
+\begin{algorithmic}[1]
+\small
+\Procedure{\texttt{FV-Det}}{$v_i, t, \mathbf{w}^{(r)}, \boldsymbol{\theta}$}
+  \State $\mathbf{x}_i \gets \texttt{TOKENIZE\_LOG}(\texttt{GET\_BLOCKCHAIN\_LOG}(v_i, t, W))$
+  \State $\mathcal{Q}_i \gets \text{softmax}(\text{LLM}(\mathbf{x}_i; \boldsymbol{\theta}))_{\text{mal}}$
+  \Comment{Eq.~\eqref{eq:llm_score}}
+  \State $\hat{y}_i^{\text{FL}} \gets f(\mathbf{x}_i^{\text{feat}}; \mathbf{w}^{(r)})$
+  \Comment{Local FL model inference}
+  \State $\mathcal{R}_i \gets \texttt{GET\_REPUTATION}(v_i)$
+  \Comment{Eq.~\eqref{eq:reputation}}
+  \State $\hat{y}_i \gets \mathbf{1}[\mu_1 \mathcal{S}_{\text{total}} + \mu_2 \mathcal{Q}_i + \mu_3(1-\mathcal{R}_i) > \theta_{\text{det}}]$
+  \Comment{Eq.~\eqref{eq:fusion}}
+  \If{$\hat{y}_i = 1$}
+    \State $\texttt{TRIGGER\_MITIGATION}(v_i, t)$
+  \Else
+    \State $\Delta\mathbf{w}_i \gets \texttt{LOCAL\_TRAIN}(\mathbf{w}^{(r)}, \mathcal{D}_i)$
+    \Comment{Eq.~\eqref{eq:local_loss}}
+    \State $\texttt{SUBMIT\_GRADIENT}(\Delta\mathbf{w}_i)$
+    \Comment{Blockchain-verified}
+  \EndIf
+  \State \textbf{return} $\hat{y}_i$
+\EndProcedure
+
+\vspace{0.5em}
+\Procedure{\texttt{FL-AGGREGATE}}{$\{\Delta\mathbf{w}_i\}_{i=1}^{N}, \mathbf{w}^{(r)}$}
+  \State $\mathcal{A} \gets \emptyset$
+  \For{each $\Delta\mathbf{w}_i$}
+    \If{$\texttt{BLOCKCHAIN\_VERIFY}(\Delta\mathbf{w}_i)$}
+      \Comment{Eq.~\eqref{eq:gradient_verify}}
+      \State $\mathcal{A} \gets \mathcal{A} \cup \{i\}$
+    \EndIf
+  \EndFor
+  \State $\mathbf{w}^{(r+1)} \gets \sum_{i \in \mathcal{A}} \frac{|\mathcal{D}_i|}{|\mathcal{D}_\mathcal{A}|} \mathbf{w}_i^{(r)}$
+  \Comment{Eq.~\eqref{eq:fedavg}}
+  \State \textbf{return} $\mathbf{w}^{(r+1)}$
+\EndProcedure
+\end{algorithmic}
+\label{alg:fv_det}
+\end{algorithm}
+
+
+
+...
+\begin{comment}
+@article{wallner1999lkh,
+  author    = {Wallner, Danielle and Harder, Eric and Agee, Ryan},
+  title     = {Key Management for Multicast: Issues and Architectures},
+  journal   = {RFC 2627},
+  year      = {1999},
+  publisher = {IETF},
+  url       = {https://www.rfc-editor.org/rfc/rfc2627}
+}
+
+\end{comment}
+
+
+
+
+\subsubsection{Post-Quantum Cryptographic Mitigation and Node Isolation}
+
+
+\begin{algorithm}[htb]
+\caption{Post-Quantum Cryptographic Mitigation and Node Isolation (\texttt{PQC-Mit})}
+\begin{algorithmic}[1]
+\small
+\Procedure{\texttt{PQC-Mit}}{$v_i, c, \{RSU_j\}_{j=1}^{n}, k$}
+  \State \textbf{// Step 1: ZKP Forwarding Proof Verification}
+  \State $\pi_i \gets \texttt{GET\_ZKP\_PROOF}(v_i)$
+  \Comment{From blockchain log}
+  \If{$\texttt{ZKP.Verify}(C_i, \pi_i) = \texttt{FAIL}$}
+    \Comment{Eq.~\eqref{eq:zkp_proof}}
+    \State $\texttt{FLAG}(v_i, \texttt{CONFIRMED\_ATTACKER})$
+  \EndIf
+  \State \textbf{// Step 2: Threshold-Signed Blacklisting}
+  \State $\mathcal{B}(v_i) \gets \texttt{CREATE\_BLACKLIST\_MSG}(v_i, t)$
+  \For{$j = 1$ \textbf{to} $k$}
+    \State $\sigma_j \gets \text{Dilithium.Sign}(\mathbf{sk}_j, \mathcal{B}(v_i))$
+    \Comment{Eq.~\eqref{eq:threshold_partial}}
+  \EndFor
+  \State $\sigma^* \gets \texttt{TS.Combine}(\{\sigma_j\}_{j=1}^{k})$
+  \Comment{Eq.~\eqref{eq:threshold_combine}}
+  \If{$\texttt{TS.Verify}(\mathbf{pk}_{\text{group}}, \mathcal{B}(v_i), \sigma^*)$}
+    \Comment{Eq.~\eqref{eq:threshold_verify}}
+    \State \textbf{// Step 3: SDN Isolation via PQC-Signed Flow Modification}
+    \State $\mathcal{M}_{\text{iso}} \gets \texttt{CREATE\_FLOWMOD}(v_i, \texttt{BLOCK})$
+    \State $\sigma_c \gets \text{Dilithium.Sign}(\mathbf{sk}_c, \mathcal{M}_{\text{iso}})$
+    \Comment{Eq.~\eqref{eq:dilithium_sign}}
+    \State $\texttt{SEND\_FLOWMOD}(\mathcal{M}_{\text{iso}}, \sigma_c)$
+    
+    
+  \State \textbf{// Step 4: PQC-LKH Group Re-Keying}
+\State $\mathrm{path} \gets \texttt{GET\_PATH}(\ell_i, \mathrm{root}, \mathcal{T})$
+\For{each $u \in \mathrm{path}$}
+  \State $(K_u^{\mathrm{new}}, c_u) \gets
+         \mathrm{Kyber.Enc}(\mathbf{pk}_u^{\mathrm{sib}}, k_u^{\mathrm{new}})$
+  \Comment{Eq.~\eqref{eq:lkh_rekey}}
+  \State $\sigma_u \gets \mathrm{Dilithium.Sign}(\mathbf{sk}_c, c_u)$
+  \State $\texttt{BROADCAST}(c_u, \sigma_u)$
+\EndFor
+\State $(K_{\text{grp}}, c_{\mathrm{root}}) \gets
+       \mathrm{Kyber.Enc}(\mathbf{pk}_{\mathrm{root}}^{\mathrm{new}}, m)$
+\Comment{Eq.~\eqref{eq:lkh_grp}}
+  
+  
+  
+  \EndIf
+
+
+
+
+\EndProcedure
+\end{algorithmic}
+\label{alg:pqc_mit}
+\end{algorithm}
+
+
+\section{Research Design}
+% Describe the research design and methodology. Use diagrams or flow charts to illustatre the methodology.
+The study adheres to experimental and simulation based research design to come up with decentralized security framework of Software-Defined Vehicular Networks (SDVNs). The strategic objectives are to reduce three different variants of attacks on the Grey Hole, namely Fixed-Rate Selective Dropping, Time-Based Intermittent, and Target-Specific Intelligent attacks.
+
+\mypar
+
+The suggested solution presents a multi-layered defense system that involves Blockchain, Large Language Models (LLMs), and Federated Learning (FL). The methodology overcomes the shortcomings of conventional defenses in high mobility settings by offering real-time flexibility and decentralized trust by the following combined system elements \cite{wijesekara2026},
+
+\begin{itemize}
+    \item \textbf{SDVN Simulation and Attack Modeling:} An SDN-based architecture that can be used to handle high-mobility situations by adding selective packet-dropping detection features to detect various attack patterns in real time.
+    \item \textbf{Decentralized Trust via Blockchain:} A distributed ledger, developed based on Hyperledger, that stores an immutable record of behaviors of nodes to provide transparency and stop reputation manipulation in packet forwarding operations.
+    \item \textbf{Intelligent Threat Detection with LLMs:} A module based on LLM and complex network pattern analysis and blockchain logs to forecast Grey Hole signatures and produce adaptive routing policies by semantic reasoning.
+    \item \textbf{Privacy-Preserving Federated Learning:} To enhance scalability and security, Federated Learning is implemented to train detection models collaboratively across vehicles without centralizing sensitive traffic data.
+\end{itemize}
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.95\textwidth]{microgrid-architecture.png} % Replace with your image file
+%     \caption{This is an example image.}
+%     \label{fig:example}
+% \end{figure}
+
+% As shown in Figure \ref{fig:example}, the image is centered and has a caption.
+
+\section{Data Collection and Simulation Environment}
+
+The limited real world datasets to use in vehicular Grey Hole attack makes this study use a controlled data generation process in a simulated environment. The area of data collection is centered on the dynamic interactions between the high-mobility vehicular nodes and the multi-layered security framework.
+
+
+\subsection{Data Generation Process}
+
+The simulation environment is set to simulate high-mobility vehicular situations and the standard communication protocols needed by Software-Defined Vehicular Networks. To have a strong dataset to train the detection, the environment adds malicious behaviors that are programmed to simulate three different variants of the attack of the Grey Hole:
+
+\begin{itemize}
+	\item \textbf{Selective Dropping Data:} Traffic flows of different percentages of packet-loss are generated to model fixed-rate attacks.
+	\item \textbf{Temporal Discrepancy Data:} Simulation of intermittent malicious states to generate datasets that are time-based attacks.
+	\item \textbf{Semantic Traffic Data:} Giving priority to certain type of packets like emergency broadcasts to emulate target-specific intelligent attacks.
+\end{itemize}
+
+
+\subsection{Functional Feature Extraction}
+
+Raw simulation logs are analyzed to capture certain features that are needed by the decentralized security modules:
+\begin{itemize}
+	\item \textbf{Behavioral Logs:} Record documents of packet transmission and reception success that can be used to check integrity of nodes over time.
+	\item \textbf{Network Contextual Features:} This is used to identify complex behavioral patterns like Temporal and semantic metadata, including packet timestamps and priority headers.
+	\item \textbf{Stochastic Model Gradients:} Locally computed model updates for each vehicle’s, and also extracted for collaborative learning without compromising raw data privacy.
+\end{itemize}
+
+
+
+'''
+\section{Performance Evaluation}
+\label{sec:evaluation}
+
+\subsection{External Baselines}
+
+Three post-2020 baselines targeting grey hole attacks are selected,
+each representing a distinct methodological paradigm to isolate
+the contribution of the proposed framework.
+
+\textbf{B1}~\cite{malik2023greyhole} is an ML-only dynamic threshold
+detector for grey hole attacks in NS-3-simulated VANETs — the same
+simulator used here — enabling direct metric comparison. It carries
+no blockchain, mobility correction, or cryptographic component.
+
+\textbf{B2}~\cite{alabdulatif2024mitigating} employs VCBC blockchain
+smart contracts for grey hole mitigation, achieving PDR of 78\% under
+attack. It represents the blockchain-only paradigm with no AI detection
+and no PQC.
+
+\textbf{B3}~\cite{ahsan2024flbert} applies FL-BERT to grey hole detection
+in software-defined VANET — the closest existing architecture to the
+proposed full mode. It has no mobility correction, no controller-plane
+model, and no cryptographic mitigation.
+
+\subsection{Internal Ablation Baselines}
+
+Five ablations isolate individual component contributions:
+\textbf{A1} disables the LLM+FL layer (signatures only);
+\textbf{A2} disables MATD (no mobility correction);
+\textbf{A3} reduces DEBSC to a single statistical gate (no ZKP);
+\textbf{A4} replaces FL with a centralised static model;
+\textbf{A5} replaces PQC with classical ECDH/ECDSA.
+
+\subsection{Primary Evaluation Metrics}
+
+\textbf{M1 — Detection Accuracy and MCC:} Accuracy is reported as the
+standard detection performance figure. The Matthews Correlation Coefficient
+(MCC) is reported alongside it to provide a rigorous single-score
+characterisation under class imbalance, since malicious nodes constitute
+a minority of the vehicular population. MCC accounts for all four
+confusion matrix cells and is more informative than F1-score in this
+setting. Both are evaluated per attack variant and in aggregate, and
+compared against baselines B1, B3, and ablations A1 and A4.
+
+\textbf{M2 — False Positive Rate (FPR):} The fraction of legitimate nodes
+incorrectly classified as malicious and subsequently isolated. Reported
+separately from M1 because false isolation in SDVN carries direct safety
+consequences — removing a legitimate relay vehicle can sever emergency
+communication paths. Used to evaluate the contributions of MATD (A2)
+and the dual-evidence DEBSC gate (A3).
+
+\textbf{M3 — Packet Delivery Ratio (PDR) and packet latency Under Attack:} The primary
+network-layer metric, reported per attack variant and for multi-attacker
+scenarios. B2 (PDR 78\%) is the primary comparison point for mitigation
+effectiveness.
+
+\textbf{M4 — Detection Latency and Mitigation Response Time:}
+Time from attack onset to confirmed detection, and from detection to
+completed node isolation. Differentiates the lightweight and full modes,
+and quantifies PQC operational overhead via ablation A5.
+
+\begin{comment}
+\section{Performance Evaluation}
+
+To prove the efficiency of the suggested multi-layered security framework, it is compared to three state-of-the-art (SOTA) techniques that are the representatives of various paradigms of the Grey Hole detection in the vehicular networks. The choice of these comparison methods is due to their recent publication and the relevance to individual elements of our framework (Neural Networks, Blockchain, and Machine Learning):
+
+\begin{itemize}
+	\item \textbf{ANN-ABC based IDS (2023):} A smart Intrusion Detection System, based on an Artificial Neural Network (ANN) optimized using the Artificial Bee Colony (ABC) algorithm to detect packet-dropping patterns in AODV-based vehicular networks.
+	
+	\item \textbf{VCBC Smart Contract Protocol (2024):} A security mechanism that is based on the use of Voting-Classification Blockchain-Based Contracts (VCBC) to categorize the nodes as white, black, or grey according to their ratios of packet delivery that is documented on a public ledger (based on blockchain).
+	
+	\item \textbf{RF-SVM Anomaly Detection (2023):} An enhanced Machine Learning-based IDS utilizing a Random Forest (RF) classifier to identify subtle Grey Hole signatures through an analysis of 20 network traffic features derived out of simulation logs.
+\end{itemize}
+
+
+\section{Performance Evaluation Metrics}
+
+The proposed and baseline techniques are tested with the help of a set of quantitative metrics that will measure the security performance and the operational performance on the network. The metrics undertaken are the following:
+
+\subsection{Network Performance Metrics}
+
+\begin{itemize}
+	\item \textbf{Packet Delivery Ratio (PDR):} The proportion of the data packets that have been effectively sent to the target destination nodes relative to the total amount of packets sent. This is the main measure of the capability of the framework to counter the attacks of packet-dropping.
+	
+	\item \textbf{Throughput:} The rate of successful data transmission over the network, measured in bits per second (bps) or bytes per second (Bps). This evaluates the overall network efficiency under attack conditions.
+	
+	\item \textbf{End-to-End (E2E) Delay:} The average time taken for a packet to travel from the source vehicle to the destination node. T This measure evaluates the delay caused by the multi-layered analysis (Blockchain consensus and LLM inference).
+\end{itemize}
+
+\subsection{Detection Reliability Metrics}
+
+\begin{itemize}
+	\item \textbf{Detection Accuracy:} The proportion of the number of correctly identified malicious and legitimate behaviors to the total number of test samples, which gives a general picture of the model performance.
+	\item \textbf{False Positive Rate (FPR):} The percentage of legitimate nodes wrongly identified as malicious to the overall legitimate number of nodes. This is an important metric in SDVNs to make sure that security measures do not introduce an unwarranted fragmentation to the network.
+	\item \textbf{Matthews Correlation Coefficient (MCC):} An effective statistical rate that yields a high score can only be achieved when the detection results are good in all the four categories of the confusion matrix (True Positives, True Negatives, False Positives, and False Negatives). This is used to assess the performance of the LLM and FL modules, namely in unbalanced datasets where malicious nodes are not common as the legitimate nodes.
+\end{itemize}
+\end{comment}
+
+
+
+
+
+\chapter{Timeline and Resource Required}
+
+\section{Timeline}
+
+The timeline provides an overview of project tasks scheduled for December 2025 to August 2026, showing key project milestones along with their expected durations in weeks.
+
+\begin{itemize}
+    \item \textbf{MILESTONE 01: Project Topic Selection} \\
+    Tasks: Select topic, read proposal description, get supervisor approval.
+    \item \textbf{MILESTONE 02: Supervisor Discussion} \\
+    Tasks: Discuss project feasibility and approach.
+    \item \textbf{MILESTONE 03: Literature Review} \\
+    Tasks: Study SDVN, Grey Hole attacks, blockchain, and related work.
+    \item \textbf{MILESTONE 04: Research Gap Analysis} \\
+    Tasks: Identify gaps and limitations in existing work.
+    \item \textbf{MILESTONE 05: Proposal Preparation} \\
+    Tasks: Draft and finalize project proposal.
+    \item \textbf{MILESTONE 06: Technology Study} \\
+    Tasks: Study NS3, SUMO, Blockchain, ML tools.
+    \item \textbf{MILESTONE 07: System Architecture Design} \\
+    Tasks: Design overall system structure.
+    \item \textbf{MILESTONE 08: Threat Model Design} \\
+    Tasks: Identify possible Grey Hole attack scenarios.
+    \item \textbf{MILESTONE 09: NS3-SUMO Setup} \\
+    Tasks: Install and configure simulation environment.
+    \item \textbf{MILESTONE 10: Basic SDVN Simulation} \\
+    Tasks: Simulate SDVN without attacks.
+    \item \textbf{MILESTONE 11: Blockchain Implementation} \\
+    Tasks: Deploy Hyperledger Fabric for node logging.
+    \item \textbf{MILESTONE 12: LLM Integration} \\
+    Tasks: Integrate LLM for monitoring network logs.
+    \item \textbf{MILESTONE 13: Federated Learning Setup} \\
+    Tasks: Configure FL across simulated nodes.
+    \item \textbf{MILESTONE 14: Attack Scenarios Modeling and Simulation} \\
+    Tasks: Implement Grey Hole attacks and test mitigation.
+    \item \textbf{MILESTONE 15: System Integration and Testing} \\
+    Tasks: Integrate all components and run tests.
+    \item \textbf{MILESTONE 16: Performance Evaluation} \\
+    Tasks: Analyze detection accuracy, latency, and network performance.
+    \item \textbf{MILESTONE 17: Final Documentation} \\
+    Tasks: Write final report and prepare diagrams.
+    \item \textbf{MILESTONE 18: Final Presentation and Viva Preparation} \\
+    Tasks: Prepare slides and rehearse presentation.
+\end{itemize}
+
+
+\clearpage % Force new page
+\thispagestyle{empty} % Optional: remove page number for timeline page
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{timeline.png}
+    \caption{Project timeline from December 2025 to August 2026.}
+    \label{fig:timeline}
+\end{figure}
+
+\clearpage % Force next section to start on a new page
+
+
+
+\section{Resources Required}
+
+This section provides a succinct description of the hardware and software tools that are necessary to complete the proposed project successfully on detecting and mitigating gray hole attacks in software defined vehicular networks
+
+\subsection{Hardware Resources}
+\begin{itemize}
+    \item \textbf{Computer / Workstation:}  
+    A system with at least an intel i7 or Ryzen 7 processor and a minimum of 16GB RAM also sufficient storage to execute network simulations, blockchain components, and machine learning tasks.
+\end{itemize}
+
+\subsection{Software Resources}
+
+\subsubsection{Network Simulation Tools}
+\begin{itemize}
+    \item \textbf{NS-3 (Network Simulator 3):}  
+    Used to simulate the Software-Defined Vehicular Network environment and Grey Hole attack scenarios.
+    \item \textbf{SUMO (Simulation of Urban Mobility):}  
+    Used to generate realistic vehicular mobility patterns for the simulations.
+    \item \textbf{C++ and Python:}  
+    Used for NS-3 scripting, simulation control, and preprocessing simulation data.
+\end{itemize}
+
+\subsubsection{Machine Learning and Security Tools}
+\begin{itemize}
+    \item \textbf{Python:}  
+    Used for implementing machine learning models and processing simulation data.
+    \item \textbf{TensorFlow / PyTorch:}  
+    Used for developing and training learning models.
+    \item \textbf{Hugging Face Transformers:}  
+    Used for integrating Large Language Models (LLMs) to analyze network behavior and assist in Grey Hole attack detection and response.
+    \item \textbf{Flower Framework:}  
+    Used to implement Federated Learning for distributed, privacy-preserving model training across vehicular nodes.
+    \item \textbf{PyCryptodome:}  
+    Used for cryptographic operations and security-related functions.
+\end{itemize}
+
+\subsubsection{Blockchain Platform}
+\begin{itemize}
+    \item \textbf{Hyperledger Fabric:}  
+    Used to implement a secure and tamper-proof distributed ledger for logging node behaviors.
+    \item \textbf{Docker:}  
+    Used for containerized deployment of blockchain network components.
+\end{itemize}
+
+\subsubsection{Analysis and Visualization Tools}
+\begin{itemize}
+    \item \textbf{Python Libraries (NumPy, Pandas, Matplotlib):}  
+    Used to analyze simulation results and visualize performance metrics.
+    \item \textbf{Wireshark (Optional):}  
+    Used for packet-level analysis and validation.
+\end{itemize}
+
+\subsubsection{Version Control and Documentation}
+\begin{itemize}
+    \item \textbf{GitHub:}  
+    Used for version control and collaboration among team members.
+    \item \textbf{Visual Studio Code / PyCharm:}  
+    Used as integrated development environments for coding and debugging.
+    \item \textbf{LaTeX / Overleaf:}  
+    Used for preparing the project proposal, reports, and final documentation.
+    \item \textbf{Draw.io / Lucidchart:}  
+    Used for designing system architecture and workflow diagrams.
+\end{itemize}
+
+
+\chapter{Conclusion}
+% Summarize the key points of your proposal and reiterate the importance of the project.
+The project suggests an innovative and feasible solution to minimize the grey hole attacks in the software defined vehicular networks. Grey hole attacks are also hard to detect since malicious vehicles selectively drop packets in various ways, including dropping packets only at specific times or specific messages, and most of ways. Thus, such types of attacks can have a severe impact on road safety and network performance of vehicular network. This project also considers scenarios where the network controller may be malicious and place malicious flow rules between the vehicle network.
+
+\mypar
+To address this issue in vehicular network, the project integrates three current technologies which are Blockchain, Large Language Models, and Federated Learning. The packet forwarding activities are safely recorded using blockchain to ensure that no behavior of the nodes is modified or concealed. Large Language Models are useful in network data analysis and detecting abnormal patterns that point to Grey Hole attacks. Federated Learning enables vehicles to jointly train detection models without exchanging their own data, and enhances privacy and scalability of a distributed network.
+
+\mypar
+Simulations will be used to assess how well the system is able to detect various types of attack by Gray Hole and ensure that the network communication is not disrupted. The combination of security, learning, and analysis techniques is likely to enhance the trust between vehicles. The project will also assist in learning how the modern technologies can be used to address the real world security issues in the vehicular networks.
+
+
+% References
+\renewcommand{\bibname}{References}
+\bibliographystyle{ieeetr}
+\addcontentsline{toc}{chapter}{References} % Add to table of contents
+\bibliography{bibliography} 
+%\printbibliography
+
+\end{document}
