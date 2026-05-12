@@ -151,11 +151,6 @@
 
 \include{cover}
 
-% This is my customize variable (this removed - commented)
-% \setlength{\parindent}{0pt}   % No indentation
-% \setlength{\parskip}{0.8em}   % Gap between paragraphs
-
-
 \renewcommand{\thepage}{\roman{page}} % Start page numbering in roman
 
 \chapter*{Abstract}
@@ -248,11 +243,6 @@ One of the significant threats of SDVNs is grey hole attacks. In this attack, a 
 The previous methods of ensuring vehicular networks are usually based on hard and fast rules, signature based detection, or simple machine learning. The traditional approaches find it difficult to identify selectively dropping attacks by the Grey Hole since the sporadic nature is similar to the normal network variations, and they are not able to respond well to the evolving traffic conditions. Moreover, most of the solutions need centralized data gathering or intensive computing, which pose privacy threats and scalability issues in dynamic vehicular settings \cite{ijaer2018, arizaga2025}.
 
 \section{Problem Statement}
-% Clearly define the problem the project aims to solve.
-\begin{comment}
-Software-Defined Vehicular Networks can be attacked by selective dropping of Grey Hole attacks, in which malicious vehicles send packets at random to avoid being noticed. This behavior is very similar to the normal packet loss that occurs due to mobility and changing network conditions in high dynamic vehicular environments. Consequently, the current security strategies do not have effective and privacy-sensitive schemes to reliably differentiate between the Grey Hole attacks and the normal network operation, which restricts their accuracy and scalability in the real-world implementation of SDVN.
-\end{comment}
-
 Grey hole attacks in Software-Defined Vehicular Networks (SDVNs) exploit the
 indistinguishability between mobility-induced packet loss and selective malicious dropping — across both data-plane forwarding nodes and controller-plane flow rule injection — to silently suppress safety-critical vehicular communication, while no existing detection or mitigation framework simultaneously addresses all attack variants with the scalability, privacy preservation, and post-quantum cryptographic security required for real-world deployment.
 
@@ -270,11 +260,6 @@ The objectives of this project are,
 	
 	\item To check the efficiency of the suggested framework under realistic network conditions and prove its effectiveness over the current methods.
 \end{itemize}
-
-..
-% ============================================================
-% INSERT AS NEW SECTION 1.X AFTER PROBLEM STATEMENT
-% ============================================================
 
 \section{Research Questions}
 \label{sec:rq}
@@ -312,14 +297,6 @@ The project will utilize the simulation of a Software-Defined Vehicular Network 
 
 \mypar
 \section{Novelty}
-..
-\begin{comment}
-The originality of the research is that it has developed a single, privacy sensitive detection method against the attacks of the Grey Hole in Software-Defined Vehicular Networks. In contrast to the current solutions, the proposed framework models packet-forwarding trust based on blockchain verified behavior, learns pattern of attack collaboratively under federated detection in the context of vehicular mobility, and approaches the problem of detecting attack as an adaptive learning problem based on Large Language Models, instead of rule-based mechanisms. Besides that, the work presents formal modeling of various behaviors of the Grey Hole attacks in realistic SDVN conditions, which allow proper detection in highly dynamic environments.
-\end{comment}
-
-% ============================================================
-% REPLACED SECTION 1.6 CONTENT
-% ============================================================
 
 The novelty of this work is twofold: in the problem formulation, this is the
 first work to formally characterize grey hole attacks across all six variants
@@ -339,27 +316,6 @@ PQC — the first such integrated framework for grey hole attack mitigation in S
 
 \mypar
 \section{Contribution}
-
-\begin{comment}
-This project makes a contribution to the field of vehicular network security through supporting scalable, privacy-sensitive, and methodologically novel infrastructure of detecting and addressing Grey Hole attacks in SDVNs. The main contributions are,
-
-\begin{itemize}
-	\item \textbf{Blockchain based verification modeling:} Constructs a model in which blockchain is not only used to log data, but the mathematical verification of the packet forwarding behavior of the vehicles is performed for detecting suspicious nodes even in the case that attacks resemble normal traffic.
-	
-	\item \textbf{Federated Detection:} Federated learning is used to enable vehicles to jointly learn detection models, taking mobility, resource constraints, and local traffic dynamics into account, without sacrificing privacy and enhancing detectors in evolving settings.
-	
-	\item \textbf{Adaptive threat analysis using LLMs:} Invents the application of Large Language Models to scanned blockchain verified logs and identifies emerging trends in the pattern of the Grey Hole attacks, and does not perform attack detection based on pre determined rules.
-	
-	\item \textbf{Thorough attack modeling:} Formal models of various types of attacks to the Grey Hole have been studied: fixed-rate, time-based, and target specific under realistic vehicular network settings, which enables the targeted detection and mitigation of attacks.
-	
-	\item \textbf{Performance evaluation framework:} Conducts experiments to check the proposed framework in realistic SDVN settings and demonstrates good detection, minimal overheads, and resilience to various attacks of the SDVN under different behaviors of Grey Hole attackers.
-\end{itemize}
-
-\end{comment}
-
-% ============================================================
-% REPLACE SECTION 1.7 CONTENT
-% ============================================================
 
 The principal contributions of this work are:
 
