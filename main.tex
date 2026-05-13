@@ -708,6 +708,54 @@ the proposed dual-mode framework. The high detection accuracy of 99.75\%
 in a static SDN environment also serves as a methodological performance
 benchmark for the proposed framework's full-mode detector.
 
+\subsection{Post-Quantum Cryptography in Connected and Autonomous Vehicles}
+\label{sec:lit_pqc_cav}
+
+Current vehicular security standards — including IEEE~1609.2 for V2X
+communications and ETSI~ITS-G5 — are built on classical public-key
+cryptography (ECDSA over P-256 and ECIES), which is known to be broken
+by Shor's algorithm on a sufficiently powerful quantum computer. As
+connected and autonomous vehicles are expected to remain operational for
+15--20~years, cryptographic mechanisms deployed today face a
+harvest-now, decrypt-later threat: an adversary can record encrypted
+V2X traffic today and retrospectively decrypt it once a
+cryptographically relevant quantum computer becomes
+available~\cite{nist2024fips203}.
+
+In August 2024, NIST finalised the first post-quantum cryptographic
+(PQC) standards: FIPS~203 (ML-KEM, based on CRYSTALS-Kyber) for key
+encapsulation, and FIPS~204 (ML-DSA, based on CRYSTALS-Dilithium) for
+digital signatures~\cite{nist2024fips203,nist2024fips204}. Both
+algorithms are lattice-based, offering conjectured security against both
+classical and quantum adversaries. CRYSTALS-Dilithium (security
+level~2) produces signatures of 2,420~bytes and public keys of
+1,312~bytes, compared to 64~bytes for an ECDSA signature over
+P-256 — a 38$\times$ increase in signature size with significant
+implications for bandwidth-constrained V2X broadcast channels where
+Basic Safety Messages (BSMs) and Cooperative Awareness Messages (CAMs)
+are transmitted at 10~Hz per vehicle.
+
+Benchmarking on ARM Cortex-A class processors — representative of
+automotive-grade on-board units (OBUs) — shows that ML-DSA signing and
+verification are computationally feasible for periodic safety-message
+authentication, though the increased message size strains dedicated
+short-range communication (DSRC) and C-V2X channel capacity under dense
+traffic conditions~\cite{nist2024fips204}. For resource-constrained RSU
+deployments, the overhead of batch signature verification across
+hundreds of simultaneous vehicle transmissions remains an active
+engineering challenge. Hybrid classical-PQC schemes, maintaining
+backward compatibility while introducing quantum resistance, are
+recommended by NIST for transitional deployments.
+
+No work reviewed in the grey hole detection or SDVN security literature
+integrates PQC mechanisms for authentication of forwarding proofs or
+SDN flow rule integrity verification. This gap directly motivates the
+post-quantum mitigation layer in SHIELD-GH, which employs
+CRYSTALS-Kyber for session key establishment between SDN controllers
+and vehicular nodes, and CRYSTALS-Dilithium for signing forwarding-proof
+blockchain transactions, targeting the harvest-now threat model for
+long-lived vehicular deployments.
+
 \section{Research Gap Analysis}
 \label{sec:gaps}
 
