@@ -708,6 +708,54 @@ the proposed dual-mode framework. The high detection accuracy of 99.75\%
 in a static SDN environment also serves as a methodological performance
 benchmark for the proposed framework's full-mode detector.
 
+\subsection{Post-Quantum Cryptography in Connected and Autonomous Vehicles}
+\label{sec:lit_pqc_cav}
+
+Current vehicular security standards — including IEEE~1609.2 for V2X
+communications and ETSI~ITS-G5 — are built on classical public-key
+cryptography (ECDSA over P-256 and ECIES), which is known to be broken
+by Shor's algorithm on a sufficiently powerful quantum computer. As
+connected and autonomous vehicles are expected to remain operational for
+15--20~years, cryptographic mechanisms deployed today face a
+harvest-now, decrypt-later threat: an adversary can record encrypted
+V2X traffic today and retrospectively decrypt it once a
+cryptographically relevant quantum computer becomes
+available~\cite{nist2024fips203}.
+
+In August 2024, NIST finalised the first post-quantum cryptographic
+(PQC) standards: FIPS~203 (ML-KEM, based on CRYSTALS-Kyber) for key
+encapsulation, and FIPS~204 (ML-DSA, based on CRYSTALS-Dilithium) for
+digital signatures~\cite{nist2024fips203,nist2024fips204}. Both
+algorithms are lattice-based, offering conjectured security against both
+classical and quantum adversaries. CRYSTALS-Dilithium (security
+level~2) produces signatures of 2,420~bytes and public keys of
+1,312~bytes, compared to 64~bytes for an ECDSA signature over
+P-256 — a 38$\times$ increase in signature size with significant
+implications for bandwidth-constrained V2X broadcast channels where
+Basic Safety Messages (BSMs) and Cooperative Awareness Messages (CAMs)
+are transmitted at 10~Hz per vehicle.
+
+Benchmarking on ARM Cortex-A class processors — representative of
+automotive-grade on-board units (OBUs) — shows that ML-DSA signing and
+verification are computationally feasible for periodic safety-message
+authentication, though the increased message size strains dedicated
+short-range communication (DSRC) and C-V2X channel capacity under dense
+traffic conditions~\cite{nist2024fips204}. For resource-constrained RSU
+deployments, the overhead of batch signature verification across
+hundreds of simultaneous vehicle transmissions remains an active
+engineering challenge. Hybrid classical-PQC schemes, maintaining
+backward compatibility while introducing quantum resistance, are
+recommended by NIST for transitional deployments.
+
+No work reviewed in the grey hole detection or SDVN security literature
+integrates PQC mechanisms for authentication of forwarding proofs or
+SDN flow rule integrity verification. This gap directly motivates the
+post-quantum mitigation layer in SHIELD-GH, which employs
+CRYSTALS-Kyber for session key establishment between SDN controllers
+and vehicular nodes, and CRYSTALS-Dilithium for signing forwarding-proof
+blockchain transactions, targeting the harvest-now threat model for
+long-lived vehicular deployments.
+
 \section{Research Gap Analysis}
 \label{sec:gaps}
 
@@ -789,58 +837,6 @@ grey hole pattern recognition in full detection mode \\
 
 
 \textbf{Related Works Comparison}
-
-\begin{comment}
-\begin{table}[h!]
-	\centering
-	\caption{Related Work Comparison Table}
-	\label{tab:related-work-comparison}
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|p{3cm}|p{3.2cm}|p{3.5cm}|p{4.5cm}|p{4.5cm}|p{4cm}|}
-			\hline
-			\textbf{Ref.} & \textbf{Technologies Used} & \textbf{AI Models / Techniques} & \textbf{Methodology} & \textbf{Key Results} & \textbf{Limitations} \\
-			\hline
-			
-			Privacy-Preserving Intrusion Detection in Software-defined VANET using Federated Learning with BERT &
-			Federated Learning, BERT, SDN, VANET &
-			BERT for sequence classification, Random Forest, SVM, Logistic Regression, KNN &
-			FL-BERT: Local training on VeReMi dataset, model aggregation for privacy-preserving IDS; compared with traditional ML models &
-			FL-BERT outperforms traditional models in accuracy (up to 98\% in related contexts), precision, recall, F1-score; enhances privacy and attack detection &
-			Computationally intensive for BERT; evaluated in simulation only; potential for differential privacy in future work \\
-			\hline
-			
-			An Efficient Dynamic Solution for the Detection and Prevention of Black Hole Attack in VANETs &
-			AODV routing, NS-2 Simulator, VANET &
-			Threshold-based detection (non-AI) &
-			DPBHA: Calculates dynamic threshold from RREP sequence numbers, generates forged RREQ to detect and prevent BHA during route discovery &
-			PDR increased by 3\%, throughput by 6.15\%, routing overhead reduced by 3.69\%, E2E delay by 6.13\%, detection rate 94.66\% &
-			Addresses only black hole attacks, not cooperative BHA or GHA; future work to include GHA and other DoS attacks \\
-			\hline
-			
-			Mitigating Blackhole and Greyhole Routing Attacks in Vehicular Ad Hoc Networks Using Blockchain Based Smart Contracts &
-			Blockchain, Smart Contracts, Ethereum (Remix IDE), VANET &
-			Self-Classification (SCBC) and Voting-Classification (VCBC) Blockchain-Based Contracts &
-			Smart contract-based routing: Replaces AODV control messages with SCBC/VCBC for node status classification to avoid malicious relays in highway scenarios &
-			VCBC achieves PDR 78\%, TP 1.16 kbps, RO 2.14\%; outperforms SCBC (PDR 56\%) and BCR (PDR 35\%) even with black/gray hole attacks &
-			High volatility in SCBC results; assumes highway stability; future enhancements for broader scenarios \\
-			\hline
-			
-			A secure and efficient blockchain enabled federated Q-learning model for vehicular Ad-hoc networks &
-			Blockchain, EX-ECC Encryption, IPFS, DPBFT Consensus, Federated Learning, VANET &
-			Federated Q-Learning &
-			Data encryption with EX-ECC, local FL training, model aggregation; blockchain storage via IPFS, validation with DPBFT &
-			Throughput 102465.8 KB/s, communication overhead 360.57 Mb, average latency 864.425 ms, encryption time 0.98 ms, decryption 1.97 ms, consensus delay 50 ms, validation 1.68 ms; superior to FedAvg, FPPDL, DRAM-BFL &
-			Requires more complex datasets and security improvements; future work on computing capacity and efficiency \\
-			\hline
-			
-		\end{tabular}
-	}
-\end{table}
-\end{comment}
-
-% ============================================================
-% REPLACE TABLE 2.1
-% ============================================================
 
 \begin{table*}[!t]
 \renewcommand{\arraystretch}{1.3}
