@@ -965,6 +965,13 @@ Warping; TS: Threshold Signatures; PQC: Post-Quantum Cryptography.}
 
 The architecture separates the \emph{detection pipeline} from the \emph{mitigation pipeline} across four functional layers \cite{karof2014}. Detection determines whether a node is malicious; mitigation acts on that verdict. No layer performs both functions simultaneously, and no component is described as doing both without an explicit handoff boundary.
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{Figures/Fig_01_at_02}
+	\caption{SHIELD-GH four-layer architecture: Intelligence/Knowledge plane (top), Blockchain/Trust plane, SDN Control plane, and Data/Vehicular plane (bottom). Threat verdicts bypass the untrusted SDN controller and are enforced directly via DEBSC smart contracts on the Hyperledger Fabric ledger.}
+	\label{fig:shield-gh-architecture}
+\end{figure}
+
 \mypar
 \textbf{Data Plane (Vehicular Layer) — Detection role}
 
@@ -2167,6 +2174,13 @@ key using their held $\mathbf{sk}_u$. The isolated vehicle $v_i$,
 lacking any valid $\mathbf{sk}_u$ for the refreshed path, is
 cryptographically excluded from the new group session without
 contacting it directly.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{Figures/figure5_pqc_lkh}
+	\caption{PQC-LKH tree for group re-keying after vehicle isolation. Isolating attacker $V_3$ (red leaf) requires refreshing only $\lceil\log_2 8\rceil = 3$ nodes along the path to the root, compared to $N-1 = 7$ unicast KEM operations under naïve re-keying. All key pairs use Kyber-768.}
+	\label{fig:pqc-lkh}
+\end{figure}
 
 % ============================================================
 % INSERT AS SECTION 3.5 — ALGORITHMS
