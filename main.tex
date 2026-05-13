@@ -838,58 +838,6 @@ grey hole pattern recognition in full detection mode \\
 
 \textbf{Related Works Comparison}
 
-\begin{comment}
-\begin{table}[h!]
-	\centering
-	\caption{Related Work Comparison Table}
-	\label{tab:related-work-comparison}
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{|p{3cm}|p{3.2cm}|p{3.5cm}|p{4.5cm}|p{4.5cm}|p{4cm}|}
-			\hline
-			\textbf{Ref.} & \textbf{Technologies Used} & \textbf{AI Models / Techniques} & \textbf{Methodology} & \textbf{Key Results} & \textbf{Limitations} \\
-			\hline
-			
-			Privacy-Preserving Intrusion Detection in Software-defined VANET using Federated Learning with BERT &
-			Federated Learning, BERT, SDN, VANET &
-			BERT for sequence classification, Random Forest, SVM, Logistic Regression, KNN &
-			FL-BERT: Local training on VeReMi dataset, model aggregation for privacy-preserving IDS; compared with traditional ML models &
-			FL-BERT outperforms traditional models in accuracy (up to 98\% in related contexts), precision, recall, F1-score; enhances privacy and attack detection &
-			Computationally intensive for BERT; evaluated in simulation only; potential for differential privacy in future work \\
-			\hline
-			
-			An Efficient Dynamic Solution for the Detection and Prevention of Black Hole Attack in VANETs &
-			AODV routing, NS-2 Simulator, VANET &
-			Threshold-based detection (non-AI) &
-			DPBHA: Calculates dynamic threshold from RREP sequence numbers, generates forged RREQ to detect and prevent BHA during route discovery &
-			PDR increased by 3\%, throughput by 6.15\%, routing overhead reduced by 3.69\%, E2E delay by 6.13\%, detection rate 94.66\% &
-			Addresses only black hole attacks, not cooperative BHA or GHA; future work to include GHA and other DoS attacks \\
-			\hline
-			
-			Mitigating Blackhole and Greyhole Routing Attacks in Vehicular Ad Hoc Networks Using Blockchain Based Smart Contracts &
-			Blockchain, Smart Contracts, Ethereum (Remix IDE), VANET &
-			Self-Classification (SCBC) and Voting-Classification (VCBC) Blockchain-Based Contracts &
-			Smart contract-based routing: Replaces AODV control messages with SCBC/VCBC for node status classification to avoid malicious relays in highway scenarios &
-			VCBC achieves PDR 78\%, TP 1.16 kbps, RO 2.14\%; outperforms SCBC (PDR 56\%) and BCR (PDR 35\%) even with black/gray hole attacks &
-			High volatility in SCBC results; assumes highway stability; future enhancements for broader scenarios \\
-			\hline
-			
-			A secure and efficient blockchain enabled federated Q-learning model for vehicular Ad-hoc networks &
-			Blockchain, EX-ECC Encryption, IPFS, DPBFT Consensus, Federated Learning, VANET &
-			Federated Q-Learning &
-			Data encryption with EX-ECC, local FL training, model aggregation; blockchain storage via IPFS, validation with DPBFT &
-			Throughput 102465.8 KB/s, communication overhead 360.57 Mb, average latency 864.425 ms, encryption time 0.98 ms, decryption 1.97 ms, consensus delay 50 ms, validation 1.68 ms; superior to FedAvg, FPPDL, DRAM-BFL &
-			Requires more complex datasets and security improvements; future work on computing capacity and efficiency \\
-			\hline
-			
-		\end{tabular}
-	}
-\end{table}
-\end{comment}
-
-% ============================================================
-% REPLACE TABLE 2.1
-% ============================================================
-
 \begin{table*}[!t]
 \renewcommand{\arraystretch}{1.3}
 \caption{Comparison of Related Works}
