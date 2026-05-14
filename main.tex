@@ -967,7 +967,7 @@ The architecture separates the \emph{detection pipeline} from the \emph{mitigati
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\textwidth]{Figures/Fig_01_at_02}
+	\includegraphics[width=\textwidth]{Figures/figure1_architecture_diagram}
 	\caption{SHIELD-GH four-layer architecture: Intelligence/Knowledge plane (top), Blockchain/Trust plane, SDN Control plane, and Data/Vehicular plane (bottom). Threat verdicts bypass the untrusted SDN controller and are enforced directly via DEBSC smart contracts on the Hyperledger Fabric ledger.}
 	\label{fig:shield-gh-architecture}
 \end{figure}
@@ -1019,7 +1019,7 @@ Both modes feed into the same DEBSC isolation gate (Eq.~\eqref{eq:debsc}), ensur
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\textwidth]{Figures/figure_A_dual_mode_architecture}
+	\includegraphics[width=\textwidth]{Figures/figure2_dual_mode_architecture}
 	\caption{Dual-mode system architecture: lightweight (blue) and full-version (orange) detection pipelines sharing the blockchain plane (green) and the Mobility-Aware Trust Decay (MATD) module.}
 	\label{fig:dual-mode-architecture}
 \end{figure}
@@ -2177,7 +2177,7 @@ contacting it directly.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\textwidth]{Figures/figure5_pqc_lkh}
+	\includegraphics[width=\textwidth]{Figures/pqc_lkh}
 	\caption{PQC-LKH tree for group re-keying after vehicle isolation. Isolating attacker $V_3$ (red leaf) requires refreshing only $\lceil\log_2 8\rceil = 3$ nodes along the path to the root, compared to $N-1 = 7$ unicast KEM operations under naïve re-keying. All key pairs use Kyber-768.}
 	\label{fig:pqc-lkh}
 \end{figure}
@@ -2379,7 +2379,7 @@ contacting it directly.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.85\textwidth]{Figures/figure_D_cryptographic_mitigation}
+	\includegraphics[width=0.85\textwidth]{Figures/figure_D_cryptographic_mitigation_revised}
 	\caption{Cryptographic mitigation flowchart: ZKP proof verification, threshold signature collection and combination, Dilithium-signed FlowMod installation, Kyber group re-keying, and blockchain reputation update to zero.}
 	\label{fig:crypto-mitigation-flow}
 \end{figure}
