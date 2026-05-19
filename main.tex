@@ -1313,125 +1313,6 @@ As shown \ref{fig:controller-target-greyhole}, first step install malicious flow
 	\label{fig:controller-target-greyhole}
 \end{figure}
 
-\section{Cryptographic Analysis}
-\label{sec:crypto_analysis}
-
-\subsection{Why Cryptography Alone Cannot Mitigate Grey Hole Attacks}
-
-The fundamental property of a grey hole attack is that the attacker is a
-\emph{legitimate participant} in the network. It receives authenticated packets
-through properly established sessions, holds valid certificates, and produces
-correct message authentication codes. Classical cryptographic mechanisms --- HMAC,
-ECDSA, TLS --- verify that a packet was not forged or tampered with in transit.
-They say nothing about what the receiving node does with the packet after
-authentication succeeds.
-
-Formally, let $v_i$ receive packet $p$ authenticated under key $k_i$. Classical
-authentication confirms $\texttt{HMAC}(p, k_i) = \texttt{tag}$, establishing
-that $p$ arrived intact and from the claimed sender. However, the post-receipt
-forwarding decision $\mathbf{1}[v_i \text{ forwards } p]$ is entirely within
-$v_i$'s control and is \emph{not constrained} by any authentication mechanism.
-A grey hole attacker simply sets this decision to zero for selected packets.
-No amount of stronger authentication --- including post-quantum signatures --- changes
-this: authentication secures the channel, not the forwarding behaviour of
-the channel endpoint.
-
-This is the precise reason why grey hole attacks are harder to detect than
-black hole or wormhole attacks: the attacker's traffic is cryptographically
-valid at every point it does appear, making statistical anomaly detection the
-only viable primary signal.
-
-\mypar
-\textbf{Consequence for system design.} Cryptography must be repurposed from
-channel authentication to \emph{behaviour attestation}. Instead of proving
-that a packet was sent correctly, the cryptographic layer must prove that a
-received packet was subsequently forwarded --- or expose the absence of that proof
-as a detection signal. This requires a two-phase cryptographic deployment:
-
-\textbf{Phase 1 --- Pre-detection (evidence generation).}
-Cryptography generates unforgeable forwarding proofs that serve as input evidence to the detection engine. A grey hole attacker that drops packets \emph{cannot} generate valid proofs for those packets, creating a verifiable discrepancy on the blockchain ledger. This transforms silent dropping into a detectable cryptographic failure without requiring the network to observe the drop directly.
-
-\textbf{Phase 2 --- Post-detection (mitigation enforcement).}
-Once the detection engine issues a malicious verdict, cryptography enforces isolation: post-quantum-signed flow modification commands block the attacker's traffic paths; threshold signatures require multi-RSU consensus before blacklisting, preventing single-point false isolation; and group re-keying cryptographically excludes the attacker from future session keys, making continued participation impossible even if the node rejoins under the same identity.
-
-This two-phase design ensures that cryptographic mechanisms contribute to both
-detection \emph{and} mitigation, rather than leaving detection entirely to
-statistical methods that a sophisticated attacker can evade by calibrating drop
-rates below detection thresholds.
-
-\subsection{Selected Cryptographic Techniques by Phase}
-
-The candidate set considered is: \{homomorphic encryption, attribute-based
-encryption (ABE), broadcast encryption, homomorphic signatures, ring signatures,
-threshold signatures, ZKP, multi-party computation (MPC)\}, with post-quantum
-cryptography (PQC) mandatory for quantum-resistance. Techniques are selected
-and assigned to phases as follows.
-
-\mypar
-\textbf{Phase 1 --- Pre-Detection Evidence Generation}
-
-\textbf{(1) Zero-Knowledge Proofs (ZKP):}
-ZKP is the sole technique capable of proving forwarding behaviour without
-revealing packet content. Each vehicle $v_i$ commits to its forwarded packet
-count via a Pedersen commitment $C_i = g^{n_i^{\text{fwd}}} \cdot h^{r_i}$
-(Eq.~\eqref{eq:pedersen}) and generates a proof $\pi_i$
-(Eq.~\eqref{eq:zkp_proof}) demonstrating knowledge of a valid opening
-consistent with the independently observable blockchain receipt counts. A grey
-hole attacker that drops packets cannot produce $\pi_i$ for the dropped batch
-because $n_i^{\text{fwd}}$ in its commitment will not match the observable
-receipt count on the blockchain --- the discrepancy is the detection signal fed
-into the DEBSC gate (Eq.~\eqref{eq:debsc}). ZKP is selected over homomorphic
-signatures because it is binding, hiding, and compatible with PQC lattice
-constructions, while homomorphic signatures require linear-size proof structures
-that scale poorly with batch size.
-
-\textbf{(2) Attribute-Based Encryption (ABE) --- Full mode, target-specific attacks:}
-In target-specific attacks, the attacker selectively drops packets from emergency
-vehicles while forwarding normal traffic. ABE contributes to detection by
-encrypting emergency traffic under the policy \texttt{priority = EMERGENCY}: only
-nodes holding valid attribute credentials can decrypt and forward emergency packets.
-An attacker without the emergency-traffic credential cannot perform
-\emph{content-aware} selective dropping, forcing it to either drop all traffic
-(detectable as fixed-rate attack) or forward emergency traffic (attack fails).
-ABE is pre-detection because it degrades the attacker's targeting capability,
-making its behaviour detectable by the standard PDR signatures S1--S3.
-
-\mypar
-\textbf{Phase 2 --- Post-Detection Mitigation Enforcement}
-
-\textbf{(3) Threshold Signatures --- Blacklisting authorisation:}
-A $(k,n)$-threshold signature scheme (Eqs.~\eqref{eq:threshold_partial}--\eqref{eq:threshold_verify})
-requires $k$ of $n$ RSUs to co-sign the blacklisting decision before the SDN
-controller executes isolation. This is critical in high-mobility SDVN where any
-single RSU has a short observation window and limited statistical confidence.
-Threshold signatures prevent a single compromised or mistaken RSU from unilaterally
-isolating a legitimate vehicle. Selected over ring signatures because ring
-signatures do not provide individual accountability --- a requirement for auditable
-blacklisting in a regulated vehicular network.
-
-\textbf{(4) CRYSTALS-Dilithium --- Flow modification authentication:}
-Dilithium (EUF-CMA secure under Module-LWE) authenticates all SDN controller flow
-modification commands (Eqs.~\eqref{eq:dilithium_sign}--\eqref{eq:dilithium_verify}).
-An OpenFlow switch receiving an isolation command verifies the Dilithium signature
-before installing the block rule, preventing a compromised or spoofed controller
-from injecting false isolation commands during the re-association window identified
-in Section~\ref{sec:mobility_analysis}.
-
-\textbf{(5) CRYSTALS-Kyber (KEM) --- Group re-keying:}
-Kyber (IND-CCA2 secure under Module-LWE) encapsulates new group session keys after
-isolation (Eqs.~\eqref{eq:kyber_enc}--\eqref{eq:kyber_dec}). The PQC-LKH tree
-structure (Section~\ref{sec:pqc_lkh}) reduces re-keying cost from $O(N)$ to
-$O(\log N)$ KEM operations. Kyber-512 is used in lightweight mode;
-Kyber-768 in full mode.
-
-\mypar
-\textbf{Techniques not selected:} Homomorphic encryption and MPC impose
-prohibitive computational overhead on vehicle OBU hardware and are excluded.
-Broadcast encryption does not address the forwarding proof requirement. Homomorphic
-signatures duplicate ZKP functionality at higher proof size and without the
-hiding property needed to protect packet content privacy.
-
-
 \section{Detection Methodology}
 \label{sec:detection_methodology}
 
@@ -2465,6 +2346,124 @@ As shown in Figure~\ref{fig:crypto-mitigation-flow}, the cryptographic decision 
 \end{algorithm}
 
 
+
+\section{Cryptographic Analysis}
+\label{sec:crypto_analysis}
+
+\subsection{Why Cryptography Alone Cannot Mitigate Grey Hole Attacks}
+
+The fundamental property of a grey hole attack is that the attacker is a
+\emph{legitimate participant} in the network. It receives authenticated packets
+through properly established sessions, holds valid certificates, and produces
+correct message authentication codes. Classical cryptographic mechanisms --- HMAC,
+ECDSA, TLS --- verify that a packet was not forged or tampered with in transit.
+They say nothing about what the receiving node does with the packet after
+authentication succeeds.
+
+Formally, let $v_i$ receive packet $p$ authenticated under key $k_i$. Classical
+authentication confirms $\texttt{HMAC}(p, k_i) = \texttt{tag}$, establishing
+that $p$ arrived intact and from the claimed sender. However, the post-receipt
+forwarding decision $\mathbf{1}[v_i \text{ forwards } p]$ is entirely within
+$v_i$'s control and is \emph{not constrained} by any authentication mechanism.
+A grey hole attacker simply sets this decision to zero for selected packets.
+No amount of stronger authentication --- including post-quantum signatures --- changes
+this: authentication secures the channel, not the forwarding behaviour of
+the channel endpoint.
+
+This is the precise reason why grey hole attacks are harder to detect than
+black hole or wormhole attacks: the attacker's traffic is cryptographically
+valid at every point it does appear, making statistical anomaly detection the
+only viable primary signal.
+
+\mypar
+\textbf{Consequence for system design.} Cryptography must be repurposed from
+channel authentication to \emph{behaviour attestation}. Instead of proving
+that a packet was sent correctly, the cryptographic layer must prove that a
+received packet was subsequently forwarded --- or expose the absence of that proof
+as a detection signal. This requires a two-phase cryptographic deployment:
+
+\textbf{Phase 1 --- Pre-detection (evidence generation).}
+Cryptography generates unforgeable forwarding proofs that serve as input evidence to the detection engine. A grey hole attacker that drops packets \emph{cannot} generate valid proofs for those packets, creating a verifiable discrepancy on the blockchain ledger. This transforms silent dropping into a detectable cryptographic failure without requiring the network to observe the drop directly.
+
+\textbf{Phase 2 --- Post-detection (mitigation enforcement).}
+Once the detection engine issues a malicious verdict, cryptography enforces isolation: post-quantum-signed flow modification commands block the attacker's traffic paths; threshold signatures require multi-RSU consensus before blacklisting, preventing single-point false isolation; and group re-keying cryptographically excludes the attacker from future session keys, making continued participation impossible even if the node rejoins under the same identity.
+
+This two-phase design ensures that cryptographic mechanisms contribute to both
+detection \emph{and} mitigation, rather than leaving detection entirely to
+statistical methods that a sophisticated attacker can evade by calibrating drop
+rates below detection thresholds.
+
+\subsection{Selected Cryptographic Techniques by Phase}
+
+The candidate set considered is: \{homomorphic encryption, attribute-based
+encryption (ABE), broadcast encryption, homomorphic signatures, ring signatures,
+threshold signatures, ZKP, multi-party computation (MPC)\}, with post-quantum
+cryptography (PQC) mandatory for quantum-resistance. Techniques are selected
+and assigned to phases as follows.
+
+\mypar
+\textbf{Phase 1 --- Pre-Detection Evidence Generation}
+
+\textbf{(1) Zero-Knowledge Proofs (ZKP):}
+ZKP is the sole technique capable of proving forwarding behaviour without
+revealing packet content. Each vehicle $v_i$ commits to its forwarded packet
+count via a Pedersen commitment $C_i = g^{n_i^{\text{fwd}}} \cdot h^{r_i}$
+(Eq.~\eqref{eq:pedersen}) and generates a proof $\pi_i$
+(Eq.~\eqref{eq:zkp_proof}) demonstrating knowledge of a valid opening
+consistent with the independently observable blockchain receipt counts. A grey
+hole attacker that drops packets cannot produce $\pi_i$ for the dropped batch
+because $n_i^{\text{fwd}}$ in its commitment will not match the observable
+receipt count on the blockchain --- the discrepancy is the detection signal fed
+into the DEBSC gate (Eq.~\eqref{eq:debsc}). ZKP is selected over homomorphic
+signatures because it is binding, hiding, and compatible with PQC lattice
+constructions, while homomorphic signatures require linear-size proof structures
+that scale poorly with batch size.
+
+\textbf{(2) Attribute-Based Encryption (ABE) --- Full mode, target-specific attacks:}
+In target-specific attacks, the attacker selectively drops packets from emergency
+vehicles while forwarding normal traffic. ABE contributes to detection by
+encrypting emergency traffic under the policy \texttt{priority = EMERGENCY}: only
+nodes holding valid attribute credentials can decrypt and forward emergency packets.
+An attacker without the emergency-traffic credential cannot perform
+\emph{content-aware} selective dropping, forcing it to either drop all traffic
+(detectable as fixed-rate attack) or forward emergency traffic (attack fails).
+ABE is pre-detection because it degrades the attacker's targeting capability,
+making its behaviour detectable by the standard PDR signatures S1--S3.
+
+\mypar
+\textbf{Phase 2 --- Post-Detection Mitigation Enforcement}
+
+\textbf{(3) Threshold Signatures --- Blacklisting authorisation:}
+A $(k,n)$-threshold signature scheme (Eqs.~\eqref{eq:threshold_partial}--\eqref{eq:threshold_verify})
+requires $k$ of $n$ RSUs to co-sign the blacklisting decision before the SDN
+controller executes isolation. This is critical in high-mobility SDVN where any
+single RSU has a short observation window and limited statistical confidence.
+Threshold signatures prevent a single compromised or mistaken RSU from unilaterally
+isolating a legitimate vehicle. Selected over ring signatures because ring
+signatures do not provide individual accountability --- a requirement for auditable
+blacklisting in a regulated vehicular network.
+
+\textbf{(4) CRYSTALS-Dilithium --- Flow modification authentication:}
+Dilithium (EUF-CMA secure under Module-LWE) authenticates all SDN controller flow
+modification commands (Eqs.~\eqref{eq:dilithium_sign}--\eqref{eq:dilithium_verify}).
+An OpenFlow switch receiving an isolation command verifies the Dilithium signature
+before installing the block rule, preventing a compromised or spoofed controller
+from injecting false isolation commands during the re-association window identified
+in Section~\ref{sec:mobility_analysis}.
+
+\textbf{(5) CRYSTALS-Kyber (KEM) --- Group re-keying:}
+Kyber (IND-CCA2 secure under Module-LWE) encapsulates new group session keys after
+isolation (Eqs.~\eqref{eq:kyber_enc}--\eqref{eq:kyber_dec}). The PQC-LKH tree
+structure (Section~\ref{sec:pqc_lkh}) reduces re-keying cost from $O(N)$ to
+$O(\log N)$ KEM operations. Kyber-512 is used in lightweight mode;
+Kyber-768 in full mode.
+
+\mypar
+\textbf{Techniques not selected:} Homomorphic encryption and MPC impose
+prohibitive computational overhead on vehicle OBU hardware and are excluded.
+Broadcast encryption does not address the forwarding proof requirement. Homomorphic
+signatures duplicate ZKP functionality at higher proof size and without the
+hiding property needed to protect packet content privacy.
 
 \section{Data Collection and Simulation Environment}
 
