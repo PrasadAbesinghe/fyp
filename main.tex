@@ -11,7 +11,6 @@
 %% ____Bibliography____%%
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{amsmath}
-\usepackage{chapterbib}
 % Page margins
 \usepackage[left=1.5in, right=1in, top=1in, bottom=1in]{geometry}
 % Hyperlinks (LOAD ONCE, LOAD LAST)
@@ -186,7 +185,11 @@ SHIELD-GH, a dual-mode detection and mitigation framework that formalizes six
 distinct grey hole attack signatures across two network planes and provides
 both a rule-based lightweight mode and a full AI-cryptographic mode. The
 lightweight mode employs mobility-corrected sliding-window signature detection
-(covering fixed-rate, intermittent, and target-specific variants) with HMAC-based packet authentication for low-overhead deployment on resource-constrained vehicular nodes. The full mode integrates a fine-tuned Large Language Model (LLM) with a blockchain-verified Federated Learning (FL) aggregator for semantic anomaly detection, combined with post-quantum cryptographic mitigation using CRYSTALS-Kyber key encapsulation, CRYSTALS-Dilithium signatures, zk-SNARK-based packet forwarding proofs, and $(k,n)$-threshold signatures for collectively authorized node isolation. A novel Mobility-Aware Trust Decay (MATD) mechanism and a Dual-Evidence Blockchain Smart Contract (DEBSC) ensure that RSU handoff ambiguity does not inflate false positive rates. Simulation results in NS-3 with SUMO mobility traces and Hyperledger Fabric blockchain demonstrate that SHIELD-GH achieves a detection accuracy exceeding X\% across all six attack variants, with false positive rate below Y\%, while maintaining packet delivery ratio above Z\% and end-to-end delay within acceptable bounds for safety-critical vehicular applications.
+(covering fixed-rate, intermittent, and target-specific variants) with HMAC-based packet authentication for low-overhead deployment on resource-constrained vehicular nodes. The full mode integrates a fine-tuned Large Language Model (LLM) with a blockchain-verified Federated Learning (FL) aggregator for semantic anomaly detection, combined with post-quantum cryptographic mitigation using CRYSTALS-Kyber key encapsulation, CRYSTALS-Dilithium signatures, zk-SNARK-based packet forwarding proofs, and $(k,n)$-threshold signatures for collectively authorized node isolation. A novel Mobility-Aware Trust Decay (MATD) mechanism and a Dual-Evidence Blockchain Smart Contract (DEBSC) ensure that RSU handoff ambiguity does not inflate false positive rates. 
+
+% Comment out this line as you don't have results yet.
+
+% Simulation results in NS-3 with SUMO mobility traces and Hyperledger Fabric blockchain demonstrate that SHIELD-GH achieves a detection accuracy exceeding X\% across all six attack variants, with false positive rate below Y\%, while maintaining packet delivery ratio above Z\% and end-to-end delay within acceptable bounds for safety-critical vehicular applications.
 
 \newpage
 
@@ -255,15 +258,7 @@ indistinguishability between mobility-induced packet loss and selective maliciou
 
 \subsection{Objectives}
 
-The objectives of this project are,
-
-\begin{itemize}
-	\item In order to establish a comprehensive security system to identify and prevent opportunities to address both data plane and control plane Grey Hole attacks within Software Defined Vehicular Networks through Blockchain, Federated Learning and secure logging.
-	
-	\item To create privacy protecting detection schemes that integrate Blockchain, Large Language Models and Federated Learning, enabling vehicles to cooperate without transferring sensitive information.
-	
-	\item To check the efficiency of the suggested framework under realistic network conditions and prove its effectiveness over the current methods.
-\end{itemize}
+The objectives of this project are to establish a comprehensive security system that identifies and prevents both data-plane and control-plane grey hole attacks within Software-Defined Vehicular Networks using Blockchain, Federated Learning, and secure logging; to create privacy-preserving detection schemes that integrate Blockchain, Large Language Models, and Federated Learning so that vehicles can cooperate without transferring sensitive information; and to evaluate the efficiency of the proposed framework under realistic network conditions and demonstrate its effectiveness over current methods.
 
 \section{Research Questions}
 \label{sec:rq}
@@ -395,17 +390,11 @@ The principal contributions of this work are:
 
 This Project Suggests Implications to Vehicular Network Security, Studies, and Real Implementation.
 
-\begin{itemize}
-	\item \textbf{Technological Innovation and Cross Domain Application:} Blockchain with Federated Learning is a novel method of making vehicle networks secure. The strategy can also be implemented in smart cities, traffic and other networks that are interconnected
-	
-	\item \textbf{Educational and Research Impact:} The project is a valuable demonstration of the contemporary security methods, as it enables the students and researchers to grasp the way to protect distributed networks.
-	
-	\item \textbf{Privacy Preserving Collaborative Security:} Federated Learning will allow vehicles to collaborate to determine attacks without any personal data; hence, the system is secure and scalable.
-	
-	\item \textbf{Improved Safety and Reliability:} The framework assists in ensuring good communication among the vehicles and minimizing the chances of vehicles causing accidents as well as aiding in managing traffic.
-	
-	\item \textbf{Foundation for Future Systems:} The project gives a road map on how to have secure, flexible and privacy-conscious vehicle networks that can be further applied to future transportation.
-\end{itemize}
+From a technological standpoint, combining Blockchain with Federated Learning offers a novel method of securing vehicle networks, and the strategy is transferable to smart cities, traffic management, and other interconnected networks.
+The project also has educational and research value, providing a practical demonstration of contemporary security methods that enables students and researchers to understand how distributed networks can be protected.
+\textbf{Privacy Preserving Collaborative Security} is central to the design: Federated Learning allows vehicles to collaborate in detecting attacks without sharing raw personal data, keeping the system secure and scalable.
+The framework improves road safety and reliability by ensuring consistent vehicle-to-vehicle communication and reducing the likelihood of attack-induced accidents or traffic disruptions.
+Finally, the project establishes a foundation for future transportation systems, providing a roadmap for secure, flexible, and privacy-conscious vehicular networks.
 
 
 
@@ -644,7 +633,7 @@ when a joint statistical and cryptographic anomaly threshold is crossed,
 dramatically reducing on-chain activity while preserving the integrity
 guarantees.
 
-....
+% ....
 \begin{comment}
 @article{nguyen2021blockchain,
   author    = {Nguyen, Hai Nam and Tran, Hai Anh and Fowler, Scott
@@ -747,84 +736,66 @@ long-lived vehicular deployments.
 \section{Research Gap Analysis}
 \label{sec:gaps}
 
-Table~\ref{tab:gaps} formalises the gaps identified from the literature review
-above, linking each gap to the works that partially address it and to the
-proposed solution component.
+The literature review exposes significant gaps in detection coverage.
+No existing framework addresses all three grey hole variants — fixed-rate,
+intermittent, and target-specific — simultaneously within a single
+SDVN-aware system.
 
-\begin{table*}[!t]
-\renewcommand{\arraystretch}{1.3}
-\caption{Research Gap Analysis}
-\label{tab:gaps}
-\centering
-\scriptsize
-\begin{tabular}{|p{0.4cm}|p{2.9cm}|p{2.5cm}|p{3.0cm}|p{3.1cm}|}
-\hline
-\textbf{ID} & \textbf{Gap} & \textbf{Real-World Impact} &
-\textbf{Works Partially Addressing} & \textbf{Proposed Solution} \\
-\hline
-G1 & No unified framework addresses all three grey hole variants (fixed-rate,
-intermittent, target-specific) simultaneously in VANET or SDVN &
-Fixed-rate detectors miss intermittent attackers; target-specific attacks on
-emergency traffic go undetected &
-\cite{malik2023greyhole}~(two variants, data plane only);
-\cite{remyakrishnan2022dtw}~(intermittent only) &
-Formal signatures S1--S6 covering all three variants in both planes;
-lightweight rule-based detector evaluates each independently \\
-\hline
-G2 & The controller-plane grey hole attack (malicious flow rule injection)
-is unaddressed by all VANET-focused works &
-A compromised SDN controller can silently degrade entire network segments,
-which is an attack vector unique to SDVN &
-\cite{hsieh2018sdn}~(SDN grey hole, no vehicular context) &
-Controller-plane signatures S4--S6; blockchain-based flow rule integrity
-verification via DEBSC smart contract \\
-\hline
-G3 & Mobility-induced packet loss is not distinguished from malicious dropping
-in any reviewed detection scheme &
-High false positive rates in dynamic SDVN lead to legitimate high-speed
-vehicles being incorrectly isolated &
-None in reviewed literature &
-Mobility-Aware Trust Decay (MATD) with RSU-handoff-aligned detection windows
-(Eqs.~\eqref{eq:matd},~\eqref{eq:handoff_loss}) \\
-\hline
-G4 & No reviewed work proposes a lightweight detection mode alongside a
-full AI-based mode for resource-constrained vehicular nodes &
-Heavy AI models are impractical for real-time on-vehicle deployment;
-no deployability at all hardware tiers &
-None &
-Dual-mode framework: rule-based lightweight mode and LLM-FL full mode,
-both fully specified and independently evaluable \\
-\hline
-G5 & No reviewed grey hole mitigation work employs post-quantum cryptography &
-Classical cryptographic authentication used in forwarding verification is
-vulnerable to quantum adversaries, compromising long-term security &
-\cite{ahmed2024blockchain}~(EX-ECC only, not PQC) &
-CRYSTALS-Kyber (KEM) and CRYSTALS-Dilithium (signatures) mandated in full
-mitigation mode \\
-\hline
-G6 & ZKP-based packet forwarding proofs are not applied to grey hole detection
-in any reviewed work &
-Without verifiable forwarding proofs, a dishonest node can falsify blockchain
-records, undermining the trust layer &
-None &
-zk-SNARK Pedersen commitment-based forwarding proofs as pre-detection
-cryptographic evidence; DEBSC requires joint ZKP failure and statistical
-threshold breach before isolation \\
-\hline
-G7 & LLM-based detection in vehicular security addresses only beacon-level
-misbehavior, not routing-layer grey hole attacks &
-LLM semantic reasoning capability over temporal forwarding patterns is
-unexploited for the grey hole problem &
-\cite{hamhoum2024mistralbsm}~(BSM-level misbehavior only);
-\cite{ahsan2024flbert}~(FL-BERT, no LLM reasoning) &
-Fine-tuned LLM applied to tokenised blockchain forwarding logs for semantic
-grey hole pattern recognition in full detection mode \\
-\hline
-\end{tabular}
-\end{table*}
+\cite{malik2023greyhole} cover only two variants restricted to the data
+plane, and \cite{remyakrishnan2022dtw} target intermittent dropping
+exclusively, leaving target-specific attacks on emergency traffic
+undetected.
+The controller-plane grey hole, where a compromised SDN controller injects
+malicious flow rules to redirect or suppress traffic, is entirely absent
+from VANET-focused literature.
+\cite{hsieh2018sdn} examine SDN grey holes but without vehicular context,
+and no work provides controller-plane signatures or blockchain-backed
+flow-rule integrity verification.
+These two gaps collectively motivate the six formal attack signatures
+(S1--S6) and the DEBSC smart contract in SHIELD-GH\@.
+
+A further gap concerns the context-awareness of detection and the
+deployability of proposed solutions.
+No reviewed detection scheme distinguishes mobility-induced packet loss from
+deliberate dropping, which causes high false-positive rates when high-speed
+vehicles undergo RSU handoffs.
+SHIELD-GH addresses this through the Mobility-Aware Trust Decay (MATD)
+mechanism with handoff-aligned detection windows
+(Eqs.~\eqref{eq:matd} and~\eqref{eq:handoff_loss}).
+Equally, no prior work proposes a tiered architecture that supports both a
+lightweight rule-based mode and a full AI-based mode: existing proposals
+require either full inference or fixed thresholds, making them unsuitable
+across all hardware tiers.
+SHIELD-GH provides both modes as independently evaluable components,
+enabling deployment on resource-constrained on-board units as well as
+infrastructure-side edge servers.
+
+The reviewed literature also leaves critical cryptographic and
+intelligence-layer gaps unaddressed.
+Post-quantum cryptography has not been applied to grey hole mitigation;
+\cite{ahmed2024blockchain} rely on EX-ECC, which is vulnerable to
+harvest-now-decrypt-later attacks on long-lived vehicular deployments,
+motivating the adoption of CRYSTALS-Kyber (ML-KEM) and
+CRYSTALS-Dilithium (ML-DSA) in SHIELD-GH\@.
+Zero-knowledge proof-based forwarding verification has likewise not been
+integrated into grey hole detection: without cryptographic evidence of
+forwarding behaviour, a dishonest node can falsify blockchain records and
+undermine the trust layer.
+SHIELD-GH closes this gap through Pedersen commitment-based ZKP forwarding
+proofs and a DEBSC smart contract that requires both a ZKP failure and a
+statistical threshold breach before vehicle isolation.
+Finally, LLM-assisted detection in vehicular security has been confined to
+beacon-level misbehavior~\cite{hamhoum2024mistralbsm} or federated-learning
+aggregation without semantic reasoning~\cite{ahsan2024flbert}.
+No work exploits the temporal pattern-reasoning capability of LLMs at the
+routing layer; SHIELD-GH fills this gap by applying a fine-tuned LLM to
+tokenised blockchain forwarding logs for semantic grey hole pattern
+recognition in its full detection mode.
 
 
-\textbf{Related Works Comparison}
+\vspace{0.5em}
+% \textbf{Related Works Comparison}
+\noindent\textbf{Related Works Comparison}
 
 \begin{table*}[!t]
 \renewcommand{\arraystretch}{1.3}
@@ -953,14 +924,39 @@ Warping; TS: Threshold Signatures; PQC: Post-Quantum Cryptography.}
 
 The architecture separates the \emph{detection pipeline} from the \emph{mitigation pipeline} across four functional layers \cite{karof2014}. Detection determines whether a node is malicious; mitigation acts on that verdict. No layer performs both functions simultaneously, and no component is described as doing both without an explicit handoff boundary.
 
-\begin{figure}[htbp]
+% \begin{figure}[htbp]
+% 	\centering
+% 	\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{Figures/figure1_architecture_diagram}
+% 	\caption{SHIELD-GH Four-Layer System Architecture}
+% 	\label{fig:shield-gh-architecture}
+% \end{figure}
+
+% below is without space after figure
+
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[
+% 		width=\textwidth,
+% 		height=0.9\textheight,
+% 		keepaspectratio
+% 	]{Figures/figure1_architecture_diagram}
+% 	\caption{SHIELD-GH Four-Layer System Architecture}
+% 	\label{fig:shield-gh-architecture}
+% \end{figure}
+
+%below is without space before and after for figure
+\begin{figure}[!t]
 	\centering
-	\includegraphics[width=\textwidth]{Figures/figure1_architecture_diagram}
+	\includegraphics[
+		width=\textwidth,
+		height=0.7\textheight,
+		keepaspectratio
+	]{Figures/figure1_architecture_diagram}
 	\caption{SHIELD-GH Four-Layer System Architecture}
 	\label{fig:shield-gh-architecture}
 \end{figure}
 
-Figure~\ref{fig:shield-gh-architecture} presents the complete four-layer architecture of SHIELD-GH. At the bottom, the Data Plane hosts legitimate, malicious, and emergency vehicles that generate ZKP forwarding proofs and V2V/V2I traffic, which are monitored by RSUs. The Control Plane contains the SDN controller, explicitly designated as untrusted: it may only install flow rules that have been pre-verified by the RSU-maintained Flow Rule Whitelist, preventing a compromised controller from injecting malicious dropping rules undetected. The Blockchain Plane hosts the Dual-Evidence Blockchain Smart Contract (DEBSC) on a Hyperledger Fabric ledger maintained exclusively by RSU nodes via BFT consensus; the SDN controller is excluded from this consensus group and cannot write to the ledger or trigger mitigation independently. The RSU Network Monitor collects traffic metadata and suspicious event logs, committing signed records to the ledger. At the top, the Intelligence Layer's LLM Agent, Fusion Engine, and FL Aggregator generate threat scores that are sent directly to the DEBSC, bypassing the controller. Isolation commands flow from the DEBSC to OpenFlow switches via threshold-signed FlowMods, and group re-keying is performed via $\log N$ Kyber messages broadcast by RSUs.
+As shown in Figure~\ref{fig:shield-gh-architecture}, SHIELD-GH is built upon a four-layer architecture, each serving a distinct security role. At the bottom, the Data Plane hosts legitimate, malicious, and emergency vehicles that generate ZKP forwarding proofs and V2V/V2I traffic, which are monitored by RSUs. The Control Plane contains the SDN controller, explicitly designated as untrusted: it may only install flow rules that have been pre-verified by the RSU-maintained Flow Rule Whitelist, preventing a compromised controller from injecting malicious dropping rules undetected. The Blockchain Plane hosts the Dual-Evidence Blockchain Smart Contract (DEBSC) on a Hyperledger Fabric ledger maintained exclusively by RSU nodes via BFT consensus; the SDN controller is excluded from this consensus group and cannot write to the ledger or trigger mitigation independently. The RSU Network Monitor collects traffic metadata and suspicious event logs, committing signed records to the ledger. At the top, the Intelligence Layer's LLM Agent, Fusion Engine, and FL Aggregator generate threat scores that are sent directly to the DEBSC, bypassing the controller. Isolation commands flow from the DEBSC to OpenFlow switches via threshold-signed FlowMods, and group re-keying is performed via $\log N$ Kyber messages broadcast by RSUs.
 
 \mypar
 \textbf{Data Plane (Vehicular Layer) — Detection role}
@@ -978,100 +974,83 @@ The SDN controller is the sole mitigation authority. Upon receiving a confirmed 
 \textbf{Blockchain Plane (Trust Layer) — Detection and audit role}
 
 \mypar
-The blockchain serves two distinct roles that must not be conflated:
-
-\begin{itemize}
-	\item \textbf{Detection baseline:} The immutable ledger accumulates per-vehicle forwarding proofs over all historical RSU interactions $\mathcal{H}_i$. The blockchain reputation score $\mathcal{R}_i(t)$ (Eq.~\eqref{eq:reputation}) is computed from this history and constitutes the statistical gate of the Dual-Evidence Blockchain Smart Contract (DEBSC, Eq.~\eqref{eq:debsc}). A node cannot escape this baseline by short-term honest behavior because the ledger is append-only.
-	\item \textbf{Audit and smart contract enforcement:} Smart contracts enforce the dual-evidence isolation rule — isolation is authorized only when both the statistical reputation gate and the cryptographic ZKP gate fail simultaneously. This is a \emph{detection} decision executed autonomously on-chain, not a mitigation action.
-\end{itemize}
+The blockchain serves two distinct roles that must not be conflated.
+As a \textbf{detection baseline}, the immutable ledger accumulates per-vehicle forwarding proofs over all historical RSU interactions $\mathcal{H}_i$; the blockchain reputation score $\mathcal{R}_i(t)$ (Eq.~\eqref{eq:reputation}) is computed from this history and constitutes the statistical gate of the Dual-Evidence Blockchain Smart Contract (DEBSC, Eq.~\eqref{eq:debsc}). A node cannot escape this baseline by short-term honest behaviour because the ledger is append-only.
+For \textbf{audit and smart contract enforcement}, smart contracts evaluate the dual-evidence isolation rule: isolation is authorized only when both the statistical reputation gate and the cryptographic ZKP gate fail simultaneously. This is a \emph{detection} decision executed autonomously on-chain, not a mitigation action.
 
 \mypar
 \textbf{Knowledge and Security Plane (Intelligence Layer) — Detection role}
 
 \mypar
-This plane contains the full-mode detection pipeline. Its components have strictly defined, non-overlapping roles:
-
-\begin{itemize}
-	\item \textbf{LLM Agent (detection only):} Performs semantic threat scoring by processing tokenised blockchain forwarding logs $\mathbf{x}_i^{(t)}$ as a sequence classification task, producing the threat score $\mathcal{Q}_i(t)$ (Eq.~\eqref{eq:llm_score}). The LLM produces a \emph{detection verdict only}; it does not generate routing policies or issue flow rules. Routing policy generation is the exclusive responsibility of the Mitigation Engine in the control plane, which receives the LLM verdict as input.
-	\item \textbf{Federated Learning Aggregator:} Aggregates local vehicle model updates $\Delta\mathbf{w}_i$ via blockchain-verified FedAvg (Eq.~\eqref{eq:fedavg}--\eqref{eq:gradient_verify}) to maintain an up-to-date global detection model without centralising raw traffic data \cite{yurdem2024}.
-\end{itemize}
+This plane contains the full-mode detection pipeline. Its components have strictly defined, non-overlapping roles.
+The \textbf{LLM Agent} performs semantic threat scoring by processing tokenised blockchain forwarding logs $\mathbf{x}_i^{(t)}$ as a sequence classification task, producing the threat score $\mathcal{Q}_i(t)$ (Eq.~\eqref{eq:llm_score}). The LLM produces a \emph{detection verdict only}; it does not generate routing policies or issue flow rules — routing policy generation is the exclusive responsibility of the Mitigation Engine in the control plane, which receives the LLM verdict as input.
+The \textbf{Federated Learning Aggregator} aggregates local vehicle model updates $\Delta\mathbf{w}_i$ via blockchain-verified FedAvg (Eq.~\eqref{eq:fedavg}--\eqref{eq:gradient_verify}) to maintain an up-to-date global detection model without centralising raw traffic data \cite{yurdem2024}.
 
 \subsection{Dual-Mode Detection Framework}
 
-The framework operates in two modes that trade detection latency for detection depth:
-
-\begin{itemize}
-	\item \textbf{Lightweight mode:} The rule-based detector evaluates the six formal attack signatures S1--S6 (Eqs.~\eqref{eq:sig_dpfr}--\eqref{eq:sig_cpts}) directly against mobility-corrected PDR statistics from the blockchain log. No LLM inference is required. This mode is the primary detector for high-confidence, low-ambiguity attack patterns (fixed-rate dropping, clear target-specific rules) and operates within the latency budget of real-time vehicular environments.
-	\item \textbf{Full mode:} When no lightweight signature fires, or when the edge LLM confidence falls below threshold $\varepsilon_u$ (Eq.~\eqref{eq:llm_routing}), the full-mode pipeline engages the LLM semantic scorer and the FL-updated global model. The final verdict fuses all three evidence sources — rule-based, LLM, and blockchain reputation — via the learned linear combination in Eq.~\eqref{eq:fusion}.
-\end{itemize}
+The framework operates in two modes that trade detection latency for detection depth.
+In \textbf{Lightweight mode}, the rule-based detector evaluates the six formal attack signatures S1--S6 (Eqs.~\eqref{eq:sig_dpfr}--\eqref{eq:sig_cpts}) directly against mobility-corrected PDR statistics from the blockchain log. No LLM inference is required. This mode is the primary detector for high-confidence, low-ambiguity attack patterns such as fixed-rate dropping and clear target-specific rules, and it operates within the latency budget of real-time vehicular environments.
+In \textbf{Full mode}, when no lightweight signature fires or when the edge LLM confidence falls below threshold $\varepsilon_u$ (Eq.~\eqref{eq:llm_routing}), the full-mode pipeline engages the LLM semantic scorer and the FL-updated global model. The final verdict fuses all three evidence sources — rule-based, LLM, and blockchain reputation — via the learned linear combination in Eq.~\eqref{eq:fusion}.
 
 Both modes feed into the same DEBSC isolation gate (Eq.~\eqref{eq:debsc}), ensuring that neither mode can trigger isolation on statistical evidence alone without cryptographic confirmation.
 
-\begin{figure}[htbp]
+% \begin{figure}[htbp]
+% 	\centering
+% 	\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{Figures/figure2_dual_mode_architecture}
+% 	\caption{SHIELD-GH Dual-Mode Detection Framework}
+% 	\label{fig:dual-mode-architecture}
+% \end{figure}
+
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{Figures/figure2_dual_mode_architecture}
+	\includegraphics[
+		width=\textwidth,
+		height=0.7\textheight,
+		keepaspectratio
+	]{Figures/figure2_dual_mode_architecture}
 	\caption{SHIELD-GH Dual-Mode Detection Framework}
 	\label{fig:dual-mode-architecture}
 \end{figure}
 
-Figure~\ref{fig:dual-mode-architecture} illustrates the side-by-side structure of the two detection pipelines. Both pipelines share the Mobility-Aware Trust Decay (MATD) module at the top, which supplies mobility-corrected PDR values to eliminate false positives caused by RSU handoff packet loss. In Lightweight Mode, the OpenFlow Counter Collector gathers per-vehicle packet statistics per time window, which are passed to the Attack Signature Engine that evaluates the six formal signatures (S1: Fixed-Rate DP, S2: Intermittent DP, S3: Target-Specific DP, S4: Fixed-Rate CP, S5: Intermittent CP, S6: Target-Specific CP). If a signature fires, Lightweight Mitigation is triggered using HMAC Authentication combined with an RSU Threshold-signed FlowMod, all verified against the blockchain baseline. In Full Mode, the Blockchain Log Tokenizer converts forwarding records into sequences fed simultaneously to the LLM Agent for semantic threat scoring and to the FL Global Model for pattern classification. The Fusion Engine combines the LLM score, FL score, and Blockchain Reputation Deficit into a single combined detection decision. If the decision is positive, the PQC Mitigation Engine performs ZKP verification, DEBSC-triggered isolation, PQC-LKH group re-keying, and Dilithium FlowMod installation. Both modes read from and write to the shared Blockchain Trust Layer maintained by RSUs.
+As shown in Figure~\ref{fig:dual-mode-architecture}, SHIELD-GH employs two detection pipelines operating in parallel, as described below. Both pipelines share the Mobility-Aware Trust Decay (MATD) module at the top, which supplies mobility-corrected PDR values to eliminate false positives caused by RSU handoff packet loss. In Lightweight Mode, the OpenFlow Counter Collector gathers per-vehicle packet statistics per time window, which are passed to the Attack Signature Engine that evaluates the six formal signatures (S1: Fixed-Rate DP, S2: Intermittent DP, S3: Target-Specific DP, S4: Fixed-Rate CP, S5: Intermittent CP, S6: Target-Specific CP). If a signature fires, Lightweight Mitigation is triggered using HMAC Authentication combined with an RSU Threshold-signed FlowMod, all verified against the blockchain baseline. In Full Mode, the Blockchain Log Tokenizer converts forwarding records into sequences fed simultaneously to the LLM Agent for semantic threat scoring and to the FL Global Model for pattern classification. The Fusion Engine combines the LLM score, FL score, and Blockchain Reputation Deficit into a single combined detection decision. If the decision is positive, the PQC Mitigation Engine performs ZKP verification, DEBSC-triggered isolation, PQC-LKH group re-keying, and Dilithium FlowMod installation. Both modes read from and write to the shared Blockchain Trust Layer maintained by RSUs.
+
+
+
+
 
 \section{Threat Model and Assumptions}
 
 \subsection{Attacker Capabilities}
 
-\begin{itemize}
-	\item \textbf{Fixed-Rate Selective Dropping:} To cause network throughput disruption, malicious nodes drop an agreed percentage (e.g., 30--50\%) of packets.
-	\item \textbf{Time-Based Intermittent Attack: }Attackers alternate between normal and malicious states to mimic natural network fluctuations.
-	\item \textbf{Target-Specific Intelligent Attack: }Nodes discard important packets (e.g. emergency broadcasts) depending on content or source or destination analysis.
-	\item \textbf{Node Reputation Tampering: }Opponents can also seek to forge forwarding logs in order to escape \cite{sahu2024}.
-\end{itemize}
+In \textbf{fixed-rate selective dropping}, malicious nodes drop an agreed percentage (e.g., 30--50\%) of packets to cause sustained network throughput disruption.
+\textbf{Time-based intermittent attacks} have attackers alternate between normal and malicious states to mimic natural network fluctuations, making statistical detection unreliable.
+\textbf{Target-specific intelligent attacks} involve nodes discarding high-priority packets such as emergency broadcasts based on content, source, or destination analysis.
+Adversaries may also attempt \textbf{node reputation tampering} by forging forwarding logs to escape detection \cite{sahu2024}.
 
 \subsection{Threat Model Assumptions}
 
 \mypar
 These assumptions define the constraints placed upon the adversary to bound the scope of the security framework:
 
-\begin{itemize}
-	\item \textbf{T1 (Honest Majority):} The assumption is that most of the nodes involved in the blockchain consensus are honest, and this eliminates 51 percent attacks on the chain.
-	\item \textbf{T2 (Cryptographic Bound):} The opponent is also presumed to be computationally constrained and is unable to create fake digital signatures or compromise the encryption of the blockchain.
-	\item \textbf{T3 (Independent Malice):} This is the assumption that attackers do not cooperate to coordinate their intermittent dropping patterns so as to exactly replicate the traffic of a single honest node.
-\end{itemize}
+\textbf{T1 (Honest Majority)} assumes that the majority of blockchain consensus nodes are honest, which eliminates 51\% attacks on the chain.
+\textbf{T2 (Cryptographic Bound)} presumes the adversary is computationally constrained and cannot forge digital signatures or compromise the blockchain's encryption.
+\textbf{T3 (Independent Malice)} assumes that attackers do not cooperate to coordinate their intermittent dropping patterns so as to exactly replicate the traffic of a single honest node.
 
 \mypar
 \textbf{System Assumptions}
 
-\begin{itemize}
-	\item \textbf{A1 (Immutable Ledger): }It is assumed that the Blockchain provides a tamper-proof record of node behaviors.
-	\item \textbf{A2 (Privacy Preservation): }Federated Learning is presumed to be effective to pool intelligence around the globe without revealing any single vehicle data.
-	\item \textbf{A3 (Inference Constraints): }The approach assumes that the LLM can perform online adjustments based on blockchain data within the resource limits (latency and compute) of the vehicular environment.
-\end{itemize}
+\textbf{A1 (Immutable Ledger)} assumes the blockchain provides a tamper-proof record of node behaviours.
+\textbf{A2 (Privacy Preservation)} presumes Federated Learning is effective at pooling global intelligence without revealing individual vehicle data.
+\textbf{A3 (Inference Constraints)} assumes the LLM can perform online inference on blockchain data within the latency and compute constraints of the vehicular environment.
 
 \clearpage % Force next section to start on a new page
-
-\mypar
-Once a malicious verdict is confirmed by the detection pipeline, the mitigation pipeline executes through each layer according to its designated authority. Detection and mitigation are sequential, not concurrent — the system does not attempt to mitigate before a verdict is reached.
-
-\begin{itemize}
-	\item \textbf{Data Plane — Detection input only:} Vehicles supply packet header telemetry (priority level, source, timestamp) to the control plane via RSU. This data feeds the target-specific KL-divergence signature (S3/S6, Eqs.~\eqref{eq:sig_dpts}--\eqref{eq:sig_cpts}) to distinguish emergency-packet-targeting attacks from uniform dropping. The data plane takes no mitigation action.
-
-	\item \textbf{Control Plane — Isolation execution:} After the DEBSC smart contract authorizes isolation, the SDN controller issues a Dilithium-authenticated \texttt{BLOCK} flow modification rule to the OpenFlow switch (Algorithm~\ref{alg:pqc_mit}, Step 3). Traffic is rerouted around the isolated node in real time. No detection logic resides here.
-
-	\item \textbf{Blockchain Plane — Isolation authorization and long-term record:} The smart contract evaluates the dual-evidence gate (Eq.~\eqref{eq:debsc}): a node's reputation deficit alone is insufficient — the ZKP forwarding proof must also fail. This prevents false isolation of legitimate nodes experiencing handoff-induced loss. After isolation, the node's blacklist entry is appended to the immutable ledger, creating a persistent reputation record across future RSU interactions.
-
-	\item \textbf{Knowledge Plane — Policy input to control plane:} The Mitigation Engine in the Knowledge Plane computes adaptive routing policies (path recalculation, emergency-traffic rerouting) \emph{after} the LLM detection verdict is produced. These policies are passed as parameters to the control plane's flow modification commands. The LLM itself does not issue any network commands; it supplies a threat score $\mathcal{Q}_i(t)$ (Eq.~\eqref{eq:llm_score}) that feeds the fusion decision (Eq.~\eqref{eq:fusion}), after which the Mitigation Engine translates the binary verdict into a specific routing policy.
-\end{itemize}
-
-
-
-
 
 \section{Mobility as a Grey Hole Attack Enabler in SDVN}
 \label{sec:mobility_analysis}
 
 Existing grey hole detection literature treats the vehicular network as either a
 static graph (generic SDN) or a mobile graph with fixed routing protocols
-(VANET/AODV). Neither model captures the compound effect of high vehicle mobility
+(VANET / AODV). Neither model captures the compound effect of high vehicle mobility
 on an SDN-controlled network, where the control plane has centralised visibility
 but decentralised physical topology. In SDVN, mobility does not merely add noise
 to forwarding statistics — it actively creates four structural conditions that a
@@ -1194,46 +1173,18 @@ anomalous drop rules directly from the installed flow rule set, independent of
 forwarding statistics, catching injected rules that would be invisible to
 data-plane-only detectors.
 
-\subsection{Summary: Mobility Differentiates This Framework from VANET/SDN Work}
 
-Table~\ref{tab:mobility_comparison} summarises how the four mobility-induced
-vulnerabilities map to specific framework mechanisms, and contrasts this with
-representative prior work that lacks each capability.
-
-\begin{table}[htbp]
-\renewcommand{\arraystretch}{1.3}
-\caption{SDVN Mobility Vulnerabilities and Framework Responses vs.\ Prior Work}
-\label{tab:mobility_comparison}
-\centering
-\scriptsize
-\begin{tabular}{|p{2.8cm}|p{2.6cm}|p{2.6cm}|p{2.8cm}|}
-\hline
-\textbf{Mobility Vulnerability} & \textbf{Attacker Exploitation} &
-\textbf{Proposed Response} & \textbf{Gap in Prior Work} \\
-\hline
-RSU handoff packet loss windows &
-Drop during $\Delta t_{ho}$; loss matches expected rate &
-MATD correction + DEBSC dual-gate &
-\cite{malik2023greyhole,kaur2022greyhole}: threshold detectors with no handoff model \\
-\hline
-Trust score volatility at high speed &
-Maintain speed to reset per-RSU scores &
-MATD speed penalty + blockchain historical aggregation &
-\cite{alabdulatif2024mitigating}: reputation resets at handoff; no speed correction \\
-\hline
-Non-IID FL data across network positions &
-Operate in sparse zone; submit poisoned gradients &
-Blockchain-anchored gradient integrity + dataset-weighted FedAvg &
-\cite{ahsan2024flbert}: IID assumption; no gradient integrity verification \\
-\hline
-Controller re-association flow rule injection &
-Inject malicious FlowMod during re-association &
-Dilithium-signed FlowMod + CP signatures S4--S6 &
-All VANET-only baselines: no controller-plane attack model \\
-\hline
-\end{tabular}
-\end{table}
-
+% SUPERVISOR COMMENT — Cryptographic Analysis Section:
+Cryptography alone cannot mitigate grey hole attacks.
+Reason: A grey hole node receives authenticated packets legitimately, then
+silently drops them. Authentication prevents forgery of packets in transit
+but does not prevent a legitimate recipient from discarding received packets.
+Therefore, cryptography must be used in two distinct phases:
+  (1) Pre-detection: as input evidence to improve detection performance —
+      specifically by generating unforgeable forwarding proofs (ZKP) that
+      make silent dropping detectable via blockchain discrepancy.
+  (2) Post-detection: to enforce mitigation — node isolation, group
+      re-keying (Kyber), and route blocking (Dilithium-signed FlowMod).
 
 \section{Attack Scenarios in Gray Hole attack}
 
@@ -1248,7 +1199,7 @@ In this project, we consider three types of Grey Hole attacks in Software Define
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{d_fixed.png}
+	\includegraphics[width=0.7\textwidth,height=0.45\textheight,keepaspectratio]{d_fixed.png}
 	\caption{Fixed-rate selective dropping Grey Hole attack in the data plane}
 	\label{fig:data-plane-fixed-rate}
 \end{figure}
@@ -1259,8 +1210,6 @@ Figure \ref{fig:data-plane-fixed-rate} shows a fixed rate selectively dropping g
 \mypar
 As shown in figure \ref{fig:data-plane-fixed-rate} the attacker begins packet dropping by 50\%: data packets arrive from vehicle 1 to vehicle 2 (attacker), which forwards only the remaining 2 packets to the RSU, which then forwards them to vehicle 3.
 
-
-
 \mypar
 \textbf{Time Based Intermittent Grey Hole Attack in Data Plane}
 
@@ -1269,7 +1218,7 @@ Figure \ref{fig:data-plane-time-normal} and \ref{fig:data-plane-time-malicious} 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{d_time_normal.png}
+	\includegraphics[width=0.8\textwidth,height=0.45\textheight,keepaspectratio]{d_time_normal.png}
 	\caption{Normal data-plane behavior at time $t_1$ with no packet dropping}
 	\label{fig:data-plane-time-normal}
 \end{figure}
@@ -1279,15 +1228,13 @@ Figure \ref{fig:data-plane-time-normal} shows the normal behavior of the data pl
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{d_time_malicous.png}
+	\includegraphics[width=0.8\textwidth,height=0.45\textheight,keepaspectratio]{d_time_malicous.png}
 	\caption{Malicious data-plane behavior at time $t_2$ with intermittent packet dropping by V2}
 	\label{fig:data-plane-time-malicious}
 \end{figure}
 
 \mypar
 As shown in figure \ref{fig:data-plane-time-malicious}, at time $t = t_2$, the attacker switches to malicious behaviour: vehicle V1 sends 4 packets to vehicle 2, which drops two packets (50\%) and forwards only the remaining two to the RSU, which forwards them to vehicle 3. The alternation between normal and malicious epochs makes this attack difficult to detect using threshold-based methods.
-
-
 
 \mypar
 \textbf{Target Specific Intelligent Grey Hole Attack in Data Plane}
@@ -1300,11 +1247,10 @@ As shown in Figure~\ref{fig:d-target}, vehicle 3 sends three packets to vehicle 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{d_target.png}
+	\includegraphics[width=0.8\textwidth,height=0.45\textheight,keepaspectratio]{d_target.png}
 	\caption{Target-specific intelligent Grey Hole attack in the data plane}
 	\label{fig:d-target}
 \end{figure}
-
 
 \mypar
 \subsection{Controller Plane version attack scenarios}
@@ -1318,10 +1264,9 @@ Figure~\ref{fig:controller_fixed_rate} show the  fixed rate selectively dropping
 \mypar
 As shown in Figure~\ref{fig:controller_fixed_rate}, first controller install malicious flow mod rule on RSU and the vehicle 2. So, controller configure on the RSU to drop 50\% of all incoming flows and configures on vehicle 2 to drop 60\% of its received packets. 2nd step show vehicel 1 send 5 packets to the vehicel 2 and 3rd step show, vehicle 2 drop three packets according to the malicious configuration. In 4th step send two packets to the vehicle 3 and vehicle forward all two packets to the RSU as a 5th step. Since RSU already configured malicious flow mod rule RSU drop 50\% packets and forward remain packet to the vehicle 4 as 6th step.Since packets are only partially dropped, the communication appears normal, while the overall network performance is gradually degraded also making the attack difficult to detect in like these dynamic vehicular network.
 
-
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{c_fixed_rate.png}
+	\includegraphics[width=0.8\textwidth,height=0.45\textheight,keepaspectratio]{c_fixed_rate.png}
 	\caption{Controller plane fixed rate selective dropping Grey Hole attack}
 	\label{fig:controller_fixed_rate}
 \end{figure}
@@ -1335,10 +1280,9 @@ Figure  \ref{fig:c_time_normal} and \ref{fig:c_time_malicious} show the time bas
 \mypar
 As shown  \ref{fig:c_time_normal} all steps working without packet dropping according to the flow rule. at time $t = t_1$, the SDN controller behaves normally and does not perform any packet dropping. The controller installs correct flow rules on all vehicles and the RSU.
 
-
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\textwidth]{c_time_normal.png}
+	\includegraphics[width=0.85\textwidth,height=0.45\textheight,keepaspectratio]{c_time_normal.png}
 	\caption{Normal controller behavior at time $t_1$ with no packet dropping.}
 	\label{fig:c_time_normal}
 \end{figure}
@@ -1348,7 +1292,7 @@ As shown figure~\ref{fig:c_time_malicious} at time $t = t_2$, SDN controller ins
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\textwidth]{c_time_malicous.png}
+	\includegraphics[width=0.85\textwidth,height=0.45\textheight,keepaspectratio]{c_time_malicous.png}
 	\caption{Malicious controller behavior at time $t_2$ with selective packet dropping.}
 	\label{fig:c_time_malicious}
 \end{figure}
@@ -1364,25 +1308,12 @@ As shown \ref{fig:controller-target-greyhole}, first step install malicious flow
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\textwidth]{c_target.png}
+	\includegraphics[width=0.85\textwidth,height=0.45\textheight,keepaspectratio]{c_target.png}
 	\caption{Target-specific intelligent Grey Hole attack in the controller plane}
 	\label{fig:controller-target-greyhole}
 \end{figure}
 
-
-% SUPERVISOR COMMENT — Cryptographic Analysis Section:
-% Cryptography alone cannot mitigate grey hole attacks.
-% Reason: A grey hole node receives authenticated packets legitimately, then
-% silently drops them. Authentication prevents forgery of packets in transit
-% but does not prevent a legitimate recipient from discarding received packets.
-% Therefore, cryptography must be used in two distinct phases:
-%   (1) Pre-detection: as input evidence to improve detection performance —
-%       specifically by generating unforgeable forwarding proofs (ZKP) that
-%       make silent dropping detectable via blockchain discrepancy.
-%   (2) Post-detection: to enforce mitigation — node isolation, group
-%       re-keying (Kyber), and route blocking (Dilithium-signed FlowMod).
-
-\section{Cryptographic Analysis and Technique Selection}
+\section{Cryptographic Analysis}
 \label{sec:crypto_analysis}
 
 \subsection{Why Cryptography Alone Cannot Mitigate Grey Hole Attacks}
@@ -1390,8 +1321,8 @@ As shown \ref{fig:controller-target-greyhole}, first step install malicious flow
 The fundamental property of a grey hole attack is that the attacker is a
 \emph{legitimate participant} in the network. It receives authenticated packets
 through properly established sessions, holds valid certificates, and produces
-correct message authentication codes. Classical cryptographic mechanisms — HMAC,
-ECDSA, TLS — verify that a packet was not forged or tampered with in transit.
+correct message authentication codes. Classical cryptographic mechanisms --- HMAC,
+ECDSA, TLS --- verify that a packet was not forged or tampered with in transit.
 They say nothing about what the receiving node does with the packet after
 authentication succeeds.
 
@@ -1401,7 +1332,7 @@ that $p$ arrived intact and from the claimed sender. However, the post-receipt
 forwarding decision $\mathbf{1}[v_i \text{ forwards } p]$ is entirely within
 $v_i$'s control and is \emph{not constrained} by any authentication mechanism.
 A grey hole attacker simply sets this decision to zero for selected packets.
-No amount of stronger authentication — including post-quantum signatures — changes
+No amount of stronger authentication --- including post-quantum signatures --- changes
 this: authentication secures the channel, not the forwarding behaviour of
 the channel endpoint.
 
@@ -1414,27 +1345,14 @@ only viable primary signal.
 \textbf{Consequence for system design.} Cryptography must be repurposed from
 channel authentication to \emph{behaviour attestation}. Instead of proving
 that a packet was sent correctly, the cryptographic layer must prove that a
-received packet was subsequently forwarded — or expose the absence of that proof
+received packet was subsequently forwarded --- or expose the absence of that proof
 as a detection signal. This requires a two-phase cryptographic deployment:
 
-\begin{itemize}
-    \item \textbf{Phase 1 — Pre-detection (evidence generation):}
-    Cryptography generates unforgeable forwarding proofs that serve as input
-    evidence to the detection engine. A grey hole attacker that drops packets
-    \emph{cannot} generate valid proofs for those packets, creating a verifiable
-    discrepancy on the blockchain ledger. This transforms silent dropping into a
-    detectable cryptographic failure without requiring the network to observe
-    the drop directly.
+\textbf{Phase 1 --- Pre-detection (evidence generation).}
+Cryptography generates unforgeable forwarding proofs that serve as input evidence to the detection engine. A grey hole attacker that drops packets \emph{cannot} generate valid proofs for those packets, creating a verifiable discrepancy on the blockchain ledger. This transforms silent dropping into a detectable cryptographic failure without requiring the network to observe the drop directly.
 
-    \item \textbf{Phase 2 — Post-detection (mitigation enforcement):}
-    Once the detection engine issues a malicious verdict, cryptography enforces
-    isolation: post-quantum-signed flow modification commands block the attacker's
-    traffic paths; threshold signatures require multi-RSU consensus before
-    blacklisting, preventing single-point false isolation; and group re-keying
-    cryptographically excludes the attacker from future session keys, making
-    continued participation impossible even if the node rejoins under the same
-    identity.
-\end{itemize}
+\textbf{Phase 2 --- Post-detection (mitigation enforcement).}
+Once the detection engine issues a malicious verdict, cryptography enforces isolation: post-quantum-signed flow modification commands block the attacker's traffic paths; threshold signatures require multi-RSU consensus before blacklisting, preventing single-point false isolation; and group re-keying cryptographically excludes the attacker from future session keys, making continued participation impossible even if the node rejoins under the same identity.
 
 This two-phase design ensures that cryptographic mechanisms contribute to both
 detection \emph{and} mitigation, rather than leaving detection entirely to
@@ -1450,7 +1368,7 @@ cryptography (PQC) mandatory for quantum-resistance. Techniques are selected
 and assigned to phases as follows.
 
 \mypar
-\textbf{Phase 1 — Pre-Detection Evidence Generation}
+\textbf{Phase 1 --- Pre-Detection Evidence Generation}
 
 \textbf{(1) Zero-Knowledge Proofs (ZKP):}
 ZKP is the sole technique capable of proving forwarding behaviour without
@@ -1461,13 +1379,13 @@ count via a Pedersen commitment $C_i = g^{n_i^{\text{fwd}}} \cdot h^{r_i}$
 consistent with the independently observable blockchain receipt counts. A grey
 hole attacker that drops packets cannot produce $\pi_i$ for the dropped batch
 because $n_i^{\text{fwd}}$ in its commitment will not match the observable
-receipt count on the blockchain — the discrepancy is the detection signal fed
+receipt count on the blockchain --- the discrepancy is the detection signal fed
 into the DEBSC gate (Eq.~\eqref{eq:debsc}). ZKP is selected over homomorphic
 signatures because it is binding, hiding, and compatible with PQC lattice
 constructions, while homomorphic signatures require linear-size proof structures
 that scale poorly with batch size.
 
-\textbf{(2) Attribute-Based Encryption (ABE) — Full mode, target-specific attacks:}
+\textbf{(2) Attribute-Based Encryption (ABE) --- Full mode, target-specific attacks:}
 In target-specific attacks, the attacker selectively drops packets from emergency
 vehicles while forwarding normal traffic. ABE contributes to detection by
 encrypting emergency traffic under the policy \texttt{priority = EMERGENCY}: only
@@ -1479,19 +1397,19 @@ ABE is pre-detection because it degrades the attacker's targeting capability,
 making its behaviour detectable by the standard PDR signatures S1--S3.
 
 \mypar
-\textbf{Phase 2 — Post-Detection Mitigation Enforcement}
+\textbf{Phase 2 --- Post-Detection Mitigation Enforcement}
 
-\textbf{(3) Threshold Signatures — Blacklisting authorisation:}
+\textbf{(3) Threshold Signatures --- Blacklisting authorisation:}
 A $(k,n)$-threshold signature scheme (Eqs.~\eqref{eq:threshold_partial}--\eqref{eq:threshold_verify})
 requires $k$ of $n$ RSUs to co-sign the blacklisting decision before the SDN
 controller executes isolation. This is critical in high-mobility SDVN where any
 single RSU has a short observation window and limited statistical confidence.
 Threshold signatures prevent a single compromised or mistaken RSU from unilaterally
 isolating a legitimate vehicle. Selected over ring signatures because ring
-signatures do not provide individual accountability — a requirement for auditable
+signatures do not provide individual accountability --- a requirement for auditable
 blacklisting in a regulated vehicular network.
 
-\textbf{(4) CRYSTALS-Dilithium — Flow modification authentication:}
+\textbf{(4) CRYSTALS-Dilithium --- Flow modification authentication:}
 Dilithium (EUF-CMA secure under Module-LWE) authenticates all SDN controller flow
 modification commands (Eqs.~\eqref{eq:dilithium_sign}--\eqref{eq:dilithium_verify}).
 An OpenFlow switch receiving an isolation command verifies the Dilithium signature
@@ -1499,7 +1417,7 @@ before installing the block rule, preventing a compromised or spoofed controller
 from injecting false isolation commands during the re-association window identified
 in Section~\ref{sec:mobility_analysis}.
 
-\textbf{(5) CRYSTALS-Kyber (KEM) — Group re-keying:}
+\textbf{(5) CRYSTALS-Kyber (KEM) --- Group re-keying:}
 Kyber (IND-CCA2 secure under Module-LWE) encapsulates new group session keys after
 isolation (Eqs.~\eqref{eq:kyber_enc}--\eqref{eq:kyber_dec}). The PQC-LKH tree
 structure (Section~\ref{sec:pqc_lkh}) reduces re-keying cost from $O(N)$ to
@@ -1514,10 +1432,12 @@ signatures duplicate ZKP functionality at higher proof size and without the
 hiding property needed to protect packet content privacy.
 
 
-% ============================================================
-% UPDATED EQUATIONS — REPLACE ALL EQUATION CONTENT IN
-% SECTIONS 3.4 AND 3.5
-% ============================================================
+\section{Detection Methodology}
+\label{sec:detection_methodology}
+
+This section establishes the mathematical foundations for grey hole detection,
+modelling packet forwarding behaviour, correcting for mobility-induced loss,
+and defining the attack signature conditions used by the detection engine.
 
 \subsection{Packet Forwarding Behaviour Modelling}
 
@@ -1533,6 +1453,8 @@ packets received:
                            {\displaystyle\sum_{\tau=t-W}^{t} n_i^{\text{rx}}(\tau)}
 \end{equation}
 
+As shown in Eq.~\eqref{eq:pdr}, the packet delivery ratio $\text{PDR}_i(t, W)$ is the ratio of the total packets forwarded $\sum_\tau n_i^{\text{fwd}}(\tau)$ to the total packets received $\sum_\tau n_i^{\text{rx}}(\tau)$ by vehicle $v_i$ over a sliding window of $W$ time slots ending at time $t$. Here, $n_i^{\text{fwd}}(\tau)$ and $n_i^{\text{rx}}(\tau)$ are the per-slot forwarded and received packet counts respectively. This ratio is the primary forwarding behaviour metric evaluated by all six detection signatures S1--S6.
+
 \noindent where $n_i^{\text{fwd}}(\tau)$ and $n_i^{\text{rx}}(\tau)$ denote
 the number of packets forwarded and received by $v_i$ at slot $\tau$.
 The \emph{instantaneous drop rate} at a single slot is then:
@@ -1541,6 +1463,8 @@ The \emph{instantaneous drop rate} at a single slot is then:
 \label{eq:droprate}
 \delta_i(t) = 1 - \text{PDR}_i(t, 1)
 \end{equation}
+
+As shown in Eq.~\eqref{eq:droprate}, and building on Eq.~\eqref{eq:pdr}, the instantaneous drop rate $\delta_i(t)$ is defined as one minus the single-slot PDR of vehicle $v_i$ at time $t$. A value of $\delta_i(t) = 0$ indicates all received packets were forwarded, while $\delta_i(t) = 1$ indicates all were dropped. This per-slot measure is used in the autocorrelation test of Signature S2 to detect periodic on/off dropping patterns.
 
 Because grey hole attackers exploit the similarity between their behaviour and
 natural channel loss, we also track the \emph{variance of PDR} over the window
@@ -1553,7 +1477,9 @@ forwarding (intermittent attack or legitimate loss):
 \!\left(\text{PDR}_i(\tau,1) - \overline{\text{PDR}}_i(W)\right)^2
 \end{equation}
 
-\noindent where $\overline{\text{PDR}}_i(W)$ is the mean PDR over the window.
+As shown in Eq.~\eqref{eq:pdr_var}, the PDR variance $\sigma_i^2(W)$ is the mean squared deviation of the per-slot PDR from the window mean $\overline{\text{PDR}_i}(W)$ over window $W$. Here, $\text{PDR}_i(\tau, 1)$ is the single-slot PDR at slot $\tau$ and $\overline{\text{PDR}_i}(W)$ is the mean PDR over the full window. Low variance combined with a low mean PDR triggers Signature S1 (fixed-rate attack), while high variance suggests either intermittent dropping or legitimate channel loss.
+
+% \noindent where $\overline{\text{PDR}}_i(W)$ is the mean PDR over the window.
 
 \subsection{Mobility-Aware Packet Loss Correction}
 
@@ -1569,6 +1495,8 @@ by the RSU coverage radius $R_{\text{RSU}}$:
 \cdot \rho_{\max}
 \end{equation}
 
+As shown in Eq.~\eqref{eq:handoff_loss}, the expected handoff-induced loss rate $\rho_{\text{ho}}(v_i, t)$ is modelled as a linear function of vehicle speed $s_i(t)$. Here, $\Delta t_{\text{ho}}$ is the average duration of an RSU handoff transition, $R_{\text{RSU}}$ is the RSU coverage radius, and $\rho_{\text{max}}$ is the worst-case handoff loss rate calibrated from simulation. The ratio $s_i(t) \cdot \Delta t_{\text{ho}} / R_{\text{RSU}}$ approximates the fraction of time a vehicle spends in a handoff transition, and multiplying by $\rho_{\text{max}}$ yields the expected loss contribution.
+
 \noindent where $\Delta t_{ho}$ is the average handoff transition duration and
 $\rho_{\max}$ is the worst-case handoff loss rate calibrated from simulation.
 The \emph{mobility-corrected PDR} adds this expected loss back so that the
@@ -1578,6 +1506,8 @@ signature engine operates on behaviour net of topology effects:
 \label{eq:mobility_pdr}
 \widehat{\text{PDR}}_i(t, W) = \text{PDR}_i(t, W) + \rho_{ho}(v_i, t)
 \end{equation}
+
+As shown in Eq.~\eqref{eq:mobility_pdr}, the mobility-corrected PDR $\widehat{\text{PDR}}_i(t, W)$ is obtained by adding the expected handoff-induced loss rate $\rho_{\text{ho}}(v_i, t)$ from Eq.~\eqref{eq:handoff_loss} back to the observed PDR from Eq.~\eqref{eq:pdr}. This correction ensures that all six attack signatures S1--S6 are evaluated on forwarding behaviour net of topology-induced effects. Without this correction, a legitimate high-speed vehicle undergoing RSU handoff would exhibit a PDR drop that could incorrectly trigger Signature S1.
 
 \subsection{Attack Signature Conditions}
 \label{sec:signatures}
@@ -1600,6 +1530,8 @@ low-forwarding region:
 \,\right]
 \end{equation}
 
+As shown signature S1 in Eq.~\eqref{eq:sig_dpfr} fires when two conditions hold simultaneously on the mobility-corrected statistics: the corrected mean PDR $\widehat{\text{PDR}}_i(t, W)$ from Eq.~\eqref{eq:mobility_pdr} falls below threshold $\tau_f$, and the PDR variance $\sigma_i^2(W)$ from Eq.~\eqref{eq:pdr_var} falls below $\varepsilon_f$. Here, $\tau_f$ is the minimum acceptable forwarding ratio and $\varepsilon_f$ is the maximum allowable variance for a steady-state drop pattern. The combination of low mean and low variance distinguishes a deliberate constant-rate dropper from a vehicle experiencing variable legitimate loss.
+
 \textbf{Signature S2 (DP-IT).} An intermittent attacker alternates between
 normal and malicious periods, producing a periodic binary pattern in the
 instantaneous drop signal. We detect this via the empirical autocorrelation
@@ -1613,6 +1545,8 @@ malicious indicator $m_i(\tau)=\mathbf{1}[\text{PDR}_i(\tau,1)<\tau_{it}]$:
 \exists\,T^* \in [T_{\min}, T_{\max}] : R_{m_i}(T^*) > \gamma_{it}
 \,\right]
 \end{equation}
+
+As shown signature S2 in Eq.~\eqref{eq:sig_dpit} detects intermittent dropping by computing the empirical autocorrelation $R_{m_i}(T) = \frac{1}{W}\sum_\tau m_i(\tau) m_i(\tau - T)$ of the binary drop indicator $m_i(\tau) = \mathbf{1}[\text{PDR}_i(\tau, 1) < \tau_{\text{it}}]$. Here, $\tau_{\text{it}}$ is the per-slot drop threshold, $T^*$ is the candidate period, $[T_{\min}, T_{\max}]$ is the expected attack cycle range, and $\gamma_{\text{it}}$ is the autocorrelation significance threshold. The signature fires when a statistically significant periodic component exists, identifying an attacker whose malicious epochs repeat at a fixed cycle.
 
 \textbf{Signature S3 (DP-TS).} A target-specific attacker drops packets
 selectively by source, so its per-source PDR distribution deviates
@@ -1630,6 +1564,8 @@ D_{\mathrm{KL}}\!\left(P_{\text{PDR}_i}^{(s)} \;\|\; \mathcal{U}\right)
 \,\right]
 \end{equation}
 
+As shown signature S3 in Eq.~\eqref{eq:sig_dpts} quantifies selective per-source dropping by computing the KL-divergence $D_{\text{KL}}\!\left(P_{\text{PDR}_i}^{(s)} \| U\right)$ between the empirical per-source PDR distribution $P_{\text{PDR}_i}^{(s)}$ and the uniform reference distribution $U$. Here, $P_{\text{PDR}_i}^{(s)}$ captures how forwarding rates vary across different traffic sources, and $\tau_{\text{ts}}$ is the divergence threshold. A high KL-divergence indicates that vehicle $v_i$ forwards traffic from some sources normally while dropping from others, which is the defining characteristic of a target-specific grey hole attacker.
+
 \textbf{Signature S4 (CP-FR).} In the controller plane, a malicious controller
 injects flow rules that unconditionally drop a fixed fraction of all flows.
 The signature fires when any installed flow rule carries a drop action with
@@ -1645,6 +1581,8 @@ p_{\text{drop}}(f) > \tau_c
 \,\right]
 \end{equation}
 
+As shown signature S4 in Eq.~\eqref{eq:sig_cpfr} fires when any flow rule $f$ in the active flow table $F_c(t)$ of controller $c$ carries a DROP action with an unconditional drop probability $p_{\text{drop}}(f)$ exceeding threshold $\tau_c$. Here, $F_c(t)$ is the set of all flow rules currently installed by controller $c$, $\text{action}(f)$ is the action field of rule $f$, and $p_{\text{drop}}(f)$ is the associated drop probability. Unlike data-plane signatures, this check operates directly on the flow rule set and does not require historical PDR data.
+
 \textbf{Signature S5 (CP-IT).} An intermittent controller attacker alternates
 between benign and malicious flow-rule epochs. Using the same autocorrelation
 test applied to the time series of malicious flow-rule counts
@@ -1659,9 +1597,11 @@ R_{\mathcal{F}_c^{\text{mal}}}(T^*) > \gamma_c \;\wedge\;
 \,\right]
 \end{equation}
 
+As shown signature S5 in Eq.~\eqref{eq:sig_cpit} applies the same autocorrelation test as Eq.~\eqref{eq:sig_dpit} to the time series of malicious flow-rule counts $F_c^{\text{mal}}(t)$ recorded in the blockchain log of controller $c$. Here, $R_{F_c^{\text{mal}}}(T^*)$ is the autocorrelation at candidate period $T^*$, $\gamma_c$ is the significance threshold, and $F_c^{\text{mal}}(W) > 0$ confirms at least one malicious rule was observed in the window. The signature detects a compromised controller that alternates between installing benign and malicious flow rules at a fixed period.
+
 \textbf{Signature S6 (CP-TS).} A target-specific controller attack is
 distinguished from a fixed-rate attack by the presence of non-wildcard match
-fields in the drop rule — i.e., the drop action is conditioned on a specific
+fields in the drop rule --- i.e., the drop action is conditioned on a specific
 source IP, priority level, or traffic class:
 
 \begin{equation}
@@ -1674,12 +1614,9 @@ source IP, priority level, or traffic class:
 \,\right]
 \end{equation}
 
-% ============================================================
-% INSERT AS NEW SECTION 3.6 — NOVEL DESIGN CONTRIBUTIONS
-% Addresses Instruction 12: Design aspects, not mere application.
-% ============================================================
+As shown, signature S6 in Eq.~\eqref{eq:sig_cpts} fires when any flow rule $f$ installed by controller $c$ carries a DROP action conditioned on a non-wildcard match field, i.e., $\text{match}(f) \neq \text{WILDCARD}$. Here, $F_c(t)$ is the active flow rule set, $\text{action}(f)$ is the rule action, and a non-wildcard match field indicates the drop applies only to a specific source IP, destination, or traffic priority class. This distinguishes a target-specific attack from the fixed-rate case in Eq.~\eqref{eq:sig_cpfr}, where the drop rule applies uniformly to all flows.
 
-\section{Novel Design Contributions}
+\section{Detection and Mitigation Framework}
 \label{sec:design}
 
 The proposed framework goes beyond applying existing technologies by
@@ -1709,6 +1646,8 @@ proof) are detected simultaneously. Formally, from Eq.~\eqref{eq:debsc}:
 \underbrace{\mathbf{1}\bigl[\Pi_{\mathrm{ZKP}}(v_i) = \texttt{FAIL}\bigr]}_{\text{Cryptographic gate}}
 \end{equation}
 
+As shown in Eq.~\eqref{eq:debsc_design}, vehicle $v_i$ is isolated only when both conditions are satisfied simultaneously: the reputation deficit $(1 - R_i)$ exceeds threshold $\theta_R$ (statistical gate), and the zero-knowledge proof $\Pi_{\text{ZKP}}(v_i)$ fails (cryptographic gate). Here, $R_i$ is the blockchain reputation score and $\theta_R$ is the isolation threshold. Both gates must fail together to trigger isolation, preventing false positives from either evidence source alone.
+
 The design insight is that a legitimate vehicle with genuine packet loss
 (e.g., during RSU handoff) will have a temporarily low reputation but
 will still produce valid ZKP forwarding proofs for the packets it did
@@ -1728,6 +1667,10 @@ gate has fired:
 \Lambda_i(t) = \sum_{\tau=t-W_s}^{t}
 \mathbf{1}\bigl[(1-\mathcal{R}_i(\tau)) > \theta_R\bigr]
 \end{equation}
+
+As shown in Eq.~\eqref{eq:suspicion}, the suspicion level $\Lambda_i(t)$ counts the number of consecutive rounds within sliding window $W_s$ in which the statistical gate has fired for vehicle $v_i$. Here, $\theta_R$ is the reputation threshold and $R_i(\tau)$ is the reputation score at round $\tau$. A higher $\Lambda_i(t)$ triggers progressively stricter graduated responses from the smart contract.
+
+
 
 The smart contract applies three graduated responses: (1) for
 $\Lambda_i < \lambda_1$, rate-limit traffic from $v_i$; (2) for
@@ -1758,6 +1701,8 @@ $\Delta\mathbf{w}_i$ to the aggregator. The aggregator verifies:
 \mathcal{C}_i^{\mathrm{BC}}
 \bigr]
 \end{equation}
+
+As shown in Eq.~\eqref{eq:eq:gradient_commit}, a gradient update from vehicle $v_i$ is accepted only if the hash of the received gradient $\Delta w_i$ matches the pre-committed hash $C_i^{\text{BC}}$ stored on the blockchain. Here, $\Delta w_i$ is the local model update, $t$ is the round timestamp, and $id_i$ is the vehicle identifier. Any tampered or poisoned gradient will produce a hash mismatch and is rejected before aggregation.
 
 \noindent where $\mathcal{C}_i^{\mathrm{BC}}$ is the commitment retrieved
 from the blockchain. Only verified updates enter the FedAvg aggregation
@@ -1799,6 +1744,10 @@ The routing decision is:
 \bigr]
 \end{equation}
 
+As shown in Eq.~\eqref{eq:llm_routing}, the routing condition for the two-tier LLM is defined such that if the maximum softmax confidence of the edge LLM over all classes $c$ falls below uncertainty threshold $\varepsilon_u$, the input $x_i$ is escalated to the cloud-tier LLM for deeper analysis. Here, $\text{LLM}_{\text{edge}}(x_i)$ is the edge model output logit vector and $\varepsilon_u$ is the confidence threshold tuned on the validation set.
+
+
+
 The final threat score $\mathcal{Q}_i(t)$ (Eq.~\eqref{eq:llm_score}) is
 taken from whichever tier produces the verdict. This design reduces average
 inference latency to $\bar{L}_{\mathrm{edge}}$ ms for the majority of cases
@@ -1822,6 +1771,8 @@ update the posterior mean, giving the \emph{instantaneous trust score}:
                           + \beta + n_i^{\text{drop}}(t)}
 \end{equation}
 
+As shown in Eq.~\eqref{eq:trust_update}, the instantaneous trust score $T_i(t)$ models forwarding behaviour as a Beta distribution. Here, $\alpha$ and $\beta$ are Beta prior parameters representing initial trust assumptions, $n_i^{\text{fwd}}(t)$ is the number of packets forwarded, and $n_i^{\text{drop}}(t) = n_i^{\text{rx}}(t) - n_i^{\text{fwd}}(t)$ is the number of packets dropped. More forwarding increases $T_i(t)$ toward 1; more dropping decreases it toward 0.
+
 \noindent where $\alpha$ and $\beta$ are Beta prior parameters and
 $n_i^{\text{drop}}(t) = n_i^{\text{rx}}(t) - n_i^{\text{fwd}}(t)$.
 A high-speed vehicle accumulates few observations per RSU segment, so blindly
@@ -1836,6 +1787,8 @@ the observation basis is shallow:
 e^{-\lambda_s\, s_i(t)\, \Delta t}
 \end{equation}
 
+As shown in Eq.~\eqref{eq:matd}, the mobility-corrected trust score $T_i^{\text{mob}}(t)$ is obtained by applying an exponential penalty to the raw trust score $T_i(t)$. Here, $\lambda_s > 0$ is the mobility decay coefficient calibrated to the RSU coverage radius and vehicle density, $s_i(t)$ is the current speed of vehicle $v_i$, and $\Delta t$ is the observation slot duration. Faster vehicles receive a lower trust weight since fewer forwarding observations are available during short RSU dwell times.
+
 \noindent where $\lambda_s > 0$ is the mobility decay coefficient tuned
 to the RSU coverage radius and vehicle density. The \emph{blockchain reputation
 score} then aggregates MATD-corrected trust over all historical RSU interactions
@@ -1847,6 +1800,8 @@ baseline immune to short-term manipulation:
 \mathcal{R}_i(t) = \frac{1}{|\mathcal{H}_i|}
 \sum_{h \in \mathcal{H}_i} \mathcal{T}_i^{\text{mob}}(h)
 \end{equation}
+
+As shown in Eq.~\eqref{eq:reputation}, the long-term reputation score $R_i(t)$ is the mean of all MATD-corrected trust scores $T_i^{\text{mob}}(h)$ accumulated over the historical RSU interaction set $\mathcal{H}_i$ stored on the immutable blockchain ledger. Here, $|\mathcal{H}_i|$ is the total number of historical interactions. Since the ledger is append-only, $R_i(t)$ cannot be reset by short-term honest behaviour.
 
 To prevent a single corrupted evidence source from triggering false isolation,
 the \emph{Dual-Evidence Blockchain Smart Contract (DEBSC)} requires both the
@@ -1861,6 +1816,8 @@ simultaneously before an isolation command is authorised:
 \,\right]
 \end{equation}
 
+As shown in Eq.~\eqref{eq:debsc}, the dual-evidence isolation condition authorizes isolation of vehicle $v_i$ only when two independent conditions hold simultaneously: the reputation deficit $(1 - R_i(t))$ exceeds threshold $\theta_R$, and the ZKP forwarding proof $\Pi_{\text{ZKP}}(v_i, t)$ returns FAIL. Here, $R_i(t)$ is the blockchain reputation score from Eq.~\eqref{eq:reputation} and $\theta_R$ is the pre-configured isolation threshold. A legitimate vehicle experiencing handoff-induced packet loss will retain valid ZKP proofs and will not satisfy the cryptographic gate, preventing false isolation.
+
 \subsection{Federated Learning with Blockchain-Verified Gradient Integrity}
 
 Each vehicle $v_i$ trains a local detection model $\mathbf{w}_i$ by minimising
@@ -1874,6 +1831,8 @@ forwarding-log sequences:
 \ell\!\left(f(\mathbf{x};\mathbf{w}),\, y\right)
 \end{equation}
 
+As shown in Eq.~\eqref{eq:local_loss}, each vehicle $v_i$ trains its local detection model by minimizing the cross-entropy loss $\mathcal{L}_i(w)$ over its local dataset $D_i$ of labelled forwarding-log sequences. Here, $w$ is the model weight vector, $x$ is an input forwarding-log feature vector, $y$ is the corresponding ground-truth label, $f(x; w)$ is the model prediction, and $\ell(\cdot)$ is the cross-entropy loss function. This training is performed locally without sharing raw traffic data.
+
 The global model is updated each round $r$ via weighted averaging, where
 weights are proportional to local dataset size to account for heterogeneous
 vehicular observation volumes:
@@ -1884,6 +1843,8 @@ vehicular observation volumes:
 \sum_{i \in \mathcal{A}} \frac{|\mathcal{D}_i|}{|\mathcal{D}_{\mathcal{A}}|}
 \mathbf{w}_i^{(r)}
 \end{equation}
+
+As shown in Eq.~\eqref{eq:fedavg}, the new global model $w^{(r+1)}$ is computed as a dataset-size-weighted average of the accepted local models $w_i^{(r)}$. Here, $\mathcal{A}$ is the set of accepted vehicles whose gradients passed the blockchain integrity check in Eq.~\eqref{eq:gradient_verify}, $|D_i|$ is the local dataset size of vehicle $v_i$, and $|D_\mathcal{A}| = \sum_{i \in \mathcal{A}} |D_i|$ is the total accepted data volume. Weighting by dataset size reduces the influence of vehicles with sparse observations.
 
 \noindent where $\mathcal{A}$ is the set of accepted vehicles and
 $|\mathcal{D}_{\mathcal{A}}| = \sum_{i\in\mathcal{A}}|\mathcal{D}_i|$.
@@ -1901,6 +1862,8 @@ update only if its on-chain hash matches the received gradient:
 \,\right]
 \end{equation}
 
+As shown in Eq.~\eqref{eq:gradient_verify}, a local gradient update $\Delta w_i$ is accepted into aggregation only if the hash of the received gradient matches the on-chain commitment $H^{\text{BC}}(\Delta w_i)$ pre-submitted by vehicle $v_i$ before the aggregation round. Here, $\text{Hash}(\Delta w_i)$ is the locally computed hash and $H^{\text{BC}}(\Delta w_i)$ is the hash retrieved from the blockchain. A mismatch indicates tampering or gradient poisoning, and the update is discarded.
+
 \subsection{LLM-Based Semantic Threat Scoring and Fusion}
 
 In the full detection mode, the LLM processes tokenised blockchain forwarding
@@ -1916,6 +1879,8 @@ parameters $\boldsymbol{\theta}$:
 \Bigr)_{\!\mathrm{malicious}}
 \end{equation}
 
+As shown in Eq.~\eqref{eq:llm_score}, the LLM-based threat score $Q_i(t)$ is the softmax probability assigned to the malicious class by the fine-tuned LLM with parameters $\theta$. Here, $x_i^{(t)}$ is the tokenized blockchain forwarding log of vehicle $v_i$ at time $t$, and the softmax is evaluated over all output classes with the malicious class probability extracted. A higher $Q_i(t)$ indicates greater likelihood of grey hole behaviour as inferred from the temporal log sequence.
+
 Because no single evidence source is individually sufficient for reliable
 detection under all six attack variants, the final detection decision fuses
 the rule-based aggregate signature score, the LLM semantic score, and the
@@ -1930,6 +1895,8 @@ blockchain reputation deficit through a learned linear combination:
 > \theta_{\mathrm{det}}
 \,\right]
 \end{equation}
+
+As shown in Eq.~\eqref{eq:fusion}, the final binary detection verdict $\hat{y}_i(t)$ is produced by combining three evidence streams using learned weights $\mu_1, \mu_2, \mu_3$ subject to $\mu_1 + \mu_2 + \mu_3 = 1$. Here, $S_{\text{total}}(v_i) = \max_k S_k(v_i)$ is the maximum binary signature score across all six attack signatures S1--S6, $Q_i(t)$ is the LLM threat score from Eq.~\eqref{eq:llm_score}, $(1 - R_i(t))$ is the blockchain reputation deficit from Eq.~\eqref{eq:reputation}, and $\theta_{\text{det}}$ is the detection threshold optimised on the validation set. A positive verdict $\hat{y}_i(t) = 1$ triggers the mitigation pipeline.
 
 \noindent where $\mathcal{S}_{\mathrm{total}} = \max_k\,\mathcal{S}_k(v_i)$
 is the maximum binary signature score across all six signatures, and
@@ -1950,10 +1917,14 @@ public key $\mathbf{pk}$, a fresh session key and its ciphertext are produced as
 \quad m \xleftarrow{\$} \{0,1\}^{256}
 \end{equation}
 
+As shown in Eq.~\eqref{eq:kyber_enc}, a fresh 256-bit session key $K$ and its ciphertext $c$ are generated using the CRYSTALS-Kyber key encapsulation mechanism applied to the recipient's public key $pk$. Here, $m \xleftarrow{\$} \{0,1\}^{256}$ is a uniformly random message used as the encapsulation seed. The security of this operation reduces to the hardness of the Module Learning With Errors (M-LWE) problem, providing quantum resistance against Shor's algorithm.
+
 \begin{equation}
 \label{eq:kyber_dec}
 K = \mathrm{Kyber.Dec}(\mathbf{sk},\, c)
 \end{equation}
+
+As shown in Eq.~\eqref{eq:kyber_dec}, the recipient recovers the session key $K$ from ciphertext $c$ using their Kyber private key $sk$. Here, $c$ is the ciphertext produced in Eq.~\eqref{eq:kyber_enc} and $sk$ is the corresponding private key. Only the holder of the correct $sk$ can recover the session key $K$, ensuring that isolated vehicles excluded from key refresh cannot derive the new group session key.
 
 \textbf{CRYSTALS-Dilithium Flow Rule Authentication.}
 SDN controller isolation commands and smart contract transactions must be
@@ -1966,11 +1937,15 @@ and recipients verify before applying the rule:
 \sigma = \mathrm{Dilithium.Sign}(\mathbf{sk}_c,\, \mathcal{M})
 \end{equation}
 
+As shown in Eq.~\eqref{eq:dilithium_sign}, the SDN controller produces a post-quantum digital signature $\sigma$ over flow modification message $M$ using its CRYSTALS-Dilithium private key $sk_c$. Here, $M$ is the isolation FlowMod command and $sk_c$ is the controller's Dilithium signing key. This signature authenticates each isolation command and prevents a spoofed or replayed controller message from installing false blocking rules on OpenFlow switches.
+
 \begin{equation}
 \label{eq:dilithium_verify}
 b = \mathrm{Dilithium.Verify}(\mathbf{pk}_c,\, \mathcal{M},\, \sigma)
 \in \{0,1\}
 \end{equation}
+
+As shown in Eq.~\eqref{eq:dilithium_verify}, the verification step performed by the receiving OpenFlow switch checks signature $\sigma$ against message $M$ using the controller's Dilithium public key $pk_c$, producing binary output $b \in \{0, 1\}$. Here, $b = 1$ confirms the flow modification command is authentic and the block rule is installed; $b = 0$ causes the command to be rejected. This prevents malicious or replayed flow modification messages from being applied.
 
 \textbf{ZKP Forwarding Proof via Pedersen Commitment.}
 A grey hole node that drops packets cannot produce a valid forwarding proof for
@@ -1984,6 +1959,8 @@ hiding (count is not revealed):
 C_i = g^{n_i^{\text{fwd}}} \cdot h^{r_i} \pmod{p}
 \end{equation}
 
+As shown in Eq.~\eqref{eq:pedersen}, vehicle $v_i$ commits to its forwarded packet count $n_i^{\text{fwd}}$ using a Pedersen commitment $C_i = g^{n_i^{\text{fwd}}} \cdot h^{r_i} \pmod{p}$. Here, $g$ and $h$ are public group generators, $r_i$ is a random blinding factor chosen by $v_i$, and $p$ is a large prime. The commitment is binding, meaning $n_i^{\text{fwd}}$ cannot be changed after submission, and hiding, meaning the count is not revealed to observers from $C_i$ alone.
+
 The vehicle then generates a zero-knowledge proof $\pi_i$ demonstrating
 knowledge of a valid opening $(n_i^{\text{fwd}}, r_i)$ consistent with $C_i$
 and the independently observable packet counts on the blockchain, without
@@ -1993,6 +1970,8 @@ disclosing packet content:
 \label{eq:zkp_proof}
 \pi_i = \mathrm{ZKP.Prove}\!\left(C_i,\, n_i^{\text{fwd}},\, r_i\right)
 \end{equation}
+
+As shown in Eq.~\eqref{eq:pedersen}, the zero-knowledge proof $\pi_i$ in Eq.~\eqref{eq:zkp_proofn} is generated to demonstrate that vehicle $v_i$ knows a valid opening $(n_i^{\text{fwd}}, r_i)$ consistent with commitment $C_i$ and the independently observable packet receipt counts on the blockchain, without disclosing packet content. Here, $C_i$ is the Pedersen commitment, $n_i^{\text{fwd}}$ is the claimed forwarded count, and $r_i$ is the blinding factor. A grey hole attacker that dropped packets cannot produce a valid $\pi_i$ for the dropped batch, as its committed $n_i^{\text{fwd}}$ will not match the observable receipt count, creating a verifiable discrepancy.
 
 \textbf{Threshold Signature for Collective Blacklisting.}
 To prevent any single RSU from unilaterally blacklisting a vehicle — which
@@ -2006,6 +1985,8 @@ RSU $j$ produces a partial signature over the blacklist message $\mathcal{B}(v_i
 \quad j = 1,\ldots,k
 \end{equation}
 
+As shown in Eq.~\eqref{eq:threshold_partial}, each participating RSU $j$ produces a partial Dilithium signature $\sigma_j$ over the blacklist message $B(v_i)$ using its private key $sk_j$. Here, $B(v_i)$ is the blacklist message identifying suspect vehicle $v_i$, $sk_j$ is the signing key of RSU $j$, and $k$ is the minimum number of co-signatures required. Collecting $k$ independent partial signatures ensures that no single RSU can unilaterally trigger isolation.
+
 The partial signatures are combined off-chain and a single compact group
 signature is produced for on-chain verification:
 
@@ -2014,11 +1995,15 @@ signature is produced for on-chain verification:
 \sigma^* = \mathrm{TS.Combine}\!\left(\{\sigma_j\}_{j=1}^{k}\right)
 \end{equation}
 
+As shown in Eq.~\eqref{eq:threshold_combine}, the $k$ partial signatures $\{\sigma_j\}_{j=1}^{k}$ collected in Eq.~\eqref{eq:threshold_partial} are combined off-chain using the threshold combination function to produce a single compact aggregate signature $\sigma^*$. This aggregate signature serves as the collective cryptographic endorsement from $k$ independent RSU nodes and is submitted to the smart contract for on-chain verification.
+
 \begin{equation}
 \label{eq:threshold_verify}
 b = \mathrm{TS.Verify}\!\left(\mathbf{pk}_{\mathrm{group}},\,
 \mathcal{B}(v_i),\, \sigma^*\right) \in \{0,1\}
 \end{equation}
+
+As shown in Eq.~\eqref{eq:threshold_verify}, the aggregate signature $\sigma^*$ from Eq.~\eqref{eq:threshold_combine} is verified against the blacklist message $B(v_i)$ using the group public key $pk_{\text{group}}$, producing binary output $b \in \{0, 1\}$. Here, $pk_{\text{group}}$ is the collective public key corresponding to the $k$-of-$n$ RSU threshold scheme. The DEBSC smart contract proceeds with isolation only when $b = 1$, confirming that at least $k$ independent infrastructure nodes have endorsed the blacklisting decision.
 
 \noindent Isolation is executed by the smart contract only when $b = 1$,
 ensuring that the decision has the collective cryptographic endorsement of
@@ -2051,6 +2036,8 @@ of all nodes on its root-to-leaf path:
 u \in \mathrm{path}(v_j \to \mathrm{root})\bigr\}
 \end{equation}
 
+As shown in Eq.~\eqref{eq:lkh_keys}, each vehicle $v_j$ holds the Kyber-768 key pairs of all internal nodes along its root-to-leaf path in the LKH binary tree $\mathcal{T}$. Here, $\text{path}(v_j \rightarrow \text{root})$ denotes the set of ancestor nodes from $v_j$'s leaf to the root, and $(pk_u, sk_u)$ is the Kyber key pair held at node $u$. Path membership determines which re-keying broadcast messages in Eq.~\eqref{eq:lkh_grp} a vehicle can decrypt after an isolation event.
+
 The group key $K_{\text{grp}}$ is encapsulated under the root node key
 $\mathbf{pk}_{\mathrm{root}}$:
 
@@ -2060,6 +2047,8 @@ $\mathbf{pk}_{\mathrm{root}}$:
 \mathrm{Kyber.Enc}(\mathbf{pk}_{\mathrm{root}},\, m),
 \quad m \xleftarrow{\$} \{0,1\}^{256}
 \end{equation}
+
+As shown in Eq.~\eqref{eq:lkh_grp}, the new group session key $K_{\text{grp}}$ is encapsulated under the refreshed root node's Kyber public key $pk_{\text{root}}^{\text{new}}$ using the same KEM operation as Eq.~\eqref{eq:kyber_enc}, where $m \xleftarrow{\$} \{0,1\}^{256}$ is a fresh random seed. Only vehicles holding a valid private key $sk_u$ for at least one refreshed node on the root path can decapsulate and derive $K_{\text{grp}}$. The isolated vehicle, lacking any refreshed path key, is cryptographically excluded without direct contact.
 
 Upon isolating $v_i$ (leaf node $\ell_i$), only the keys along
 the path $\mathrm{path}(\ell_i \to \mathrm{root})$ are refreshed.
@@ -2074,6 +2063,8 @@ requiring exactly $\lceil \log_2 N \rceil$ Kyber operations:
 \quad \forall\, u \in \mathrm{path}(\ell_i \to \mathrm{root})
 \end{equation}
 
+As shown in Eq.~\eqref{eq:lkh_rekey}, the re-keying operation is performed at each internal node $u$ on the isolated vehicle's root path, where a new Kyber key $K_u^{\text{new}}$ is encapsulated under the sibling subtree's existing public key $pk_u^{\text{sib}}$, producing ciphertext $c_u$. Here, $k_u^{\text{new}}$ is the newly generated key material and $pk_u^{\text{sib}}$ is the public key of the sibling node at the same tree level. Since this operation is performed once per level of the binary tree, exactly $\lceil \log_2 N \rceil$ Kyber operations are required in total, reducing re-keying cost from $O(N)$ to $O(\log N)$.
+
 The SDN controller broadcasts $\lceil \log_2 N \rceil$ update messages
 signed with CRYSTALS-Dilithium (Eq.~\eqref{eq:dilithium_sign}), each
 carrying one re-encrypted node key. Vehicles not on the affected path
@@ -2083,14 +2074,25 @@ lacking any valid $\mathbf{sk}_u$ for the refreshed path, is
 cryptographically excluded from the new group session without
 contacting it directly.
 
-\begin{figure}[htbp]
+% \begin{figure}[htbp]
+% 	\centering
+% 	\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{Figures/figure6_pqc_lkh.png}
+% 	\caption{PQC-LKH Binary Tree for Post-Quantum Group Re-Keying}
+% 	\label{fig:pqc-lkh}
+% \end{figure}
+
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{Figures/figure6_pqc_lkh.png}
+	\includegraphics[
+		width=\textwidth,
+		height=0.7\textheight,
+		keepaspectratio
+	]{Figures/figure6_pqc_lkh.png}
 	\caption{PQC-LKH Binary Tree for Post-Quantum Group Re-Keying}
 	\label{fig:pqc-lkh}
 \end{figure}
 
-Figure~\ref{fig:pqc-lkh} illustrates the binary tree structure of the PQC-LKH scheme for an example network of $N=8$ vehicles. Each vehicle occupies a leaf node (V1--V8) and each internal node holds a Kyber-768 key pair. Vehicle V3 has been identified as a grey hole attacker and isolated. The re-keying procedure refreshes only the nodes along the path from V3's leaf to the root — the K\_sub parent node, the K\_left subtree node, and K\_root — totalling $\lceil\log_2 8\rceil = 3$ Kyber operations. For each refreshed node, the updated key is encrypted under the sibling subtree's existing public key and broadcast, so only vehicles on the unaffected side of each split (e.g., V1 and V2 receive an encrypted update via their K\_sub) can decrypt and derive the new group session key. V3, lacking the private keys for any refreshed node on the path, is permanently and cryptographically excluded from the new group session without the RSU needing to contact it directly. The embedded efficiency comparison table in the figure quantifies the benefit: naïve unicast re-keying requires $N-1 = 7$ messages and $7$ KEM operations at $O(N)$ complexity, while PQC-LKH achieves the same exclusion guarantee with $\log_2 N = 3$ messages and operations at $O(\log N)$ — a factor of 2.33$\times$ reduction for $N=8$ that grows logarithmically with network size.
+As shown in Figure~\ref{fig:pqc-lkh}, the PQC-LKH scheme adopts a binary tree structure for an example network of $N=8$ vehicles. Each vehicle occupies a leaf node (V1--V8) and each internal node holds a Kyber-768 key pair. Vehicle V3 has been identified as a grey hole attacker and isolated. The re-keying procedure refreshes only the nodes along the path from V3's leaf to the root — the K\_sub parent node, the K\_left subtree node, and K\_root — totalling $\lceil\log_2 8\rceil = 3$ Kyber operations. For each refreshed node, the updated key is encrypted under the sibling subtree's existing public key and broadcast, so only vehicles on the unaffected side of each split (e.g., V1 and V2 receive an encrypted update via their K\_sub) can decrypt and derive the new group session key. V3, lacking the private keys for any refreshed node on the path, is permanently and cryptographically excluded from the new group session without the RSU needing to contact it directly. The embedded efficiency comparison table in the figure quantifies the benefit: naïve unicast re-keying requires $N-1 = 7$ messages and $7$ KEM operations at $O(N)$ complexity, while PQC-LKH achieves the same exclusion guarantee with $\log_2 N = 3$ messages and operations at $O(\log N)$ — a factor of 2.33$\times$ reduction for $N=8$ that grows logarithmically with network size.
 
 % ============================================================
 % INSERT AS SECTION 3.5 — ALGORITHMS
@@ -2113,8 +2115,7 @@ is confirmed as a grey hole attacker.
 
 \subsection{Lightweight Rule-Based Grey Hole Detection — Data Plane}
 
-Algorithm~\ref{alg:lw_dp_det} (\texttt{LW-DP-Det}) performs lightweight
-rule-based grey hole detection on the data plane. It takes as input the vehicle
+As shown in Algorithm~\ref{alg:lw_dp_det}, \texttt{LW-DP-Det} performs lightweight rule-based grey hole detection on the data plane. It takes as input the vehicle
 identifier $v_i$, the current time $t$, observation window $W$, and five
 threshold parameters: $\tau_f$ and $\varepsilon_f$ govern fixed-rate detection;
 $\tau_{it}$ and $\gamma_{it}$ govern intermittent detection; and $\tau_{ts}$
@@ -2166,19 +2167,31 @@ detection, or \texttt{BENIGN} if all three signatures pass.
 \label{alg:lw_dp_det}
 \end{algorithm}
 
-\begin{figure}[htbp]
+% \begin{figure}[htbp]
+% 	\centering
+% 	\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{Figures/figure3_lightweight_sequence}
+% 	\caption{Lightweight Mode UML Sequence Diagram}
+% 	\label{fig:lightweight-sequence}
+% \end{figure}
+
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{Figures/figure3_lightweight_sequence}
+	\includegraphics[
+		width=\textwidth,
+		height=0.7\textheight,
+		keepaspectratio
+	]{Figures/figure3_lightweight_sequence}
 	\caption{Lightweight Mode UML Sequence Diagram}
 	\label{fig:lightweight-sequence}
 \end{figure}
 
-Figure~\ref{fig:lightweight-sequence} traces the complete message sequence for the lightweight detection and mitigation path. The malicious vehicle selectively drops packets (step 1) while legitimate vehicles forward normally (step 2). The RSU/Network Monitor computes mobility-corrected PDR per vehicle (step 3), queries the Blockchain Ledger for the historical baseline (step 4), and receives the historical reputation score (step 5). The six formal attack signatures S1--S6 are evaluated against the corrected PDR (step 6), and if a signature fires alongside a low reputation score (step 7), a signed suspicious event log is submitted to the ledger (step 8). The DEBSC dual-evidence gate is then checked (step 9): if the ZKP forwarding proof is valid or reputation is insufficient, the sequence aborts and no isolation occurs. On a positive verdict, $k$ partial threshold signatures are collected from RSUs (step 10), combined, and a threshold-signed FlowMod is broadcast directly to the OpenFlow Switch to block the attacker (step 11). Finally, the reputation score is updated to zero and committed to the ledger (step 13). At no point does the SDN controller issue or approve an isolation command — this is enforced by design to eliminate the controller as a single point of compromise.
+As shown in Figure~\ref{fig:lightweight-sequence}, the complete message sequence for the lightweight detection and mitigation path is traced step by step. The malicious vehicle selectively drops packets (step 1) while legitimate vehicles forward normally (step 2). The RSU/Network Monitor computes mobility-corrected PDR per vehicle (step 3), queries the Blockchain Ledger for the historical baseline (step 4), and receives the historical reputation score (step 5). The six formal attack signatures S1--S6 are evaluated against the corrected PDR (step 6), and if a signature fires alongside a low reputation score (step 7), a signed suspicious event log is submitted to the ledger (step 8). The DEBSC dual-evidence gate is then checked (step 9): if the ZKP forwarding proof is valid or reputation is insufficient, the sequence aborts and no isolation occurs. On a positive verdict, $k$ partial threshold signatures are collected from RSUs (step 10), combined, and a threshold-signed FlowMod is broadcast directly to the OpenFlow Switch to block the attacker (step 11). Finally, the reputation score is updated to zero and committed to the ledger (step 13). At no point does the SDN controller issue or approve an isolation command — this is enforced by design to eliminate the controller as a single point of compromise.
 
 \subsection{Lightweight Rule-Based Grey Hole Detection — Controller Plane}
 
-Algorithm~\ref{alg:lw_cp_det} (\texttt{LW-CP-Det}) performs lightweight
-rule-based grey hole detection on the controller plane. It takes as input the
+As shown in Algorithm~\ref{alg:lw_cp_det}, 
+\texttt{LW-CP-Det} performs lightweight rule-based grey hole 
+detection on the controller plane. It takes as input the
 controller identifier $c$, current time $t$, drop probability threshold
 $\tau_c$, autocorrelation threshold $\gamma_c$, and observation window $W$.
 Unlike the data-plane algorithm, which analyses per-vehicle PDR statistics,
@@ -2233,9 +2246,10 @@ Eq.~\eqref{eq:sig_cpit}). The algorithm returns (\texttt{CP-FR},~$c$),
 
 \subsection{Full-Version LLM + Federated Learning Detection Pipeline}
 
-Algorithm~\ref{alg:fv_det} (\texttt{FV-Det}) implements the full-mode
-detection pipeline, engaged when the lightweight rule-based detectors either
-do not fire or produce uncertain results. It takes as input the vehicle
+As shown in Algorithm~\ref{alg:fv_det}, 
+\texttt{FV-Det} implements the full-mode detection pipeline, 
+engaged when the lightweight rule-based detectors either do not 
+fire or produce uncertain results. It takes as input the vehicle
 identifier $v_i$, current time $t$, the current global federated model weights
 $\mathbf{w}^{(r)}$ from round $r$, and the LLM parameters $\boldsymbol{\theta}$.
 The algorithm operates in two interleaved roles: detection and federated model
@@ -2310,20 +2324,34 @@ volumes across vehicles.
 \label{alg:fv_det}
 \end{algorithm}
 
-\begin{figure}[htbp]
+% \begin{figure}[htbp]
+% 	\centering
+% 	\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{Figures/figure4_full_version_sequence}
+% 	\caption{Full-Mode UML Sequence Diagram}
+% 	\label{fig:full-version-sequence}
+% \end{figure}
+
+\newpage
+
+As shown in Figure~\ref{fig:full-version-sequence}, the complete message sequence for the full-mode detection pipeline is presented, engaged when lightweight signatures do not fire or LLM confidence falls below threshold $\varepsilon_u$. The attacker performs intermittent packet drops (step 1). The legitimate vehicle generates ZKP forwarding proofs (step 2), which are logged to the Blockchain Ledger (step 3). The ledger tokenises the forwarding log and forwards the sequence to the LLM Agent (step 4), which returns a semantic threat score (step 5). In parallel, vehicles submit local FL model updates to the FL Aggregator (step 6), which returns a globally verified model (step 7). Below the dashed detection/mitigation boundary, the Blockchain executes a fusion of LLM score, FL score, and reputation (step 8), after which $k$ partial threshold signatures are collected from RSUs and combined into sigma* (step 9). A threshold-signed FlowMod is applied directly to the OpenFlow switch (step 10), blocking the attacker without involving the SDN controller. PQC-LKH group re-keying is then performed in $\log N$ Kyber broadcast messages (step 11), and the attacker's reputation is updated to zero.
+
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{Figures/figure4_full_version_sequence}
+	\includegraphics[
+		width=\textwidth,
+		height=0.7\textheight,
+		keepaspectratio
+	]{Figures/figure4_full_version_sequence}
 	\caption{Full-Mode UML Sequence Diagram}
 	\label{fig:full-version-sequence}
 \end{figure}
 
-Figure~\ref{fig:full-version-sequence} shows the complete message sequence for the full-mode detection pipeline, engaged when lightweight signatures do not fire or LLM confidence falls below threshold $\varepsilon_u$. The attacker performs intermittent packet drops (step 1). The legitimate vehicle generates ZKP forwarding proofs (step 2), which are logged to the Blockchain Ledger (step 3). The ledger tokenises the forwarding log and forwards the sequence to the LLM Agent (step 4), which returns a semantic threat score (step 5). In parallel, vehicles submit local FL model updates to the FL Aggregator (step 6), which returns a globally verified model (step 7). Below the dashed detection/mitigation boundary, the Blockchain executes a fusion of LLM score, FL score, and reputation (step 8), after which $k$ partial threshold signatures are collected from RSUs and combined into sigma* (step 9). A threshold-signed FlowMod is applied directly to the OpenFlow switch (step 10), blocking the attacker without involving the SDN controller. PQC-LKH group re-keying is then performed in $\log N$ Kyber broadcast messages (step 11), and the attacker's reputation is updated to zero.
-
 \subsection{Post-Quantum Cryptographic Mitigation and Node Isolation}
 
-Algorithm~\ref{alg:pqc_mit} (\texttt{PQC-Mit}) executes the complete
-post-quantum cryptographic mitigation sequence once a grey hole attacker has
-been confirmed by either detection algorithm. It takes as input the suspect
+As shown in Algorithm~\ref{alg:pqc_mit}, 
+\texttt{PQC-Mit} executes the complete post-quantum cryptographic 
+mitigation sequence once a grey hole attacker has been confirmed 
+by either detection algorithm. It takes as input the suspect
 vehicle $v_i$, the SDN controller identifier $c$, the set of $n$ available
 RSUs $\{RSU_j\}_{j=1}^{n}$, and the threshold parameter $k$ specifying the
 minimum number of RSU co-signatures required to authorise blacklisting. The
@@ -2367,6 +2395,20 @@ requires exactly $\lceil \log_2 N \rceil$ Kyber operations — as opposed to
 $O(N)$ for naïve unicast re-keying — and cryptographically excludes the
 isolated vehicle without requiring direct contact with it, since it no longer
 holds valid private keys for any refreshed node on the path.
+
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[
+		width=\textwidth,
+		height=0.7\textheight,
+		keepaspectratio
+	]{Figures/figure5_cryptographic_mitigation.jpeg}
+	\caption{Cryptographic Mitigation Flowchart}
+	\label{fig:crypto-mitigation-flow}
+\end{figure}
+
+As shown in Figure~\ref{fig:crypto-mitigation-flow}, the cryptographic decision pipeline executes following a malicious detection verdict from either the lightweight or full-mode detector. The first gate is the ZKP forwarding proof: if the suspect node's proof retrieved from the blockchain is valid, the statistical detection is classified as a false positive and the sequence terminates with no action — this prevents false isolation of legitimate nodes that experience high packet loss due to mobility or channel conditions. If the ZKP proof fails, the node is flagged as a confirmed attacker. The second gate requires collecting $k$ partial threshold signatures from independent RSUs, which are combined into an aggregate signature sigma*: if insufficient RSUs concur, the process aborts, preventing single-RSU false isolation. On a valid sigma*, RSUs broadcast a Dilithium-signed FlowMod directly to the affected OpenFlow switch, installing a block rule without routing the command through the potentially compromised SDN controller. Finally, PQC-LKH group re-keying broadcasts exactly $\log N$ Kyber-encrypted key updates along the refresh path, ensuring the isolated attacker cannot derive any updated group session key without requiring unicast contact with every remaining vehicle.
 
 \begin{algorithm}[htb]
 \caption{Post-Quantum Cryptographic Mitigation and Node Isolation (\texttt{PQC-Mit})}
@@ -2422,39 +2464,7 @@ holds valid private keys for any refreshed node on the path.
 \label{alg:pqc_mit}
 \end{algorithm}
 
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=0.72\textwidth]{Figures/figure5_cryptographic_mitigation.jpeg}
-	\caption{Cryptographic Mitigation Flowchart}
-	\label{fig:crypto-mitigation-flow}
-\end{figure}
 
-Figure~\ref{fig:crypto-mitigation-flow} details the cryptographic decision pipeline that executes following a malicious detection verdict from either the lightweight or full-mode detector. The first gate is the ZKP forwarding proof: if the suspect node's proof retrieved from the blockchain is valid, the statistical detection is classified as a false positive and the sequence terminates with no action — this prevents false isolation of legitimate nodes that experience high packet loss due to mobility or channel conditions. If the ZKP proof fails, the node is flagged as a confirmed attacker. The second gate requires collecting $k$ partial threshold signatures from independent RSUs, which are combined into an aggregate signature sigma*: if insufficient RSUs concur, the process aborts, preventing single-RSU false isolation. On a valid sigma*, RSUs broadcast a Dilithium-signed FlowMod directly to the affected OpenFlow switch, installing a block rule without routing the command through the potentially compromised SDN controller. Finally, PQC-LKH group re-keying broadcasts exactly $\log N$ Kyber-encrypted key updates along the refresh path, ensuring the isolated attacker cannot derive any updated group session key without requiring unicast contact with every remaining vehicle.
-
-
-\section{Research Design}
-% Describe the research design and methodology. Use diagrams or flow charts to illustatre the methodology.
-The study adheres to experimental and simulation based research design to come up with decentralized security framework of Software-Defined Vehicular Networks (SDVNs). The strategic objectives are to reduce three different variants of attacks on the Grey Hole, namely Fixed-Rate Selective Dropping, Time-Based Intermittent, and Target-Specific Intelligent attacks.
-
-\mypar
-
-The suggested solution presents a multi-layered defense system that involves Blockchain, Large Language Models (LLMs), and Federated Learning (FL). The methodology overcomes the shortcomings of conventional defenses in high mobility settings by offering real-time flexibility and decentralized trust by the following combined system elements \cite{wijesekara2026},
-
-\begin{itemize}
-    \item \textbf{SDVN Simulation and Attack Modeling:} An SDN-based architecture that can be used to handle high-mobility situations by adding selective packet-dropping detection features to detect various attack patterns in real time.
-    \item \textbf{Decentralized Trust via Blockchain:} A distributed ledger, developed based on Hyperledger, that stores an immutable record of behaviors of nodes to provide transparency and stop reputation manipulation in packet forwarding operations.
-    \item \textbf{Intelligent Threat Detection with LLMs:} A module based on LLM and complex network pattern analysis and blockchain logs to forecast Grey Hole signatures and produce adaptive routing policies by semantic reasoning.
-    \item \textbf{Privacy-Preserving Federated Learning:} To enhance scalability and security, Federated Learning is implemented to train detection models collaboratively across vehicles without centralizing sensitive traffic data.
-\end{itemize}
-
-% \begin{figure}[h!]
-%     \centering
-%     \includegraphics[width=0.95\textwidth]{microgrid-architecture.png} % Replace with your image file
-%     \caption{This is an example image.}
-%     \label{fig:example}
-% \end{figure}
-
-% As shown in Figure \ref{fig:example}, the image is centered and has a caption.
 
 \section{Data Collection and Simulation Environment}
 
@@ -2463,23 +2473,18 @@ The limited real world datasets to use in vehicular Grey Hole attack makes this 
 
 \subsection{Data Generation Process}
 
-The simulation environment is set to simulate high-mobility vehicular situations and the standard communication protocols needed by Software-Defined Vehicular Networks. To have a strong dataset to train the detection, the environment adds malicious behaviors that are programmed to simulate three different variants of the attack of the Grey Hole:
-
-\begin{itemize}
-	\item \textbf{Selective Dropping Data:} Traffic flows of different percentages of packet-loss are generated to model fixed-rate attacks.
-	\item \textbf{Temporal Discrepancy Data:} Simulation of intermittent malicious states to generate datasets that are time-based attacks.
-	\item \textbf{Semantic Traffic Data:} Giving priority to certain type of packets like emergency broadcasts to emulate target-specific intelligent attacks.
-\end{itemize}
+The simulation environment is set to simulate high-mobility vehicular situations and the standard communication protocols needed by Software-Defined Vehicular Networks. To produce a robust dataset for training the detection components, the environment injects three grey hole attack variants as programmed malicious behaviours.
+\textbf{Selective dropping data} is generated by introducing traffic flows with varying packet-loss percentages to model fixed-rate attacks.
+\textbf{Temporal discrepancy data} is produced by simulating intermittent malicious states, capturing time-based attack patterns.
+\textbf{Semantic traffic data} is created by assigning priority to specific packet types such as emergency broadcasts, emulating target-specific intelligent attacks.
 
 
 \subsection{Functional Feature Extraction}
 
-Raw simulation logs are analyzed to capture certain features that are needed by the decentralized security modules:
-\begin{itemize}
-	\item \textbf{Behavioral Logs:} Record documents of packet transmission and reception success that can be used to check integrity of nodes over time.
-	\item \textbf{Network Contextual Features:} This is used to identify complex behavioral patterns like Temporal and semantic metadata, including packet timestamps and priority headers.
-	\item \textbf{Stochastic Model Gradients:} Locally computed model updates for each vehicle’s, and also extracted for collaborative learning without compromising raw data privacy.
-\end{itemize}
+Raw simulation logs are analyzed to capture the features required by the decentralized security modules.
+\textbf{Behavioral logs} record packet transmission and reception outcomes to enable node integrity tracking over time.
+\textbf{Network contextual features} capture temporal and semantic metadata — including packet timestamps and priority headers — to support identification of complex behavioural patterns.
+\textbf{Stochastic model gradients} represent locally computed model updates extracted from each vehicle for use in collaborative learning without exposing raw traffic data.
 
 
 
@@ -2585,6 +2590,275 @@ The proposed and baseline techniques are tested with the help of a set of quanti
 
 
 
+\chapter{Expected Results}
+\label{chap:results}
+
+This chapter presents the expected performance results of the SHIELD-GH framework
+based on analytical modelling of the six attack variants and comparison with
+the three external baselines (B1--B3) and five ablations (A1--A5) defined in
+Section~\ref{sec:evaluation}. Since simulation experiments are scheduled for
+Milestone~14 (see Chapter~5), the values reported here are
+derived from the formal attack models in Sections~\ref{sec:signatures}
+and~\ref{sec:detection_methodology}, calibrated against the parameter ranges
+reported in the closest existing works~\cite{malik2023greyhole,
+alabdulatif2024mitigating, ahsan2024flbert}. Each table specifies the
+metrics evaluated, the baseline of comparison, and the expected direction
+of improvement.
+
+\section{How Detection Metrics Vary with Attack Variant and Intensity}
+
+The six attack variants differ in their observability: fixed-rate variants
+produce a stable low-PDR signal that rule-based detectors capture quickly,
+while intermittent and target-specific variants require longer observation
+windows and higher-capacity detectors (LLM, FL). Table~\ref{tab:detection_by_variant}
+summarises the expected detection accuracy (Acc), Matthews Correlation
+Coefficient (MCC), and False Positive Rate (FPR) for each variant under both
+the lightweight and full detection modes at a representative drop rate of
+40\%.
+
+\begin{table}[htbp]
+\renewcommand{\arraystretch}{1.3}
+\caption{Expected Detection Performance by Attack Variant (Drop Rate = 40\%)}
+\label{tab:detection_by_variant}
+\centering
+\scriptsize
+\begin{tabular}{|l|l|c|c|c|c|}
+\hline
+\textbf{Variant} & \textbf{Plane} & \textbf{Mode} &
+\textbf{Acc (\%)} & \textbf{MCC} & \textbf{FPR (\%)} \\
+\hline
+S1: Fixed-Rate         & Data Plane       & Lightweight & $\geq$97 & $\geq$0.94 & $\leq$2 \\
+S2: Intermittent       & Data Plane       & Lightweight & $\geq$88 & $\geq$0.82 & $\leq$5 \\
+S2: Intermittent       & Data Plane       & Full (LLM+FL) & $\geq$95 & $\geq$0.91 & $\leq$3 \\
+S3: Target-Specific    & Data Plane       & Full (LLM+FL) & $\geq$93 & $\geq$0.89 & $\leq$4 \\
+S4: Fixed-Rate         & Controller Plane & Lightweight & $\geq$98 & $\geq$0.96 & $\leq$1 \\
+S5: Intermittent       & Controller Plane & Full (LLM+FL) & $\geq$94 & $\geq$0.90 & $\leq$3 \\
+S6: Target-Specific    & Controller Plane & Full (LLM+FL) & $\geq$92 & $\geq$0.88 & $\leq$4 \\
+\hline
+\textbf{Aggregate (all variants)} & Both & Full & $\geq$94 & $\geq$0.91 & $\leq$3 \\
+\hline
+\end{tabular}
+\end{table}
+
+Controller-plane signatures (S4--S6) are expected to achieve slightly higher
+accuracy than their data-plane counterparts because they operate on the
+deterministic flow-rule set rather than probabilistic PDR statistics, reducing
+the influence of channel noise. Intermittent variants (S2, S5) show the largest
+gap between lightweight and full mode: lightweight detection relies on
+autocorrelation periodicity which fails when the attack cycle length falls
+outside $[T_{\min}, T_{\max}]$, whereas the LLM captures irregular intermittent
+bursts as sequential anomalies without requiring a fixed period assumption.
+
+\section{How Packet Delivery Ratio Varies with Drop Rate}
+
+Table~\ref{tab:pdr_vs_droprate} shows the expected network-layer PDR at
+varying attacker drop rates $\rho \in \{20\%, 40\%, 60\%, 80\%\}$ for the
+fixed-rate data-plane variant (S1), representing the most straightforward
+impact of a grey hole attack on throughput. Three conditions are compared:
+no framework active, the lightweight SHIELD-GH mode active, and the full
+SHIELD-GH mode active. The PDR is measured after mitigation is complete
+(i.e., the attacker has been isolated).
+
+\begin{table}[htbp]
+\renewcommand{\arraystretch}{1.3}
+\caption{Expected PDR vs.\ Attacker Drop Rate (S1: Fixed-Rate, Data Plane)}
+\label{tab:pdr_vs_droprate}
+\centering
+\scriptsize
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Drop Rate $\rho$} & \textbf{No Framework} &
+\textbf{Baseline B2~\cite{alabdulatif2024mitigating}} &
+\textbf{SHIELD-GH Lightweight} & \textbf{SHIELD-GH Full} \\
+\hline
+20\% & $\approx$80\% & $\approx$80\% & $\geq$93\% & $\geq$94\% \\
+40\% & $\approx$60\% & $\approx$73\% & $\geq$91\% & $\geq$93\% \\
+60\% & $\approx$40\% & $\approx$65\% & $\geq$88\% & $\geq$91\% \\
+80\% & $\approx$20\% & $\approx$56\% & $\geq$85\% & $\geq$89\% \\
+\hline
+\end{tabular}
+\end{table}
+
+The PDR recovery gap between no-framework and SHIELD-GH widens with drop rate,
+because the severity of the attack increases the urgency and benefit of isolation.
+At low drop rates (20\%), the attack itself causes less harm and B2's blockchain
+contract provides partial benefit; at high drop rates (80\%), SHIELD-GH's faster
+detection and more reliable isolation provide substantially greater PDR recovery.
+The lightweight mode reaches a slightly lower post-isolation PDR than the full
+mode because intermittent or borderline fixed-rate attackers may not be caught
+until the next observation window.
+
+\section{How Detection Accuracy Varies with Attack Intensity}
+
+Figure~\ref{tab:acc_vs_intensity} shows how detection accuracy is expected to
+vary as the attacker drop rate increases from 10\% to 90\%, for both the
+lightweight and full detection modes. At very low drop rates ($\leq$15\%),
+the attack signal approaches the noise level of legitimate channel loss,
+causing both modes to approach random-chance performance; below this threshold
+the MATD correction cannot isolate the attack signal from handoff-induced loss.
+Above 30\%, the lightweight mode saturates quickly; the full mode provides
+gains primarily in the 15--35\% region where rule-based signatures are unreliable
+but temporal LLM patterns remain distinguishable.
+
+\begin{table}[htbp]
+\renewcommand{\arraystretch}{1.3}
+\caption{Expected Detection Accuracy vs.\ Drop Rate (S1 and S2 Variants)}
+\label{tab:acc_vs_intensity}
+\centering
+\scriptsize
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Drop Rate} &
+\textbf{LW Mode Acc (\%)} &
+\textbf{Full Mode Acc (\%)} &
+\textbf{B1~\cite{malik2023greyhole} Acc (\%)} &
+\textbf{B3~\cite{ahsan2024flbert} Acc (\%)} \\
+\hline
+10\% & $\approx$62 & $\approx$71 & $\approx$58 & $\approx$65 \\
+20\% & $\approx$81 & $\approx$87 & $\approx$74 & $\approx$80 \\
+30\% & $\approx$91 & $\approx$93 & $\approx$83 & $\approx$88 \\
+40\% & $\approx$96 & $\approx$97 & $\approx$88 & $\approx$92 \\
+60\% & $\approx$98 & $\approx$98 & $\approx$91 & $\approx$94 \\
+80\% & $\approx$98 & $\approx$99 & $\approx$93 & $\approx$95 \\
+\hline
+\end{tabular}
+\end{table}
+
+The proposed framework is expected to consistently outperform B1 (threshold-only,
+no mobility correction) and B3 (FL-BERT, no controller-plane model) across all
+drop rates, with the largest gap at low drop rates (10--30\%) where the
+MATD mobility correction and DEBSC dual-evidence gate prevent false
+positives that inflate B1's FPR and degrade B3's MCC.
+
+\section{How False Positive Rate Varies with Vehicle Speed (Mobility Effect)}
+
+A key concern in SDVN is that high-speed vehicles undergoing RSU handoffs
+exhibit transient PDR drops that resemble attack behaviour. Without mobility
+correction, a threshold-based detector will falsely isolate legitimate
+high-speed vehicles. Table~\ref{tab:fpr_vs_speed} shows the expected FPR
+for legitimate vehicles at increasing speeds, comparing three conditions:
+no mobility correction (equivalent to B1), MATD correction only (ablation A2
+restored), and the full DEBSC dual-evidence gate (proposed).
+
+\begin{table}[htbp]
+\renewcommand{\arraystretch}{1.3}
+\caption{Expected FPR for Legitimate Vehicles vs.\ Vehicle Speed}
+\label{tab:fpr_vs_speed}
+\centering
+\scriptsize
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Vehicle Speed} &
+\textbf{No Mob.\ Correction (B1-style)} &
+\textbf{MATD Only (A2)} &
+\textbf{MATD + DEBSC (Proposed)} \\
+\hline
+30 km/h  & $\approx$2\%  & $\approx$1\%  & $\leq$1\%  \\
+60 km/h  & $\approx$8\%  & $\approx$3\%  & $\leq$2\%  \\
+90 km/h  & $\approx$17\% & $\approx$5\%  & $\leq$3\%  \\
+120 km/h & $\approx$28\% & $\approx$9\%  & $\leq$4\%  \\
+\hline
+\end{tabular}
+\end{table}
+
+Without mobility correction, FPR rises sharply above 60~km/h as handoff-induced
+PDR drops trigger the fixed-rate signature. MATD correction reduces FPR by
+roughly 60\% at all speeds. The DEBSC cryptographic gate provides the final
+reduction: a legitimate fast vehicle with a temporarily low PDR will still hold
+valid ZKP forwarding proofs for the packets it did forward, so the cryptographic
+gate blocks false isolation even when the statistical gate fires.
+
+\section{Detection Latency and Mitigation Response Time}
+
+Table~\ref{tab:latency} summarises the expected detection latency (time from
+attack onset to confirmed detection verdict) and mitigation response time (time
+from verdict to completed node isolation) for both modes, broken down by
+pipeline stage. PQC overhead relative to classical cryptography (ablation A5)
+is also shown.
+
+\begin{table}[htbp]
+\renewcommand{\arraystretch}{1.3}
+\caption{Expected Detection Latency and Mitigation Response Time}
+\label{tab:latency}
+\centering
+\scriptsize
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Pipeline Stage} & \textbf{Lightweight Mode} & \textbf{Full Mode} \\
+\hline
+PDR window collection ($W$ slots)        & $\leq$500 ms  & $\leq$500 ms   \\
+Mobility correction (MATD)               & $<$5 ms       & $<$5 ms        \\
+Signature evaluation (S1--S6)            & $<$10 ms      & $<$10 ms       \\
+LLM inference (edge tier)                & ---           & $\leq$80 ms    \\
+LLM escalation to cloud (if triggered)   & ---           & $\leq$300 ms   \\
+FL model inference                       & ---           & $\leq$20 ms    \\
+Fusion decision                          & ---           & $<$5 ms        \\
+\hline
+\textbf{Total detection latency}         & $\leq$515 ms  & $\leq$840 ms   \\
+\hline
+ZKP proof retrieval + verification       & 20 ms         & 20 ms          \\
+Threshold sig collection ($k$ RSUs)      & $\leq$100 ms  & $\leq$100 ms   \\
+Dilithium FlowMod sign + verify          & $\leq$15 ms   & $\leq$15 ms    \\
+PQC-LKH re-keying ($\lceil\log_2 N\rceil$ ops) & $\leq$60 ms & $\leq$60 ms \\
+\hline
+\textbf{Total mitigation response time}  & $\leq$195 ms  & $\leq$195 ms   \\
+\hline
+\textbf{PQC overhead vs.\ ECDH/ECDSA (A5)} & \multicolumn{2}{c|}{$+$12--18 ms per sign/verify} \\
+\hline
+\end{tabular}
+\end{table}
+
+The lightweight mode satisfies the 1-second end-to-end latency budget required
+for safety-critical vehicular applications. The full mode incurs additional
+latency from LLM inference, but the two-tier edge-cloud design (Section~3.7.3)
+ensures that the majority of decisions are resolved at the edge tier
+($\leq$80~ms) without escalation to the cloud. The PQC overhead of 12--18~ms
+per Dilithium signing operation is acceptable relative to the total mitigation
+pipeline, and the $O(\log N)$ PQC-LKH re-keying is expected to be 3--4$\times$
+faster than naive unicast Kyber re-keying for networks of $N \geq 16$ vehicles.
+
+\section{Ablation Study: Component Contribution to Detection Performance}
+
+Table~\ref{tab:ablation} shows the expected impact of removing each major
+framework component (ablations A1--A5) on aggregate detection accuracy and FPR,
+evaluated at 40\% drop rate under the S2 (intermittent) variant, which is
+the most challenging for rule-based detectors.
+
+\begin{table}[htbp]
+\renewcommand{\arraystretch}{1.3}
+\caption{Expected Ablation Study Results (S2 Intermittent, 40\% Drop Rate)}
+\label{tab:ablation}
+\centering
+\scriptsize
+\begin{tabular}{|l|l|c|c|c|}
+\hline
+\textbf{Config} & \textbf{Component Removed} &
+\textbf{Acc (\%)} & \textbf{MCC} & \textbf{FPR (\%)} \\
+\hline
+Full SHIELD-GH  & None (proposed)         & $\geq$95 & $\geq$0.91 & $\leq$3 \\
+A1              & LLM + FL layer          & $\approx$82 & $\approx$0.75 & $\leq$5 \\
+A2              & MATD (no mob.\ corr.)   & $\approx$88 & $\approx$0.83 & $\approx$12 \\
+A3              & DEBSC ZKP gate (stat.\ only) & $\approx$91 & $\approx$0.87 & $\approx$9 \\
+A4              & FL $\to$ centralised static model & $\approx$90 & $\approx$0.86 & $\leq$4 \\
+A5              & PQC $\to$ classical ECDH/ECDSA & $\approx$95 & $\approx$0.91 & $\leq$3 \\
+\hline
+\end{tabular}
+\end{table}
+
+The ablation results highlight the distinct contribution of each component.
+Removing the LLM+FL layer (A1) produces the largest accuracy drop, confirming
+that intermittent variants require semantic detection beyond rule-based
+signatures. Removing MATD (A2) causes the largest FPR increase, confirming
+that mobility correction is essential to prevent false isolation at high speeds.
+Removing the DEBSC ZKP gate (A3) also substantially increases FPR, showing
+that the cryptographic gate independently blocks false isolations that the
+statistical gate alone would trigger. Replacing FL with a centralised model
+(A4) modestly degrades accuracy, reflecting the non-IID distribution problem
+quantified in Section~3.3.3. Removing PQC (A5) does not affect detection
+metrics since cryptography contributes to mitigation rather than detection,
+but it eliminates quantum resistance — a critical property for long-lived
+vehicular deployments.
+
 \chapter{Timeline and Resource Required}
 
 \section{Timeline}
@@ -2630,16 +2904,29 @@ The timeline provides an overview of project tasks scheduled for December 2025 t
     Tasks: Prepare slides and rehearse presentation.
 \end{itemize}
 
+The full schedule is shown in Figure~\ref{fig:timeline}.
+
 
 \clearpage % Force new page
 \thispagestyle{empty} % Optional: remove page number for timeline page
 
-\begin{figure}[h!]
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth, height=0.45\textheight, keepaspectratio]{timeline.png}
+%     \caption{Project timeline from December 2025 to August 2026.}
+%     \label{fig:timeline}
+% \end{figure}
+
+\begin{figure*}[p]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{timeline.png}
+    \includegraphics[
+        width=\textwidth,
+        height=0.95\textheight,
+        keepaspectratio
+    ]{timeline.png}
     \caption{Project timeline from December 2025 to August 2026.}
     \label{fig:timeline}
-\end{figure}
+\end{figure*}
 
 \clearpage % Force next section to start on a new page
 
@@ -2651,7 +2938,7 @@ This section provides a succinct description of the hardware and software tools 
 
 \subsection{Hardware Resources}
 \begin{itemize}
-    \item \textbf{Computer / Workstation:}  
+    \item \textbf{Computer / Workstation:}
     A system with at least an intel i7 or Ryzen 7 processor and a minimum of 16GB RAM also sufficient storage to execute network simulations, blockchain components, and machine learning tasks.
 \end{itemize}
 
